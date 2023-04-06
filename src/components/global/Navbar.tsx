@@ -33,7 +33,7 @@ export default function Navbar() {
 	const nonce = useContext(ProfileNonceContext);
 
 	// make background color transparet if route is "/"
-	const [isHome, setIsHome] = useState("#CB857C");
+	//const [isHome, setIsHome] = useState("#CB857C");
 
 	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -64,13 +64,13 @@ export default function Navbar() {
 		logout();
 	};
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (window.location.pathname === "/") {
 			setIsHome("transparent");
 		} else {
 			setIsHome("#CB857C");
 		}
-	}, [window.location.pathname]);
+	}, [window.location.pathname]);*/
 
 	const renderMenu = (
 		<Menu
@@ -121,7 +121,7 @@ export default function Navbar() {
 			<div
 				className="navbar"
 				key={generateComponentKey(20)}
-				style={{ backgroundColor: isHome }}>
+				/*style={{ backgroundColor: isHome }}*/>
 				<div className="navbar-left">
 					<Link to="/" className="logo-container">
 						<p>logo</p>

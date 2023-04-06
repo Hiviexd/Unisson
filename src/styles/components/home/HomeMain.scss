@@ -1,0 +1,23 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 64.75px - 20rem);
+    padding: 5rem;
+    max-height: 100%;
+    background-color: antiquewhite;
+
+    .main-title {
+        color: #000;
+    }
+
+    img {
+        max-width: 500px;
+        max-height: auto;
+        width: auto;
+        height: auto;
+        margin-bottom: 2em;
+    }
+}
