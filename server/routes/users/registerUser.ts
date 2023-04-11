@@ -20,8 +20,7 @@ export default async (req: Request, res: Response) => {
         !phone ||
         typeof email != "string" ||
         typeof username != "string" ||
-        typeof password != "string" ||
-        typeof phone != "number"
+        typeof password != "string"
     ) {
         logger.printError("Process failed with code 400: Invalid credentials");
 

@@ -62,6 +62,7 @@ export default function Navbar() {
 	const handleLogout = () => {
 		handleMenuClose();
 		logout();
+        goTo("/");
 	};
 
 	/*useEffect(() => {
@@ -80,7 +81,7 @@ export default function Navbar() {
 				sx: {
 					overflow: "visible",
 					filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-					bgcolor: "#242424",
+					bgcolor: "#FAF7F4",
 					mt: 1.5,
 					"& .MuiAvatar-root": {
 						width: 32,
@@ -141,10 +142,10 @@ export default function Navbar() {
 				</div>
 				{!login.authenticated ? (
 					<div className="navbar-right">
-						<Link to="/signup" className="button signup">
+						<Link reloadDocument to="/signup" className="button signup">
 							SIGN UP
 						</Link>
-						<Link to="/login" className="button login">
+						<Link reloadDocument to="/login" className="button login">
 							LOGIN
 						</Link>
 					</div>
