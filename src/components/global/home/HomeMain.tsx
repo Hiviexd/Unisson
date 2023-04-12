@@ -1,15 +1,18 @@
 import "../../../styles/components/home/HomeMain.scss";
-import bg from "../../../assets/bg.png";
+import events from "../../../assets/events.jpg";
+import moment from "../../../assets/Moment.png";
+import hereux from "../../../assets/hereux.jpg";
 export default function HomeMain() {
     return (
         <div className="main">
-            <div className="main-title">
-                <h1>Lorem ipsum.</h1>
-                <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptate.</h2>
+            <div >
+                <h3 className="aa">welcome to ARAG </h3>
+                <h1 className="main-title">Discover the specialized service <br /> that will revolutionize <br /> your experience. </h1>
+                <h3 className="bb">Be the first to get best real before they hit the mass market !<br/> Not foreclose deal with one simpla search !</h3>
                 <button>Get Started</button>
             </div>
             <div className="main-image">
-                <img src={bg} alt="main" />
+                <img src={hereux} alt="hereux" />
             </div>
                
         </div>
