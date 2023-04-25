@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 
 import AuthProvider from "./providers/AuthContext";
+import { SnackbarProvider } from "notistack";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -16,16 +17,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <BrowserRouter>
+    <SnackbarProvider maxSnack={3} preventDuplicate>
         <AuthProvider>
-            <ThemeProvider theme={main}>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Login />} />
-                    <Route path="*" element={<Home />} />
-                </Routes>
-            </ThemeProvider>
+            <BrowserRouter>
+                <ThemeProvider theme={main}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Login />} />
+                        <Route path="*" element={<Home />} />
+                    </Routes>
+                </ThemeProvider>
+            </BrowserRouter>
         </AuthProvider>
-    </BrowserRouter>
+    </SnackbarProvider>
 );
