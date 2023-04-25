@@ -18,9 +18,9 @@ export default function Home() {
                 <div className="home-description">
                     <HomeDesc />
                 </div>
-                <div className="home-footer">
+               {/* <div className="home-footer">
                    <HomeInfo />
-                </div>
+    </div> */ }
                 <div className="home-Last">
                    <Last />
                 </div>
