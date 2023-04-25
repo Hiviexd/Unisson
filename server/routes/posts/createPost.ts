@@ -100,7 +100,7 @@ export default async (req: Request, res: Response) => {
 
 	res.status(200).send({
 		status: 200,
-		message: "Image posted!",
+		message: "Post created",
 		data: postInfo,
 	});
 };
