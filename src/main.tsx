@@ -9,6 +9,7 @@ import { SnackbarProvider } from "notistack";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Listing from "./pages/Listing";
+import Upload from "./pages/Upload";
 
 import main from "./themes/main";
 import "./styles/index.scss";
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Login />} />
                         <Route path="/listing" element={<Listing />} />
+                        <Route path="/upload" element={<Upload />} />
                         <Route path="*" element={<Home />} />
                     </Routes>
                 </ThemeProvider>

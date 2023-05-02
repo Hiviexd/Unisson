@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { posts, users } from "../../../database";
 import crypto from "crypto";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
-import { createWriteStream } from "fs";
+import { createWriteStream, mkdirSync } from "fs";
 import path from "path";
 
 export default async (req: Request, res: Response) => {
@@ -26,77 +26,65 @@ export default async (req: Request, res: Response) => {
 
 	logger.printInfo("Creating a new post...");
 
-	const allowedMimeTypes = ["image/png", "image/jpeg", "image/gif"];
+	/*if (!req.body.type)
+        return res.status(400).send({
+            status: 400,
+            message: "Provide a type",
+        });*/
 
-	if (!req.file || !allowedMimeTypes.includes(req.file.mimetype))
+    if (!req.body.title || typeof req.body.title != "string" || req.body.title.trim() == "")
+        return res.status(400).send({
+            status: 400,
+            message: "Invalid title!",
+        });
+
+    if (!req.files)
 		return res.status(400).send({
 			status: 400,
 			message: "Invalid image!",
 		});
 
+	const allowedMimeTypes = ["image/png", "image/jpeg", "image/gif"];
+
+    for (let file of req.files) {
+        if (!allowedMimeTypes.includes(file.mimetype)) {
+            return res.status(400).send({
+                status: 400,
+                message: "Invalid image!",
+            });
+        }
+    }
+
 	const postId = crypto.randomBytes(20).toString("hex").slice(20);
-
-	const tags = sanitizeTags();
-
-	if (!tags || tags.length < 1)
-		return res.status(400).send({
-			status: 400,
-			message: "Provide valid tags",
-		});
 
 	const postInfo = {
 		_id: postId,
-		filename: `${postId}.${req.file.originalname}`,
-		title: sanitizeTitle(),
-		encoding: req.file.encoding,
-		posterId: user._id,
-		tags,
+		title: req.body.title.trim(),
+        description: req.body.description || "",
+		type: "salle",
 		createdAt: new Date(),
+		posterId: user._id,
 		posterUsername: user.username,
+        buyers: [],
+        collaborators: [],
+        archived: false,
 	};
 
 	const post = new posts(postInfo);
 
 	await post.save();
 
-	createWriteStream(
-		path.resolve(`./uploads/`).concat(`/images/${postInfo.filename}`)
-	).write(new Uint8Array(req.file.buffer));
+    let fileId = 0;
+    mkdirSync(path.resolve(`./uploads/`).concat(`/images/${postInfo._id}`), { recursive: true });
 
-	function sanitizeTags() {
-		try {
-			const tags = req.body.tags;
+	for (let file of req.files) {
+        let fileFormat = file.mimetype.split("/")[1];
+        createWriteStream(
+            path.resolve(`./uploads/`).concat(`/images/${postInfo._id}/${fileId++}.${fileFormat}`)
+        ).write(new Uint8Array(file.buffer));
+    }
 
-			if (!tags) return [];
-			if (typeof tags != "string") return [];
-
-			const _tags = JSON.parse(tags);
-
-			const sanitized: string[] = [];
-
-			for (let tag of _tags) {
-				tag = tag.toString().trim().toLowerCase().replace(/ /g, "_");
-
-				if (typeof tag == "string" && tag != "" && tag.length < 150) {
-					sanitized.push(tag);
-				}
-			}
-
-			return sanitized;
-		} catch (e) {
-			console.error(e);
-
-			return [];
-		}
-	}
-
-	function sanitizeTitle() {
-		const title = req.body.title;
-
-		if (!title || typeof title != "string" || title.trim() == "") return req.file?.originalname.split(".").slice(0, -1).join(".");
-
-		return title.trim();
-	}
+    logger.printSuccess("Post created!");
 
 	res.status(200).send({
 		status: 200,
