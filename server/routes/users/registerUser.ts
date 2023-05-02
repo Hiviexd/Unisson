@@ -30,7 +30,7 @@ export default async (req: Request, res: Response) => {
         });
     }
     const user = await users.findOne({
-        safeUsername: encodeURI(email.trim().toLowerCase()),
+        email: encodeURI(email.trim().toLowerCase()),
     });
 
     if (user) {
@@ -60,7 +60,7 @@ export default async (req: Request, res: Response) => {
         permissions: ["user"],
         avatar: `/api/assets/avatar/${userId}`,
         bio: "Hello, world!",
-        phone: phone,
+        phone: Number(phone),
     });
 
     const createdUser = await users.findById(userId);

@@ -1,44 +1,45 @@
 import { Schema } from "mongoose";
 
 export interface IPost {
-	_id: string;
-	title: string;
+    _id: string;
+    title: string;
     description: string;
-	tags: string[];
-	posterId: string;
-	posterUsername: string;
+    //type: "photographeur" | "salle" | "traiteur" | "band" ;
+    type: string;
+    posterId: string;
+    posterUsername: string;
     buyers: string[];
-    reviews: [
+    collaborators: [
         {
-            buyerId: string;
-            buyerUsername: string;
-            rating: number;
-            review: string;
+            providerId: string;
+            providerUsername: string;
+            providerEmail: string;
         }
     ];
-	createdAt: Date;
-	archived: Boolean;
+    createdAt: Date;
+    archived: Boolean;
 }
 
 export default new Schema({
-	_id: String,
-	title: String,
+    _id: String,
+    title: String,
     description: String,
-	tags: [String],
-	posterId: String,
-	posterUsername: String,
+    type: {
+        type: String,
+        //enum: ["photographeur", "salle", "traiteur", "band"],
+    },
+    posterId: String,
+    posterUsername: String,
     buyers: [String],
-    reviews: [
+    collaborators: [
         {
-            buyerId: String,
-            buyerUsername: String,
-            rating: Number,
-            review: String,
-        }
+            providerId: String,
+            providerUsername: String,
+        },
     ],
-	createdAt: Date,
-	archived: {
-		type: Boolean,
-		default: false,
-	},
+    createdAt: Date,
+    archived: {
+        type: Boolean,
+        default: false,
+    },
 });

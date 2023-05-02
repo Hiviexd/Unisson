@@ -3,9 +3,10 @@ import express, { Handler } from "express";
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
 import path from "path";
+import fs from "fs";
 import "../database";
 
-const logger = new LoggerConsumer("database");
+const logger = new LoggerConsumer("server");
 
 //? import routes
 import { routes } from "./routes/routes";
@@ -32,6 +33,12 @@ app.use((err, req, res, next) => {
 // app.use((req, res) => {
 // 	res.status(404).send("Not found");
 // });
+
+//?  create uploads folder if it doesn't exist
+if (!fs.existsSync(path.resolve("./uploads"))) {
+    fs.mkdirSync(path.resolve("./uploads"));
+    logger.printSuccess("Created uploads folder");
+}
 
 if (process.env.NODE_ENV == "production") {
 	app.use("/assets", express.static(path.resolve("./dist/assets")));
