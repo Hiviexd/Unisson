@@ -16,28 +16,6 @@
         width: 90%;
         height: fit-content;
         padding: 1em;
-        border-radius: 10px;
-        border: 1px solid black;
-
-        .listing-search {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            align-content: space-between;
-            width: 20%;
-            height: 25em;
-            margin-right: 1em;
-            border: 1px solid black;
-
-            .listing-search-input {
-                padding: 1em;
-            }
-
-            .filter-button {
-                margin: 1em;
-            }
-        }
 
         .listing-profiles {
             display: flex;

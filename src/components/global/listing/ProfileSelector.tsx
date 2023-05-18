@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Rating } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
+import text from "../../../utils/text";
 
 import ServiceType from "./../../profile/ServiceType";
 
@@ -34,7 +35,7 @@ export default function ProfileSelector(props: { user: any }) {
                     precision={0.5}
                 />
                 <Typography variant="body2" color="text.secondary">
-                    {user?.bio}
+                    {text.truncateString(user?.bio, 100)}
                 </Typography>
                 <div className="profile-selector-info">
                     <ServiceType serviceType={user?.serviceType} />

@@ -1,6 +1,7 @@
 import Navbar from "../components/global/Navbar";
 
 import ProfileSelector from "../components/global/listing/ProfileSelector";
+import Search from "../components/global/listing/Search";
 
 import "../styles/pages/listing.scss";
 import { Button } from "@mui/material";
@@ -29,35 +30,7 @@ export default function listing() {
             <Navbar />
             <div className="listing-layout">
                 <div className="listing">
-                    <div className="listing-search">
-                        <div className="listing-search-input">
-                            <input type="text" placeholder="Search here " />
-                            <div className="filters">
-                                <label>
-                                    <input type="checkbox" name="Photographe" />
-                                    Photographe{" "}
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="Espace de fete "
-                                    />
-                                    Espace de fete{" "}
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="Band" />
-                                    Band{" "}
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="Traiteur" />
-                                    Traiteur{" "}
-                                </label>
-                            </div>
-                        </div>
-                        <Button className="filter-button" variant="contained">
-                            Filtrer
-                        </Button>
-                    </div>
+                    <Search />
                     <div className="listing-profiles">
                         <ProfileSelector user={testUser} />
                         <ProfileSelector user={testUser} />
