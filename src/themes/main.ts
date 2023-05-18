@@ -1,13 +1,13 @@
 import { createTheme } from "@mui/material";
 
 export default createTheme({
-	palette: {
-		mode: "light",
-		primary: {
-			main: "#F6CBB7",
-		},
-		secondary: {
-			main: "#9C2D41",
-		},
-	},
+    palette: {
+        mode: "light",
+        primary: {
+            main: "#44576D",
+        },
+        secondary: {
+            main: "#AAC7D8",
+        },
+    },
 });

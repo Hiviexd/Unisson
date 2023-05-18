@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { users } from "../../../database";
+import { User } from "../../../types/User";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 
 export default async (req: Request, res: Response) => {
@@ -17,7 +18,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    logger.printSuccess(`User ${user.safeUsername} (${req.params.id}) found!`);
+    logger.printSuccess(`User ${user.username} (${req.params.id}) found!`);
 
     return res.status(200).send({
         status: 200,
@@ -25,10 +26,15 @@ export default async (req: Request, res: Response) => {
         data: {
             _id: user._id,
             username: user.username,
-            safeUsername: user.safeUsername,
+            email: user.email,
             permissions: user.permissions,
             bio: user.bio,
+            phone: user.phone,
             createdAt: user.createdAt,
+            serviceType: user.serviceType,
+            rating: user.rating,
+            collaborators: user.collaborators,
+            hidden: user.hidden,
         },
     });
 };

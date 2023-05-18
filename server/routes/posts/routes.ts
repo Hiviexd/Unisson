@@ -5,12 +5,15 @@ import createPost from "./createPost";
 import deletePost from "./deletePost";
 import getPost from "./getPost";
 import listPosts from "./listPosts";
+import getPostImage from "./getPostImage";
 
 const router = Router();
+
 
 //? GET requests
 router.get("/listing", listPosts);
 router.get("/:id", getPost);
+router.get("/:id/:imageid", getPostImage);
 
 //? POST requests
 router.post(

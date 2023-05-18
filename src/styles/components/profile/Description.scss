@@ -1,0 +1,15 @@
+.profile-body-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: flex-start;
+    height: fit-content;
+    padding: 1em;
+    margin: 0 0 1em 0;
+    width: 80%;
+    text-align: left;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+}

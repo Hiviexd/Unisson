@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { posts, users } from "../../../database";
+import { posts, users, postReviews } from "../../../database";
+import { Post, PostType, PostUser } from "../../../types/Post";
 import crypto from "crypto";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 import { createWriteStream, mkdirSync } from "fs";
@@ -26,11 +27,19 @@ export default async (req: Request, res: Response) => {
 
 	logger.printInfo("Creating a new post...");
 
-	/*if (!req.body.type)
+	if (!req.body.type)
         return res.status(400).send({
             status: 400,
             message: "Provide a type",
-        });*/
+        });
+
+    const allowedTypes: PostType[] = ["photographeur", "salle", "traiteur", "band"];
+
+    if (!allowedTypes.includes(req.body.type))
+        return res.status(400).send({
+            status: 400,
+            message: "Invalid type!",
+        });
 
     if (!req.body.title || typeof req.body.title != "string" || req.body.title.trim() == "")
         return res.status(400).send({
@@ -41,7 +50,7 @@ export default async (req: Request, res: Response) => {
     if (!req.files)
 		return res.status(400).send({
 			status: 400,
-			message: "Invalid image!",
+			message: "Missing image!",
 		});
 
 	const allowedMimeTypes = ["image/png", "image/jpeg", "image/gif"];
@@ -57,16 +66,40 @@ export default async (req: Request, res: Response) => {
 
 	const postId = crypto.randomBytes(20).toString("hex").slice(20);
 
-	const postInfo = {
+    let collaborators: PostUser[] = [];
+
+    if (req.body.collaborators) {
+        if (!Array.isArray(req.body.collaborators))
+            return res.status(400).send({
+                status: 400,
+                message: "Invalid collaborators!",
+            });
+
+        for (let collaborator of req.body.collaborators) {
+            if (!collaborator.userId || typeof collaborator.userId != "string")
+                return res.status(400).send({
+                    status: 400,
+                    message: "Invalid collaborator!",
+                });
+
+            collaborators.push({
+                userId: collaborator.userId,
+                confirmed: false,
+            });
+        }
+    }
+
+	const postInfo: Post = {
 		_id: postId,
 		title: req.body.title.trim(),
         description: req.body.description || "",
-		type: "salle",
+		type: req.body.type,
+        rating: 0,
 		createdAt: new Date(),
 		posterId: user._id,
 		posterUsername: user.username,
         buyers: [],
-        collaborators: [],
+        collaborators: collaborators,
         archived: false,
 	};
 
@@ -74,13 +107,20 @@ export default async (req: Request, res: Response) => {
 
 	await post.save();
 
+    const postReview = new postReviews({
+        _id: postId,
+        reviews: [],
+    });
+
+    await postReview.save();
+
     let fileId = 0;
-    mkdirSync(path.resolve(`./uploads/`).concat(`/images/${postInfo._id}`), { recursive: true });
+    mkdirSync(path.resolve(`./uploads/`).concat(`/posts/${postInfo._id}`), { recursive: true });
 
 	for (let file of req.files) {
         let fileFormat = file.mimetype.split("/")[1];
         createWriteStream(
-            path.resolve(`./uploads/`).concat(`/images/${postInfo._id}/${fileId++}.${fileFormat}`)
+            path.resolve(`./uploads/`).concat(`/posts/${postInfo._id}/${fileId++}.${fileFormat}`)
         ).write(new Uint8Array(file.buffer));
     }
 

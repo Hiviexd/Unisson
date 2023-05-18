@@ -37,6 +37,8 @@ app.use((err, req, res, next) => {
 //?  create uploads folder if it doesn't exist
 if (!fs.existsSync(path.resolve("./uploads"))) {
     fs.mkdirSync(path.resolve("./uploads"));
+    fs.mkdirSync(path.resolve("./uploads/avatars"));
+    fs.mkdirSync(path.resolve("./uploads/posts"));
     logger.printSuccess("Created uploads folder");
 }
 

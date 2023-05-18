@@ -1,91 +1,89 @@
 .navbar {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	padding: 20px 50px;
-	background-color: #CB857C;
-	color: #FAF7F4;
-	height: calc(
-		70px - 40px
-	); // you need to include padding sizing too, it's multiplied by 2, cuz it's top and bottom padding
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 50px;
+    background-color: #44576D;
+    color: #E6E6E6;
+    height: calc(70px - 40px); // you need to include padding sizing too, it's multiplied by 2, cuz it's top and bottom padding
 }
 
 .navbar-left {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-	.button {
-		margin-right: 10px;
-		text-decoration: none;
-		color: #FAF7F4;
-		transition: 0.1s ease-in-out;
-		font-size: 1.1rem;
-		line-height: 40px;
-		padding: 0 20px;
-		border-radius: 5px;
+    .button {
+        margin-right: 10px;
+        text-decoration: none;
+        color: #E6E6E6;
+        transition: 0.1s ease-in-out;
+        font-size: 1.1rem;
+        line-height: 40px;
+        padding: 0 20px;
+        border-radius: 5px;
 
-		&:visited {
-			color: #FAF7F4;
-		}
+        &:visited {
+            color: #E6E6E6;
+        }
 
-		&:hover {
-			background-color: #FAF7F4;
-			color: #CB857C;
-		}
-	}
+        &:hover {
+            background-color: #E6E6E6;
+            color: #44576D;
+        }
+    }
 
-	.logo-container {
-		height: 40px;
-		margin-right: 40px;
-	}
+    .logo-container {
+        height: 40px;
+        margin-right: 40px;
+    }
 
-	.logo {
-		color: #FAF7F4;
-	}
+    .logo {
+        color: #E6E6E6;
+    }
 }
 
 .navbar-right {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
 
-	.button {
-		margin-left: 10px;
-		text-decoration: none;
-		transition: 0.1s ease-in-out;
-		font-size: 1rem;
-		height: 35px;
-		line-height: 35px;
-		padding: 0 10px;
-		border-radius: 5px;
-	}
+    .button {
+        margin-left: 10px;
+        text-decoration: none;
+        transition: 0.1s ease-in-out;
+        font-size: 1rem;
+        height: 35px;
+        line-height: 35px;
+        padding: 0 10px;
+        border-radius: 5px;
+    }
 
-	.login {
-		color: #FAF7F4;
-		background-color: transparent;
-		border: 1px solid #FAF7F4;
+    .login {
+        color: #E6E6E6;
+        background-color: transparent;
+        border: 1px solid #E6E6E6;
 
-		&:hover {
-			background-color: #FAF7F4;
-			color: #CB857C;
-		}
-	}
+        &:hover {
+            background-color: #E6E6E6;
+            color: #44576D;
+        }
+    }
 
-	.signup {
-		color: #CB857C;
-		background-color: #FAF7F4;
-		border-color: #CB857C;
+    .signup {
+        color: #44576D;
+        background-color: #e6e6e6;
+        border-color: #44576D;
 
-		&:hover {
-			background-color: #dfdcdb;
-		}
-	}
+        &:hover {
+            background-color: darken(#E6E6E6, 10%);
+        }
+    }
 }
 
 .icon-menu {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 
 .welcome-text {
