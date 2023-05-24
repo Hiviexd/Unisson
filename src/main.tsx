@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                         <Route path="/signup" element={<Login />} />
                         <Route path="/listing" element={<Listing />} />
                         <Route path="/upload" element={<Upload />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile/:id" element={<Profile />} />
                         <Route path="*" element={<Home />} />
                     </Routes>
                 </ThemeProvider>

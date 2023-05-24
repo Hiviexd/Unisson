@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "./schemas/User";
-import Post from "./schemas/Post";
-import PostReviews from "./schemas/PostReviews";
+import Review from "./schemas/Review";
 import { User as IUser } from "../types/User";
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
@@ -28,14 +27,14 @@ mongoose
         );
     });
 
-interface PostDocument extends mongoose.Document<IPost> {}
+interface UserDocument extends mongoose.Document<IUser> {}
 
-Post.plugin(paginate);
+User.plugin(paginate);
 //export const users = mongoose.model("User", User);
-export const postReviews = mongoose.model("PostReviews", PostReviews);
+export const reviews = mongoose.model("reviews", Review);
 //export const notifications = mongoose.model("Notification", Notification);
 //export const followers = mongoose.model("Follower", Follower);
 export const users = mongoose.model<
 	IUser,
-	mongoose.PaginateModel<IUser, PostDocument>
+	mongoose.PaginateModel<IUser, UserDocument>
 >("User", User);

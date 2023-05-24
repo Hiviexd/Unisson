@@ -35,7 +35,7 @@ export default function ProfileSelector(props: { user: any }) {
                     precision={0.5}
                 />
                 <Typography variant="body2" color="text.secondary">
-                    {text.truncateString(user?.bio, 100)}
+                    {user?.bio && text.truncateString(user?.bio, 100)}
                 </Typography>
                 <div className="profile-selector-info">
                     <ServiceType serviceType={user?.serviceType} />

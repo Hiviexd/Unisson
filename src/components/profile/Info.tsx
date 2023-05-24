@@ -7,17 +7,15 @@ import ProviderButton from "./ProviderButton";
 export default function Info(props: { user: any }) {
     const user = props.user;
 
-    const phoneNumber = () => {
-        return user.phone
-            .toString()
-            .replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
+    const phoneNumber = (num: number) => {
+        return num.toString().replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     };
 
     return (
         <>
             <div className="profile-header-avatar">
                 <img
-                    src="https://picsum.photos/200"
+                    src={`/api/assets/avatar/${user._id}`}
                     alt="avatar"
                     className="avatar"
                 />
@@ -45,7 +43,7 @@ export default function Info(props: { user: any }) {
                     variant="body2"
                     color="text.secondary"
                     component="div">
-                    +216 {phoneNumber()}
+                    +216 {user?.phone && phoneNumber(user.phone)}
                 </Typography>
                 <div className="profile-header-bio">
                     <Typography gutterBottom component="div">

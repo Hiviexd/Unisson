@@ -1,28 +1,29 @@
 import { Schema } from "mongoose";
 
 export default new Schema({
-	_id: String,
+    _id: String,
     email: {
         type: String,
         unique: true,
         required: true,
     },
-	username: {
+    username: {
         type: String,
         required: true,
     },
-	passwordHash: {
+    passwordHash: {
         type: String,
         required: true,
     },
-	accountToken: String,
-	bio: String,
+    accountToken: String,
+    bio: String,
     phone: Number,
-	permissions: {
-		type: Array,
-		default: ["user"],
-		//? Available permissions: user, provider, admin
-	},
+    location: String,
+    permissions: {
+        type: Array,
+        default: ["user"],
+        //? Available permissions: user, provider, admin
+    },
     serviceType: {
         type: String,
         enum: ["photographeur", "salle", "traiteur", "band"],
@@ -33,13 +34,13 @@ export default new Schema({
             confirmed: {
                 type: Boolean,
                 default: false,
-            }
-        }
+            },
+        },
     ],
     hidden: {
         type: Boolean,
         default: true,
     },
     rating: Number,
-	createdAt: Date,
+    createdAt: Date,
 });

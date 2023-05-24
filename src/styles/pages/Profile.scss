@@ -31,7 +31,8 @@
             width: 15em;
             max-width: 15em;
             border-radius: 10px;
-            background-color: #eaeaea;
+            background: linear-gradient(0deg, #eaeaea 60%, rgba(0, 0, 0, 0.3) 150%) center no-repeat, url(https://picsum.photos/200);
+
             box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
 
             .avatar {

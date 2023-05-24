@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function listing() {
-    /*const [user, setUser] = useState<any>(null);*/
+    const [user, setUser] = useState({});
 
     const testUser = {
         username: "Achraf Maalel Photographie",
@@ -21,9 +21,9 @@ export default function listing() {
         location: "Tunis",
     };
 
-    /*useEffect(() => {
+    useEffect(() => {
         setUser(testUser);
-    }, []);*/
+    }, []);
 
     return (
         <>
@@ -32,11 +32,11 @@ export default function listing() {
                 <div className="listing">
                     <Search />
                     <div className="listing-profiles">
-                        <ProfileSelector user={testUser} />
-                        <ProfileSelector user={testUser} />
-                        <ProfileSelector user={testUser} />
-                        <ProfileSelector user={testUser} />
-                        <ProfileSelector user={testUser} />
+                        <ProfileSelector user={user} />
+                        <ProfileSelector user={user} />
+                        <ProfileSelector user={user} />
+                        <ProfileSelector user={user} />
+                        <ProfileSelector user={user} />
                     </div>
                 </div>
             </div>

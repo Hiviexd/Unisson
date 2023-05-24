@@ -35,7 +35,7 @@ export default function ServiceType(props: { serviceType: string }) {
                 variant="body2"
                 color="text.secondary"
                 component="div">
-                {text.capitalizeFirstLetter(serviceType)}
+                {serviceType && text.capitalizeFirstLetter(serviceType)}
             </Typography>
         </div>
     );
