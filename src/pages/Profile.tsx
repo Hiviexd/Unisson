@@ -16,7 +16,7 @@ export default function Profile() {
 
     const [user, setUser] = useState<any>(null);
 
-    const testUser = {
+    /*const testUser = {
         username: "Achraf Maalel Photographie",
         email: "johndoe@gmail.com",
         bio: "Contact me to schedule your session and let's create something beautiful together!",
@@ -26,7 +26,7 @@ export default function Profile() {
         permissions: ["provider", "user"],
         serviceType: "photographe",
         rating: 3.5,
-    };
+    };*/
 
     useEffect(() => {
         fetch(`/api/users/${id}`)
@@ -61,7 +61,7 @@ export default function Profile() {
                         <Info user={user} />
                     </div>
                     <div className="profile-body">
-                        <Description desc={user?.bio} />
+                        <Description desc={user?.description} />
                     </div>
                 </div>
             </div>

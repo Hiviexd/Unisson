@@ -2,15 +2,20 @@ import Navbar from "../components/global/Navbar";
 
 import ProfileSelector from "../components/global/listing/ProfileSelector";
 import Search from "../components/global/listing/Search";
+import LoadingPage from "./LoadingPage";
+import ErrorPage from "./ErrorPage";
 
 import "../styles/pages/listing.scss";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function listing() {
-    const [user, setUser] = useState({});
+    const [users, setUsers] = useState([]);
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
 
-    const testUser = {
+    /*const testUser = {
+        _id: "43f836617c",
         username: "Achraf Maalel Photographie",
         email: "johndoe@gmail.com",
         bio: "Contact me to schedule your session and let's create something beautiful together!",
@@ -23,7 +28,33 @@ export default function listing() {
 
     useEffect(() => {
         setUser(testUser);
-    }, []);
+    }, []);*/
+
+    useEffect(() => {
+		fetch(`/api/users/listing/get?page=${page}`)
+			.then((r) => r.json())
+			.then((d) => {
+				setUsers(d.data.users);
+				setTotalPages(d.data.totalPages);
+			});
+	}, []);
+
+    function refreshListing() {
+		fetch(`/api/users/listing/get?page=${page}`)
+			.then((r) => r.json())
+			.then((d) => {
+				setUsers(d.data.users);
+				setTotalPages(d.data.totalPages);
+			});
+	}
+
+    if (users === null)
+		return (
+			<>
+				<Navbar />
+				<LoadingPage />
+			</>
+		);
 
     return (
         <>
@@ -32,11 +63,14 @@ export default function listing() {
                 <div className="listing">
                     <Search />
                     <div className="listing-profiles">
-                        <ProfileSelector user={user} />
-                        <ProfileSelector user={user} />
-                        <ProfileSelector user={user} />
-                        <ProfileSelector user={user} />
-                        <ProfileSelector user={user} />
+                    {users.length == 0 ? (
+							<ErrorPage text="There's no results for your search..." />
+						) : (
+							users.map((user) => {
+								return <ProfileSelector user={user} />;
+
+							})
+						)}
                     </div>
                 </div>
             </div>

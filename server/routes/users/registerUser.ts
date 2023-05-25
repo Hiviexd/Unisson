@@ -96,11 +96,13 @@ export default async (req: Request, res: Response) => {
         createdAt: new Date(),
         permissions: ["user"],
         bio: "Hello, world!",
-        phone: Number(phone),
-        serviceType: undefined,
+        description: "Ut est laboris cupidatat anim quis consectetur enim aute. Nisi et qui labore magna ullamco enim consectetur nulla reprehenderit incididunt. Laborum aute anim tempor exercitation consectetur minim labore esse consequat cupidatat nisi ad tempor incididunt.",
+        phone: phone,
+        location: "Sousse",
+        serviceType: "photographe",
         rating: 0,
         collaborators: [],
-        hidden: true
+        hidden: true,
     };
 
     await users.create(userInfo);

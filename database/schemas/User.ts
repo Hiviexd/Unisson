@@ -17,6 +17,7 @@ export default new Schema({
     },
     accountToken: String,
     bio: String,
+    description: String,
     phone: Number,
     location: String,
     permissions: {
@@ -26,7 +27,7 @@ export default new Schema({
     },
     serviceType: {
         type: String,
-        enum: ["photographeur", "salle", "traiteur", "band"],
+        enum: ["photographe", "salle", "traiteur", "band"],
     },
     collaborators: [
         {

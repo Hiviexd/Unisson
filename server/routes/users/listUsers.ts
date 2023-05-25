@@ -15,10 +15,10 @@ export default async (req: Request, res: Response) => {
 			? {
                     username: { $in: search.split(",") },
                     serviceType: { $in: search.split(",") },
-					hidden: false,
+					//hidden: false,
 			  }
 			: {
-					hidden: false,
+					//hidden: false,
 			  },
 		{
 			limit: maxPerPage,

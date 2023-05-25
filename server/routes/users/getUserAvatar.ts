@@ -15,10 +15,10 @@ export default async (req: Request, res: Response) => {
         });
     */
 
-	if (!existsSync(path.resolve(`./uploads/avatars/${req.params.id}.jpg`)))
+	if (!existsSync(path.resolve(`./uploads/avatars/${req.params.id}`)))
 		return res.status(200).sendFile(path.resolve("./public/default.jpg"));
 
 	return res
 		.status(200)
-		.sendFile(path.resolve(`./uploads/avatars/${req.params.id}.jpg`));
+		.sendFile(path.resolve(`./uploads/avatars/${req.params.id}`));
 };

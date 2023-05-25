@@ -12,9 +12,16 @@
     width: 10em;
     max-width: 12em;
     border-radius: 10px;
-    background: linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(https://picsum.photos/200);
+    //background: linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(https://picsum.photos/200);
     background-size: cover;
     box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 0 rgba(41, 41, 41, 0.5);
+        cursor: pointer;
+    }
 
     .avatar {
         width: 6em;

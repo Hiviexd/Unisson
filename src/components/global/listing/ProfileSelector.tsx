@@ -9,12 +9,18 @@ import "../../../styles/components/listing/ProfileSelector.scss";
 
 export default function ProfileSelector(props: { user: any }) {
     const user = props.user;
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate(`/profile/${user._id}`);
+    }
+
     return (
-        <div className="profile-selector">
+        <div className="profile-selector" onClick={handleClick} style={{background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`}}>
             <div className="profile-selector-top" />
             <div className="profile-selector-image">
                 <img
-                    src="https://picsum.photos/200"
+                    src={`/api/assets/avatar/${user._id}`}
                     alt="Profile picture"
                     className="avatar"
                 />

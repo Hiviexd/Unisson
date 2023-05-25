@@ -9,7 +9,9 @@ export interface UserCompact {
 
 export interface User extends UserCompact {
     bio?: string;
-    phone?: number;
+    description?: string;
+    phone?: string;
+    location?: string;
     permissions: UserPermissions[];
     serviceType?: ServiceType;
     rating?: number;
@@ -19,7 +21,7 @@ export interface User extends UserCompact {
 
 export type UserPermissions = "admin" | "provider" | "user";
 
-export type ServiceType = "photographeur" | "salle" | "traiteur" | "band";
+export type ServiceType = "photographe" | "salle" | "traiteur" | "band";
 
 export interface PostUser {
     userId: string;
