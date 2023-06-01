@@ -6,7 +6,7 @@ export default function Upload() {
     const { login } = useContext(AuthContext);
 
     function sendPost() {
-        fetch("/api/posts/new", {
+        fetch("/api/gallery/create", {
             method: "POST",
             headers: {
                 authorization: login.accountToken,

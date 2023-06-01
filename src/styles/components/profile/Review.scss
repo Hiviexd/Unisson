@@ -1,0 +1,74 @@
+.profile-body-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 1em 2em;
+    margin: 0 0 1em 0;
+    width: 90%;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+    .profile-body-review-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: fit-content;
+        margin: 0 0 1em 0;
+
+        .review-name {
+            margin: 0 0.5rem 0 0;
+        }
+
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #000000;
+            margin: 0 1em 0 0;
+            box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+        }
+
+    }
+
+    .profile-body-review-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: fit-content;
+        margin: 0 0 1em 0;
+
+    }
+
+    .profile-body-review-footer {
+        width: 100%;
+    }
+
+    .review-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: fit-content;
+        margin: 0 0 1em 0;
+
+        .edit-button {
+            margin-left: 1em;
+        }
+    }
+
+    .no-comment {
+        font-style: italic !important;
+    }
+}

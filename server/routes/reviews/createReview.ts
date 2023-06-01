@@ -1,41 +1,107 @@
 import { Request, Response } from "express";
-import { reviews } from "../../../database";
+import { reviews, users } from "../../../database";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 import { Review } from "../../../types/Review";
 import crypto from "crypto";
+import updateReviewScore from "../../helpers/updateReviewScore";
 
 export default async (req: Request, res: Response) => {
     const logger = new LoggerConsumer("createReview", req);
 
-    logger.printInfo(`Creating review for post ${req.params.id}`);
+    logger.printInfo(`Creating review for user ${req.params.id}`);
 
-   const reviewList = await reviews.findOne({ _id: req.params.id });
+    const user = await users.findOne({ _id: req.params.id });
 
-    if (!reviewList) {
-        logger.printError("Post not found");
+    if (!user) {
+        logger.printError(`User ${req.params.id} not found!`);
+
         return res.status(404).send({
             status: 404,
-            message: "Post not found",
+            message: "User not found!",
         });
     }
 
-    reviewList.reviews.push({
-        _id: crypto.randomBytes(20).toString("hex").slice(20),
-        userId: req.body.userId,
+    const poster = await users.findOne({
+        accountToken: req.headers.authorization,
+    });
+
+    if (!poster)
+        return res.status(404).send({
+            status: 404,
+            message: "poster not found!",
+        });
+
+    // check if user has already reviewed this profile
+    const existingReview = await reviews.findOne({
+        profileId: req.params.id,
+        posterId: poster._id,
+    });
+
+    if (existingReview) {
+        logger.printError(`User ${req.params.id} has already been reviewed!`);
+
+        return res.status(400).send({
+            status: 400,
+            message: "User has already been reviewed!",
+        });
+    }
+
+    if (!req.body.rating) {
+        logger.printError(`Rating not found!`);
+
+        return res.status(400).send({
+            status: 400,
+            message: "Rating not found!",
+        });
+    } else if (typeof req.body.rating != "number") {
+        logger.printError(`Rating is not a number!`);
+
+        return res.status(400).send({
+            status: 400,
+            message: "Rating is not a number!",
+        });
+    }
+
+    if (req.body.rating < 1 || req.body.rating > 5) {
+        logger.printError(`Rating is not between 1 and 5!`);
+
+        return res.status(400).send({
+            status: 400,
+            message: "Rating is not between 1 and 5!",
+        });
+    }
+
+    if (req.body.comment && typeof req.body.comment != "string") {
+        logger.printError(`Comment is not a string!`);
+
+        return res.status(400).send({
+            status: 400,
+            message: "Comment is not a string!",
+        });
+    }
+
+    const review: Review = {
+        _id: crypto.randomBytes(16).toString("hex"),
+        profileId: req.params.id,
+        posterId: poster._id,
+        posterName: poster.username,
         rating: req.body.rating,
         comment: req.body.comment,
         createdAt: new Date(),
-    } as Review);
+        updatedAt: new Date(),
+    };
 
+    await reviews.create(review);
 
     logger.printSuccess(`Review for post ${req.params.id} created!`);
+
+    await updateReviewScore(reviews, user, logger);
 
     return res.status(200).send({
         status: 200,
         message: "Review created!",
         data: {
-            postId: reviewList._id,
-            review: reviewList.reviews[reviewList.reviews.length - 1],
+            review,
         },
     });
-}
+};

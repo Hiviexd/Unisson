@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import User from "./schemas/User";
 import Review from "./schemas/Review";
+import Gallery from "./schemas/Gallery";
 import { User as IUser } from "../types/User";
+import { Review as IReview } from "../types/Review";
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
 import paginate from "mongoose-paginate-v2";
@@ -30,11 +32,17 @@ mongoose
 interface UserDocument extends mongoose.Document<IUser> {}
 
 User.plugin(paginate);
-//export const users = mongoose.model("User", User);
-export const reviews = mongoose.model("reviews", Review);
+Review.plugin(paginate);
 //export const notifications = mongoose.model("Notification", Notification);
-//export const followers = mongoose.model("Follower", Follower);
+
 export const users = mongoose.model<
-	IUser,
-	mongoose.PaginateModel<IUser, UserDocument>
+    IUser,
+    mongoose.PaginateModel<IUser, UserDocument>
 >("User", User);
+
+export const reviews = mongoose.model<
+    IReview,
+    mongoose.PaginateModel<IReview, UserDocument>
+>("Review", Review);
+
+export const galleries = mongoose.model("Gallery", Gallery);

@@ -11,8 +11,8 @@ import { useState, useEffect } from "react";
 
 export default function listing() {
     const [users, setUsers] = useState([]);
-	const [page, setPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(1);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     /*const testUser = {
         _id: "43f836617c",
@@ -31,30 +31,30 @@ export default function listing() {
     }, []);*/
 
     useEffect(() => {
-		fetch(`/api/users/listing/get?page=${page}`)
-			.then((r) => r.json())
-			.then((d) => {
-				setUsers(d.data.users);
-				setTotalPages(d.data.totalPages);
-			});
-	}, []);
+        fetch(`/api/users/listing/get?page=${page}`)
+            .then((r) => r.json())
+            .then((d) => {
+                setUsers(d.data.users);
+                setTotalPages(d.data.totalPages);
+            });
+    }, []);
 
     function refreshListing() {
-		fetch(`/api/users/listing/get?page=${page}`)
-			.then((r) => r.json())
-			.then((d) => {
-				setUsers(d.data.users);
-				setTotalPages(d.data.totalPages);
-			});
-	}
+        fetch(`/api/users/listing/get?page=${page}`)
+            .then((r) => r.json())
+            .then((d) => {
+                setUsers(d.data.users);
+                setTotalPages(d.data.totalPages);
+            });
+    }
 
     if (users === null)
-		return (
-			<>
-				<Navbar />
-				<LoadingPage />
-			</>
-		);
+        return (
+            <>
+                <Navbar />
+                <LoadingPage />
+            </>
+        );
 
     return (
         <>
@@ -63,14 +63,13 @@ export default function listing() {
                 <div className="listing">
                     <Search />
                     <div className="listing-profiles">
-                    {users.length == 0 ? (
-							<ErrorPage text="There's no results for your search..." />
-						) : (
-							users.map((user) => {
-								return <ProfileSelector user={user} />;
-
-							})
-						)}
+                        {users.length == 0 ? (
+                            <ErrorPage text="There's no results for your search..." />
+                        ) : (
+                            users.map((user) => {
+                                return <ProfileSelector user={user} />;
+                            })
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { Typography, Rating } from "@mui/material";
+import { Typography, Rating, Tooltip } from "@mui/material";
 
 import ServiceType from "./ServiceType";
 import ChatButton from "./ChatButton";
@@ -25,12 +25,16 @@ export default function Info(props: { user: any }) {
                     {user?.username}
                 </Typography>
                 <ServiceType serviceType={user?.serviceType} />
-                <Rating
-                    name="read-only"
-                    value={user?.rating}
-                    readOnly
-                    precision={0.5}
-                />
+                <Tooltip title={user?.rating} placement="right" arrow>
+                    <div className="profile-header-rating">
+                        <Rating
+                            name="read-only"
+                            value={user?.rating}
+                            readOnly
+                            precision={0.5}
+                        />
+                    </div>
+                </Tooltip>
                 <Typography
                     gutterBottom
                     variant="body2"

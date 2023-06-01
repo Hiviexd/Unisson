@@ -30,7 +30,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
     "sass": "^1.60.0",
-    "vite-plugin-mix": "^0.4.0"
+    "vite-plugin-mix": "^0.4.0",
+    "yet-another-react-lightbox": "^3.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

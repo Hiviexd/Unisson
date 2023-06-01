@@ -1,12 +1,10 @@
 export interface Review {
     _id: string;
-    userId: string;
+    profileId: string;
+    posterId: string;
+    posterName: string;
     rating: number;
     comment?: string;
     createdAt: Date;
-}
-
-export interface PostReviews {
-    _id: string;
-    reviews: Review[];
+    updatedAt?: Date;
 }

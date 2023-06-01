@@ -29,6 +29,7 @@ export default async (req: Request, res: Response) => {
             email: user.email,
             permissions: user.permissions,
             bio: user.bio,
+            description: user.description,
             phone: user.phone,
             createdAt: user.createdAt,
             serviceType: user.serviceType,
