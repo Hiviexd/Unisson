@@ -16,37 +16,6 @@
         width: 90%;
         height: fit-content;
 
-
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-content: center;
-            align-items: center;
-            height: fit-content;
-            padding: 2em;
-            width: 15em;
-            max-width: 15em;
-            border-radius: 10px;
-            background: linear-gradient(0deg, #eaeaea 60%, rgba(0, 0, 0, 0.3) 150%) center no-repeat, url(https://picsum.photos/200);
-
-            box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
-
-            .avatar {
-                width: 180px;
-                height: 180px;
-                border-radius: 50%;
-                background-color: #000000;
-                margin: 0 0 1em 0;
-                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
-            }
-
-            .profile-header-rating {
-                width: fit-content;
-                margin: auto;
-            }
-        }
-
         .profile-body {
             display: flex;
             flex-direction: column;

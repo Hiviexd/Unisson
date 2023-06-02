@@ -3,6 +3,9 @@ import { Typography, Rating, Tooltip } from "@mui/material";
 import ServiceType from "./ServiceType";
 import ChatButton from "./ChatButton";
 import ProviderButton from "./ProviderButton";
+import Calendar from "./Calendar";
+
+import "./../../styles/components/profile/Info.scss";
 
 export default function Info(props: { user: any }) {
     const user = props.user;
@@ -12,7 +15,11 @@ export default function Info(props: { user: any }) {
     };
 
     return (
-        <>
+        <div
+            className="profile-header"
+            style={{
+                background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`,
+            }}>
             <div className="profile-header-avatar">
                 <img
                     src={`/api/assets/avatar/${user._id}`}
@@ -25,6 +32,7 @@ export default function Info(props: { user: any }) {
                     {user?.username}
                 </Typography>
                 <ServiceType serviceType={user?.serviceType} />
+                <Calendar availability={user?.availability} />
                 <Tooltip title={user?.rating} placement="right" arrow>
                     <div className="profile-header-rating">
                         <Rating
@@ -57,6 +65,6 @@ export default function Info(props: { user: any }) {
                 <ProviderButton user={user} />
                 <ChatButton user={user} />
             </div>
-        </>
+        </div>
     );
 }

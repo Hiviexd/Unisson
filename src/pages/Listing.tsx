@@ -1,4 +1,5 @@
 import Navbar from "../components/global/Navbar";
+import NotificationsSidebar from "../components/global/NotificationsSidebar";
 
 import ProfileSelector from "../components/global/listing/ProfileSelector";
 import Search from "../components/global/listing/Search";
@@ -10,7 +11,7 @@ import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function listing() {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -52,6 +53,7 @@ export default function listing() {
         return (
             <>
                 <Navbar />
+                <NotificationsSidebar />
                 <LoadingPage />
             </>
         );
@@ -59,18 +61,19 @@ export default function listing() {
     return (
         <>
             <Navbar />
+            <NotificationsSidebar />
             <div className="listing-layout">
                 <div className="listing">
                     <Search />
-                    <div className="listing-profiles">
-                        {users.length == 0 ? (
-                            <ErrorPage text="There's no results for your search..." />
-                        ) : (
-                            users.map((user) => {
+                    {users.length == 0 ? (
+                        <ErrorPage text="There's no results for your search..." />
+                    ) : (
+                        <div className="listing-profiles">
+                            {users.map((user) => {
                                 return <ProfileSelector user={user} />;
-                            })
-                        )}
-                    </div>
+                            })}
+                        </div>
+                    )}
                 </div>
             </div>
         </>

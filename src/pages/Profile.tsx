@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 
 import Navbar from "../components/global/Navbar";
+import NotificationsSidebar from "../components/global/NotificationsSidebar";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
 import Info from "../components/profile/Info";
@@ -29,6 +30,7 @@ export default function Profile() {
         return (
             <>
                 <Navbar />
+                <NotificationsSidebar />
                 <LoadingPage />
             </>
         );
@@ -37,6 +39,7 @@ export default function Profile() {
         return (
             <>
                 <Navbar />
+                <NotificationsSidebar />
                 <ErrorPage text="We looked hard, but we can't find this user sadly..." />
             </>
         );
@@ -44,11 +47,10 @@ export default function Profile() {
     return (
         <>
             <Navbar />
+            <NotificationsSidebar />
             <div className="profile-layout">
                 <div className="profile">
-                    <div className="profile-header">
-                        <Info user={user} />
-                    </div>
+                    <Info user={user} />
                     <div className="profile-body">
                         <div className="profile-body-pagination">
                             <div

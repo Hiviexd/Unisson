@@ -1,0 +1,40 @@
+import { createContext, useState } from "react";
+
+interface INotificationsContext {
+    open: boolean;
+    notifications: null | any[];
+    setOpen: (open: any) => any;
+    setNotifications: (any: any) => any;
+}
+
+export const NotificationsContext = createContext<INotificationsContext>({
+    open: false,
+    notifications: null,
+    setOpen: (open: boolean) => void {},
+    setNotifications: (notifications: any[]) => void {},
+});
+
+const NotificationsProvider = ({ children }: any) => {
+    const [open, setOpen] = useState(false);
+    const [notifications, setNotifications] = useState([
+        {
+            _id: "1",
+            content: "This is a test notification",
+            date: new Date(),
+        },
+    ]);
+
+    return (
+        <NotificationsContext.Provider
+            value={{
+                open,
+                setOpen,
+                notifications,
+                setNotifications,
+            }}>
+            {children}
+        </NotificationsContext.Provider>
+    );
+};
+
+export default NotificationsProvider;

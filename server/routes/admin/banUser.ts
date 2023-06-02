@@ -29,7 +29,7 @@ export default async (req: Request, res: Response) => {
 
     const updatedUser = await users.findOneAndUpdate(
         { _id: req.params.id },
-        { permissions: [] },
+        { permissions: [], hidden: true },
         { new: true }
     );
 

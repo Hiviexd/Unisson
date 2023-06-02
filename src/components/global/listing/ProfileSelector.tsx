@@ -16,7 +16,12 @@ export default function ProfileSelector(props: { user: any }) {
     }
 
     return (
-        <div className="profile-selector" onClick={handleClick} style={{background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`}}>
+        <div
+            className="profile-selector"
+            onClick={handleClick}
+            style={{
+                background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`,
+            }}>
             <div className="profile-selector-top" />
             <div className="profile-selector-image">
                 <img
@@ -43,19 +48,19 @@ export default function ProfileSelector(props: { user: any }) {
                 <Typography variant="body2" color="text.secondary">
                     {user?.bio && text.truncateString(user?.bio, 100)}
                 </Typography>
-                <div className="profile-selector-info">
-                    <ServiceType serviceType={user?.serviceType} />
-                    <div className="profile-selector-location">
-                        <LocationOn className="icon-color" />
-                        <Typography
-                            className="profile-selector-location-text"
-                            gutterBottom
-                            variant="body2"
-                            color="text.secondary"
-                            component="div">
-                            {user?.location}
-                        </Typography>
-                    </div>
+            </div>
+            <div className="profile-selector-info">
+                <ServiceType serviceType={user?.serviceType} />
+                <div className="profile-selector-location">
+                    <LocationOn className="icon-color" />
+                    <Typography
+                        className="profile-selector-location-text"
+                        gutterBottom
+                        variant="body2"
+                        color="text.secondary"
+                        component="div">
+                        {user?.location}
+                    </Typography>
                 </div>
             </div>
         </div>

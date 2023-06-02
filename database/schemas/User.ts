@@ -43,5 +43,6 @@ export default new Schema({
         default: true,
     },
     rating: Number,
+    availability: [Date],
     createdAt: Date,
 });

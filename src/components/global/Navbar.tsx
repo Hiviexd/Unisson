@@ -23,6 +23,7 @@ import "./../../styles/components/global/Navbar.scss";
 import { generateComponentKey } from "../../utils/generateComponentKey";
 import Alert from "@mui/material/Alert";
 import { ProfileNonceContext } from "../../providers/ProfileNonceContext";
+import { NotificationsContext } from "../../providers/NotificationsContext";
 
 export default function Navbar() {
     const { login, logout } = useContext(AuthContext);
@@ -30,6 +31,7 @@ export default function Navbar() {
     //const [isBanned, setIsBanned] = useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const nonce = useContext(ProfileNonceContext);
+    const notifications = useContext(NotificationsContext);
 
     // make background color transparet if route is "/"
     //const [isHome, setIsHome] = useState("#CB857C");
@@ -63,6 +65,10 @@ export default function Navbar() {
         logout();
         goTo("/");
     };
+
+    function handleNotificationToggle() {
+        notifications.setOpen(!notifications.open);
+    }
 
     /*useEffect(() => {
 		if (window.location.pathname === "/") {
@@ -167,17 +173,18 @@ export default function Navbar() {
                             size="large"
                             aria-label="show new notifications"
                             color="inherit"
-                            //onClick={handleNotificationToggle}
-                        >
-                            {/*notifications.notifications.length == 0 ? (
-								<NotificationsIcon />
-							) : (
-								<Badge
-									badgeContent={notifications.notifications.length}
-									color="error">
-									<NotificationsIcon />
-								</Badge>
-                            )*/}
+                            onClick={handleNotificationToggle}>
+                            {notifications?.notifications?.length == 0 ? (
+                                <NotificationsIcon />
+                            ) : (
+                                <Badge
+                                    badgeContent={
+                                        notifications?.notifications?.length
+                                    }
+                                    color="error">
+                                    <NotificationsIcon />
+                                </Badge>
+                            )}
                         </IconButton>
                         <IconButton
                             size="large"

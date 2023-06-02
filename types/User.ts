@@ -14,6 +14,7 @@ export interface User extends UserCompact {
     location?: string;
     permissions: UserPermissions[];
     serviceType?: ServiceType;
+    availability?: Date[];
     rating?: number;
     collaborators?: PostUser[];
     hidden: boolean;

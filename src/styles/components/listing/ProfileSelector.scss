@@ -44,7 +44,8 @@
         align-items: flex-start;
         height: fit-content;
         padding-top: 1em;
-        margin-top: 1em;
+        margin-top: auto;
+        width: 100%;
         border-top: 1px solid rgba(41, 41, 41, 0.5);
 
         .profile-selector-location {

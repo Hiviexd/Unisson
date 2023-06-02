@@ -1,14 +1,13 @@
-import { Request, Response } from "express";
-import { users } from "../../../database";
-import { LoggerConsumer } from "../../helpers/LoggerConsumer";
-import * as middlewares from "../../middlewares";
+import { Response } from "express";
+import { users } from "../../database";
+import { LoggerConsumer } from "./LoggerConsumer";
 
-export default async (req: Request, res: Response) => {
-    const logger = new LoggerConsumer("promoteUser", req);
+export default async (userId: string, res: Response) => {
+    const logger = new LoggerConsumer("promoteUser");
 
-    logger.printInfo(`Promoting user ${req.params.id} to provider`);
+    logger.printInfo(`Promoting user ${userId} to provider`);
 
-    const user = await users.findOne({ _id: req.params.id });
+    const user = await users.findOne({ _id: userId });
 
     if (!user) {
         logger.printError("User not found");
@@ -29,16 +28,16 @@ export default async (req: Request, res: Response) => {
     const newPerms = [...user.permissions, "provider"];
 
     const updatedUser = await users.findOneAndUpdate(
-        { _id: req.params.id },
+        { _id: userId },
         { permissions: newPerms, hidden: false },
         { new: true }
     );
 
-    logger.printSuccess(`User ${user.username} (${req.params._id}) promoted!`);
+    logger.printSuccess(`User ${user.username} (${userId}) promoted!`);
 
     return res.status(200).send({
         status: 200,
-        message: "User promoted!",
+        message: "User promoted to provider!",
         data: updatedUser,
     });
 };
