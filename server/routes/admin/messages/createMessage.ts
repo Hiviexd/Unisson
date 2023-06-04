@@ -9,9 +9,17 @@ const logger = new LoggerConsumer("adminMessages");
 export default async (req: Request, res: Response) => {
     logger.printInfo("Creating admin message...");
 
-    const { type, userId, username, content } = req.body;
+    const {
+        type,
+        reportType,
+        culpritId,
+        culpritUsername,
+        content,
+        reviewId,
+        reviewContent,
+    } = req.body;
 
-    if (!type || !userId || !username || !content) {
+    if (!type || !content) {
         logger.printError("Missing parameters");
         return res.status(400).send({
             status: 400,
@@ -19,7 +27,25 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    const user = await users.findOne({ _id: req.params.id });
+    if (type === "report" && (!culpritId || !culpritUsername || !reportType)) {
+        logger.printError("Missing culprit");
+        return res.status(400).send({
+            status: 400,
+            message: "Missing culprit/report type",
+        });
+    }
+
+    if (reportType === "review" && !reviewId) {
+        logger.printError("Missing review id");
+        return res.status(400).send({
+            status: 400,
+            message: "Missing review id",
+        });
+    }
+
+    const user = await users.findOne({
+        accountToken: req.headers.authorization,
+    });
 
     if (!user) {
         logger.printError("User not found");
@@ -29,12 +55,23 @@ export default async (req: Request, res: Response) => {
         });
     }
 
+    if (!user.permissions.length)
+        return res.status(403).send({
+            status: 403,
+            message: "No permissions.",
+        });
+
     const message: AdminMessage = {
         _id: crypto.randomBytes(16).toString("hex"),
         type,
-        userId,
-        username,
+        reportType,
+        userId: user._id,
+        username: user.username,
+        culpritId,
+        culpritUsername,
         content,
+        reviewId,
+        reviewContent,
         createdAt: new Date(),
         status: "pending",
         response: "",

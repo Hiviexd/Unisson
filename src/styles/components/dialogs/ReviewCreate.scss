@@ -1,0 +1,14 @@
+.rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0 10px 0;
+
+    .rating-stars {
+        margin-left: 5px;
+    }
+}
+
+.create-review-button {
+    width: 100%;
+}

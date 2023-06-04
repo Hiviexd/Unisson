@@ -32,7 +32,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    if (review.posterId != user._id) {
+    if (!user.permissions.includes("admin") && review.posterId != user._id) {
         logger.printError(
             `User ${user._id} does not own review ${review._id}!`
         );
@@ -43,11 +43,11 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    await review.deleteOne();
-
     const updatedUser = await users.findOne({ _id: review.profileId });
 
     await updateReviewScore(reviews, updatedUser, logger);
+
+    await review.deleteOne();
 
     logger.printSuccess(`Review ${review._id} deleted!`);
 

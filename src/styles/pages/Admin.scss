@@ -1,0 +1,77 @@
+.admin-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+
+    .admin-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        height: fit-content;
+        padding: 1em 2em;
+        margin: 0 0 1em 2em;
+        width: 70%;
+        border-radius: 10px;
+        background-color: #eaeaea;
+        box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+        .admin-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            height: fit-content;
+            margin: 0 0 1em 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .admin-pagination {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1em;
+            width: 100%;
+            margin: 0 0 1em 0;
+            padding: 0 0 1em 0;
+            border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+            .admin-pagination-button {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                font-size: 1.2em;
+                padding: 1em;
+                border-radius: 10px;
+                background-color: #f1f1f1;
+                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: darken(#f1f1f1, 5%);
+                }
+
+                .icon {
+                    margin: 0 5px 0 0;
+                }
+            }
+
+            .active {
+                background-color: #AAC7D8;
+
+                &:hover {
+                    background-color: darken(#AAC7D8, 5%)
+                }
+            }
+        }
+    }
+}

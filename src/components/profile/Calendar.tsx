@@ -1,14 +1,15 @@
 import { useState, useContext } from "react";
 import MultipleDatesPicker from "@ambiot/material-ui-multiple-dates-picker";
-import { Typography, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { CalendarMonth } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import { AuthContext } from "../../providers/AuthContext";
 
 //import "./../../styles/components/profile/Calendar.scss";
 
-export default function Calendar(props: { availability: any }) {
-    const availability = props.availability.map((d: any) => new Date(d));
+export default function Calendar(props: { user: any }) {
+    const userId = props.user._id;
+    const availability = props.user.availability.map((d: any) => new Date(d));
     const { enqueueSnackbar } = useSnackbar();
     const { login } = useContext(AuthContext);
 
@@ -46,7 +47,6 @@ export default function Calendar(props: { availability: any }) {
 
     function handleOpen() {
         setOpen(true);
-        console.log(availability);
     }
 
     function handleClose() {
@@ -64,7 +64,7 @@ export default function Calendar(props: { availability: any }) {
                     handleUpdateAvailability(dates);
                 }}
                 onCancel={handleClose}
-                readOnly={false}
+                readOnly={userId !== login._id}
                 selectedDates={selectedDates}
             />
         </div>

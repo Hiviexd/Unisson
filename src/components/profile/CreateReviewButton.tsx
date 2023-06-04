@@ -2,9 +2,7 @@ import { BorderColor } from "@mui/icons-material";
 
 import "./../../styles/components/profile/CreateReviewButton.scss";
 
-export default function ProviderButton(props: { user: any }) {
-    const user = props.user;
-
+export default function ProviderButton() {
     const handleClick = () => {
         console.log("create review");
     };

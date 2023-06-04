@@ -1,25 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../providers/AuthContext";
 
 import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
 import LoadingPage from "./LoadingPage";
 import ErrorPage from "./ErrorPage";
+import MessageCard from "../components/admin/MessageCard";
+import AdminReport from "../components/dialogs/AdminReport";
+import AdminProviderRequest from "../components/dialogs/AdminProviderRequest";
 
 import { Pagination } from "@mui/material";
+import { ContentPasteGo, Report } from "@mui/icons-material";
 
-//import '../styles/pages/Admin.scss';
+import "../styles/pages/Admin.scss";
 
 export default function Admin() {
     const [messages, setMessages] = useState(null);
     const [tab, setTab] = useState("request");
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const { login } = useContext(AuthContext);
 
     function getMessages(type: string) {
-        fetch(`/api/admin/messages/listing/get?page=${page}&type=${type}`)
+        fetch(`/api/admin/messages/listing/get?page=${page}&type=${type}`, {
+            method: "GET",
+            headers: {
+                authorization: login.accountToken,
+            },
+        })
             .then((r) => r.json())
             .then((d) => {
                 setMessages(d.data.messages);
+                console.log(d.data.messages);
                 setTotalPages(d.data.totalPages);
             });
     }
@@ -32,7 +44,7 @@ export default function Admin() {
     useEffect(() => {
         setPage(1);
         getMessages(tab);
-    }, [tab]);
+    }, []);
 
     if (messages === null)
         return (
@@ -56,54 +68,55 @@ export default function Admin() {
         <>
             <Navbar />
             <NotificationsSidebar />
-            <div className="admin-page">
-                <div className="admin-layout">
-                    <div className="admin-header">
+            <div className="admin-layout">
+                <div className="admin-page">
+                    <div className="admin-pagination">
                         <div
-                            className={`admin-header-button ${
+                            className={`admin-pagination-button ${
                                 tab === "request" ? "active" : ""
                             }`}
                             onClick={() => {
                                 setTab("request");
                                 getMessages("request");
                             }}>
-                            Requests
+                            <ContentPasteGo className="icon" />
+                            <span>Requests</span>
                         </div>
                         <div
-                            className={`admin-header-button ${
+                            className={`admin-pagination-button ${
                                 tab === "report" ? "active" : ""
                             }`}
                             onClick={() => {
                                 setTab("report");
                                 getMessages("report");
                             }}>
+                            <Report className="icon" />
                             Reports
                         </div>
                     </div>
                     <div className="admin-body">
                         {messages.map((message: any) => (
-                            <div className="admin-body-message">
-                                <div className="admin-body-message-header">
-                                    <div className="admin-body-message-header-title">
-                                        {message.username}
-                                    </div>
-                                    <div className="admin-body-message-header-date">
-                                        {message.date}
-                                    </div>
-                                </div>
-                                <div className="admin-body-message-content">
-                                    {message.content}
-                                </div>
-                            </div>
+                            <>
+                                {tab === "request" ? (
+                                    <AdminProviderRequest
+                                        request={message}
+                                        key={message._id}
+                                    />
+                                ) : (
+                                    <AdminReport
+                                        report={message}
+                                        key={message._id}
+                                    />
+                                )}
+                            </>
                         ))}
                     </div>
                     <Pagination
                         count={totalPages}
                         page={page}
                         onChange={handlePageChange}
-                        variant="outlined"
-                        shape="rounded"
-                        className="admin-pagination"
+                        color="primary"
+                        size="small"
                     />
                 </div>
             </div>

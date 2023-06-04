@@ -12,7 +12,7 @@ const router = Router();
 router.get("/:id", listReviews);
 
 //? POST requests
-router.post("/:id/new", isLoggedIn, createReview);
+router.post("/:id/create", isLoggedIn, createReview);
 router.post("/:id/update", isLoggedIn, updateReview);
 
 // ? DELETE requests

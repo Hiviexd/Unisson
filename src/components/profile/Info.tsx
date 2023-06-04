@@ -32,7 +32,7 @@ export default function Info(props: { user: any }) {
                     {user?.username}
                 </Typography>
                 <ServiceType serviceType={user?.serviceType} />
-                <Calendar availability={user?.availability} />
+                <Calendar user={user} />
                 <Tooltip title={user?.rating} placement="right" arrow>
                     <div className="profile-header-rating">
                         <Rating

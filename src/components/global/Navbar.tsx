@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
+import user from "../../utils/user";
 import { useContext } from "react";
 import {
     Avatar,
@@ -9,12 +10,16 @@ import {
     Menu,
     MenuItem,
     Divider,
+    Icon,
 } from "@mui/material";
 import {
     AccountCircle,
     Settings as SettingsIcon,
     Logout as LogoutIcon,
-    Search as SearchIcon,
+    Home,
+    FormatListBulleted,
+    AdminPanelSettings,
+    ContentPasteGo,
 } from "@mui/icons-material";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -32,6 +37,7 @@ export default function Navbar() {
     const isMenuOpen = Boolean(anchorEl);
     const nonce = useContext(ProfileNonceContext);
     const notifications = useContext(NotificationsContext);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     // make background color transparet if route is "/"
     //const [isHome, setIsHome] = useState("#CB857C");
@@ -52,12 +58,17 @@ export default function Navbar() {
 
     const handleProfileClick = () => {
         handleMenuClose();
-        goTo(`/users/${login._id}`);
+        goTo(`/profile/${login._id}`);
     };
 
     const handleSettingsClick = () => {
         handleMenuClose();
         goTo(`/settings`);
+    };
+
+    const handleAdminClick = () => {
+        handleMenuClose();
+        goTo(`/admin`);
     };
 
     const handleLogout = () => {
@@ -77,6 +88,11 @@ export default function Navbar() {
 			setIsHome("#CB857C");
 		}
 	}, [window.location.pathname]);*/
+
+    useEffect(() => {
+        console.log(login.permissions);
+        console.log(user.isProvider(login));
+    }, [login]);
 
     const renderMenu = (
         <Menu
@@ -108,16 +124,22 @@ export default function Navbar() {
             }}
             open={isMenuOpen}
             onClose={handleMenuClose}>
-            <div className="welcome-text">Welcome back, {login.username}!</div>
+            <div className="welcome-text">Bonjour, {login.username}!</div>
             <Divider sx={{ margin: "5px" }} />
             <MenuItem onClick={handleProfileClick}>
-                <AccountCircle className="icon-menu" /> Profile
+                <AccountCircle className="icon-menu" /> Votre Profil
             </MenuItem>
             <MenuItem onClick={handleSettingsClick}>
-                <SettingsIcon className="icon-menu" /> Account settings
+                <SettingsIcon className="icon-menu" /> Paramètres
             </MenuItem>
+            {user.isAdmin(login) && (
+                <MenuItem onClick={handleAdminClick}>
+                    <AdminPanelSettings className="icon-menu" /> Page Admin
+                </MenuItem>
+            )}
             <MenuItem onClick={handleLogout}>
-                <LogoutIcon className="icon-menu" color="inherit" /> Log out
+                <LogoutIcon className="icon-menu" color="inherit" /> Se
+                Déconnecter
             </MenuItem>
         </Menu>
     );
@@ -134,20 +156,19 @@ export default function Navbar() {
                         <p>logo</p>
                     </Link>
                     <Link to="/" className="button">
-                        Home
+                        <Home className="icon-navbar" />
+                        Acceuil
                     </Link>
                     <Link to="/listing" className="button">
-                        Listing
+                        <FormatListBulleted className="icon-navbar" />
+                        Services
                     </Link>
-                    <Link to="/about" className="button">
-                        About
-                    </Link>
-                    <IconButton
-                        size="large"
-                        aria-label="search"
-                        color="inherit">
-                        <SearchIcon /*onClick={handleSearchToggle}*/ />
-                    </IconButton>
+                    {!user.isProvider(login) ? (
+                        <Link to="/about" className="button">
+                            <ContentPasteGo className="icon-navbar" />
+                            Partagez Vos Services
+                        </Link>
+                    ) : null}
                 </div>
                 {!login.authenticated ? (
                     <div className="navbar-right">
@@ -155,13 +176,13 @@ export default function Navbar() {
                             reloadDocument
                             to="/signup"
                             className="button signup">
-                            SIGN UP
+                            S'INSCRIRE
                         </Link>
                         <Link
                             reloadDocument
                             to="/login"
                             className="button login">
-                            LOGIN
+                            CONNECTER
                         </Link>
                     </div>
                 ) : (
@@ -193,9 +214,7 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleMenuOpen}
                             color="inherit">
-                            <Avatar
-                                src={`/api/assets/avatar/${login._id}?nonce=${nonce.string}`}
-                            />
+                            <Avatar src={`/api/assets/avatar/${login._id}`} />
                         </IconButton>
                         {renderMenu}
                     </div>

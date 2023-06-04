@@ -1,0 +1,53 @@
+.message-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 80%;
+    height: fit-content;
+    padding: 1em 2em;
+    margin-bottom: 1em;
+    margin-right: 0 !important;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.025);
+        box-shadow: 0 0 10px 0 rgba(41, 41, 41, 0.5);
+        cursor: pointer;
+    }
+
+    .message-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+
+        .avatar {
+            width: 40px;
+            height: auto;
+            border-radius: 50%;
+            background-color: #000000;
+            margin: 0 1em 0 0;
+            box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+        }
+    }
+
+    .message-status {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        margin: 0 0 0 1em;
+
+        .message-status-icon {
+            margin: 0 0.25em 0 0.25em;
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }
+}

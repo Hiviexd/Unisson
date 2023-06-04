@@ -1,8 +1,7 @@
-import { Response } from "express";
 import { users } from "../../database";
 import { LoggerConsumer } from "./LoggerConsumer";
 
-export default async (userId: string, res: Response) => {
+export default async (userId: string) => {
     const logger = new LoggerConsumer("promoteUser");
 
     logger.printInfo(`Promoting user ${userId} to provider`);
@@ -11,33 +10,18 @@ export default async (userId: string, res: Response) => {
 
     if (!user) {
         logger.printError("User not found");
-        return res.status(404).send({
-            status: 404,
-            message: "User not found",
-        });
+        return;
     }
 
     if (user.permissions.includes("provider")) {
         logger.printError("User is already a provider");
-        return res.status(400).send({
-            status: 400,
-            message: "User is already a provider",
-        });
+        return;
     }
 
-    const newPerms = [...user.permissions, "provider"];
+    user.permissions = [...user.permissions, "provider"];
+    user.hidden = false;
 
-    const updatedUser = await users.findOneAndUpdate(
-        { _id: userId },
-        { permissions: newPerms, hidden: false },
-        { new: true }
-    );
+    await user.save();
 
     logger.printSuccess(`User ${user.username} (${userId}) promoted!`);
-
-    return res.status(200).send({
-        status: 200,
-        message: "User promoted to provider!",
-        data: updatedUser,
-    });
 };

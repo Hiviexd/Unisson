@@ -1,17 +1,20 @@
 import { Pagination } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Review from "./Review";
 import LoadingPage from "../../pages/LoadingPage";
 import ErrorPage from "../../pages/ErrorPage";
-import CreateReviewButton from "./CreateReviewButton";
+import ReviewCreate from "../dialogs/ReviewCreate";
+
+import { AuthContext } from "../../providers/AuthContext";
 
 import "./../../styles/components/profile/ReviewListing.scss";
 
 export default function ReviewListing(props: { userId: string }) {
     const userId = props.userId;
-    const [reviews, setReviews] = useState([]);
+    const [reviews, setReviews] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const { login } = useContext(AuthContext);
 
     function refreshReviews() {
         fetch(`/api/reviews/${userId}?page=${page}`)
@@ -33,26 +36,27 @@ export default function ReviewListing(props: { userId: string }) {
 
     if (reviews === null)
         return (
-            <>
+            <div className="profile-body-reviews">
                 <LoadingPage />
-            </>
-        );
-
-    if (reviews.length === 0)
-        return (
-            <>
-                <ErrorPage text="No reviews yet..." />
-            </>
+            </div>
         );
 
     return (
         <div className="profile-body-reviews">
-            <CreateReviewButton user={userId} />
-            <div className="profile-body-reviews-list">
-                {reviews.map((review: any) => (
-                    <Review key={review._id} review={review} />
-                ))}
-            </div>
+            {login.authenticated && <ReviewCreate userId={userId} />}
+            {reviews.length === 0 ? (
+                <ErrorPage text="No reviews yet..." />
+            ) : (
+                <div className="profile-body-reviews-list">
+                    {reviews.map((review: any) => (
+                        <Review
+                            key={review._id}
+                            loggedInUser={login}
+                            review={review}
+                        />
+                    ))}
+                </div>
+            )}
             <div className="profile-body-reviews-pagination">
                 <Pagination
                     count={totalPages}

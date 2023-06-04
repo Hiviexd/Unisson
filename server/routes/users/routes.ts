@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { isLoggedIn, isProvider } from "../../middlewares";
 import getUser from "./getUser";
 import registerUser from "./registerUser";
 import authenticateUser from "./authenticateUser";
@@ -16,6 +17,6 @@ router.get("/listing/get", listUsers);
 //? POST requests
 router.post("/register", registerUser);
 router.post("/login", authenticateUser);
-router.post("/availability", updateAvailability);
+router.post("/availability", isLoggedIn, isProvider, updateAvailability);
 
 export const userRouter = router;

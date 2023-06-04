@@ -16,20 +16,27 @@
     .button {
         margin-right: 10px;
         text-decoration: none;
-        color: #E6E6E6;
+        color: #44576D;
+        background-color: #E6E6E6;
         transition: 0.1s ease-in-out;
         font-size: 1.1rem;
         line-height: 40px;
         padding: 0 20px;
         border-radius: 5px;
+        display: flex;
+        align-items: center;
+
+        .icon-navbar {
+            margin-right: 5px;
+        }
 
         &:visited {
-            color: #E6E6E6;
+            color: #44576D;
+
         }
 
         &:hover {
-            background-color: #E6E6E6;
-            color: #44576D;
+            background-color: darken(#E6E6E6, 10%)
         }
     }
 

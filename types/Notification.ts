@@ -3,5 +3,8 @@ export interface Notification {
     target: string;
     content: string;
     createdAt: Date;
-    extra: [key: any];
+    extra?: {
+        icon?: string;
+        redirect?: string;
+    };
 }

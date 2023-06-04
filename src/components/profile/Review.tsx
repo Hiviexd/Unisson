@@ -1,11 +1,15 @@
-import { Typography, Rating, Button } from "@mui/material";
-import { Warning, Edit, Delete } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { Typography, Rating } from "@mui/material";
+
+import ReviewDelete from "../dialogs/ReviewDelete";
+import ReviewUpdate from "../dialogs/ReviewUpdate";
+import ReviewReport from "../dialogs/ReviewReport";
+
+import user from "../../utils/user";
 
 import "./../../styles/components/profile/Review.scss";
 
-export default function Review(props: { review: any }) {
-    const review = props.review;
+export default function Review(props: { loggedInUser: any; review: any }) {
+    const { loggedInUser, review } = props;
 
     return (
         <div className="profile-body-review">
@@ -34,6 +38,7 @@ export default function Review(props: { review: any }) {
             </div>
             <div className="profile-body-review-body">
                 <Typography
+                    className="text-display"
                     gutterBottom
                     color={review?.comment ? "text.primary" : "text.secondary"}
                     component="div">
@@ -42,30 +47,14 @@ export default function Review(props: { review: any }) {
             </div>
             <div className="profile-body-review-footer">
                 <div className="review-buttons">
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        color="error"
-                        startIcon={<Warning />}>
-                        Report
-                    </Button>
-                    <div className="user-buttons">
-                        <Button
-                            variant="contained"
-                            size="small"
-                            color="error"
-                            startIcon={<Delete />}>
-                            Delete
-                        </Button>
-                        <Button
-                            className="edit-button"
-                            variant="contained"
-                            size="small"
-                            color="primary"
-                            startIcon={<Edit />}>
-                            Edit
-                        </Button>
-                    </div>
+                    <ReviewReport review={review} />
+                    {(loggedInUser._id === review.posterId ||
+                        user.isAdmin(loggedInUser)) && (
+                        <div className="user-buttons">
+                            <ReviewDelete review={review} />
+                            <ReviewUpdate review={review} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

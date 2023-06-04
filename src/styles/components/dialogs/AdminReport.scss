@@ -1,0 +1,14 @@
+.report-message-card {
+    width: 90%;
+
+    .empty {
+        width: 115%;
+    }
+
+    // https://stackoverflow.com/questions/35351706/how-to-render-a-multi-line-text-string-in-react
+    .text-display {
+        white-space: pre-line;
+        text-align: left;
+    }
+
+}

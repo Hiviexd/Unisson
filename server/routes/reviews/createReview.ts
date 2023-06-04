@@ -10,6 +10,8 @@ export default async (req: Request, res: Response) => {
 
     logger.printInfo(`Creating review for user ${req.params.id}`);
 
+    const { rating, comment } = req.body;
+
     const user = await users.findOne({ _id: req.params.id });
 
     if (!user) {
@@ -46,14 +48,14 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    if (!req.body.rating) {
+    if (!rating) {
         logger.printError(`Rating not found!`);
 
         return res.status(400).send({
             status: 400,
             message: "Rating not found!",
         });
-    } else if (typeof req.body.rating != "number") {
+    } else if (typeof rating != "number") {
         logger.printError(`Rating is not a number!`);
 
         return res.status(400).send({
@@ -62,7 +64,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    if (req.body.rating < 1 || req.body.rating > 5) {
+    if (rating < 1 || rating > 5) {
         logger.printError(`Rating is not between 1 and 5!`);
 
         return res.status(400).send({
@@ -71,7 +73,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    if (req.body.comment && typeof req.body.comment != "string") {
+    if (comment && typeof comment != "string") {
         logger.printError(`Comment is not a string!`);
 
         return res.status(400).send({
@@ -85,8 +87,8 @@ export default async (req: Request, res: Response) => {
         profileId: req.params.id,
         posterId: poster._id,
         posterName: poster.username,
-        rating: req.body.rating,
-        comment: req.body.comment,
+        rating: rating,
+        comment: comment,
         createdAt: new Date(),
         updatedAt: new Date(),
     };

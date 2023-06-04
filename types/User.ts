@@ -12,7 +12,7 @@ export interface User extends UserCompact {
     description?: string;
     phone?: string;
     location?: string;
-    permissions: UserPermissions[];
+    permissions: string[];
     serviceType?: ServiceType;
     availability?: Date[];
     rating?: number;
