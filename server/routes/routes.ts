@@ -6,7 +6,7 @@ import { galleryRouter } from "./gallery/routes";
 import { reviewsRouter } from "./reviews/routes";
 import { adminRouter } from "./admin/routes";
 import { notificationsRouter } from "./notifications/routes";
-import { isAdmin } from "../middlewares";
+import { collabRouter } from "./collabs/routes";
 
 const router = Router();
 
@@ -17,5 +17,6 @@ router.use("/gallery", galleryRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/admin", adminRouter);
 router.use("/notifications", notificationsRouter);
+router.use("/collabs", collabRouter);
 
 export const routes = router;

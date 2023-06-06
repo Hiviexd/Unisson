@@ -70,7 +70,7 @@ export default function listing() {
                     ) : (
                         <div className="listing-profiles">
                             {users.map((user) => {
-                                return <ProfileSelector user={user} />;
+                                return <ProfileSelector user={user} key={user._id} />;
                             })}
                         </div>
                     )}

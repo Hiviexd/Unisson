@@ -8,9 +8,12 @@ import { useNavigate } from "react-router-dom";
 import {
     KeyboardDoubleArrowRight,
     Delete,
+    Warning,
+    Announcement,
     Notifications,
     Check,
 } from "@mui/icons-material";
+import { Icon } from "@mui/material";
 
 export default function NotificationsSidebar() {
     const context = useContext(NotificationsContext);
@@ -21,11 +24,11 @@ export default function NotificationsSidebar() {
         navigate(path);
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         fetchNotifications();
 
         setInterval(fetchNotifications, 15000);
-    }, []);*/
+    }, []);
 
     function fetchNotifications() {
         fetch(`/api/notifications`, {
@@ -56,13 +59,12 @@ export default function NotificationsSidebar() {
                     context.notifications?.filter((n) => n._id != data._id)
                 );
 
-                console.log(ev.target.className);
-
                 if (
                     data.extra.redirect &&
                     ev.target.className == "notification"
                 ) {
                     goTo(data.extra.redirect);
+                    handleClose();
                 }
             });
     }
@@ -103,10 +105,6 @@ export default function NotificationsSidebar() {
             <div className="container">
                 <div className="title">
                     Notifications{" "}
-                    {/*<FontAwesomeIcon
-                        onClick={handleClose}
-                        icon={icons.faArrowRightFromBracket}
-                    />*/}
                     <KeyboardDoubleArrowRight
                         onClick={handleClose}
                         className="close-icon"
@@ -124,13 +122,17 @@ export default function NotificationsSidebar() {
                         : context.notifications.map((notification) => {
                               return (
                                   <div
+                                      key={generateComponentKey(20)}
                                       className={"notification"}
                                       onClick={(ev) => {
                                           deleteNotification(notification, ev);
                                       }}>
                                       <div className="content-container">
                                           <div className="icon">
-                                              <Notifications />
+                                              <Icon>
+                                                  {notification.extra?.icon ||
+                                                      "notifications"}
+                                              </Icon>
                                           </div>
                                           <p className="content">
                                               {notification.content}

@@ -28,18 +28,19 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    /*if (message.status !== "pending") {
+    if (message.status !== "pending") {
         logger.printError("Message already responded");
         return res.status(400).send({
             status: 400,
             message: "Message already responded",
         });
-    }*/
+    }
 
     message.status = status;
     message.response = response;
     await message.save();
 
+    // promote user if message is accepted
     if (message.type === "request" && status === "accepted") {
         await promoteUser(message.userId);
     }

@@ -29,18 +29,15 @@ export default new Schema({
         type: String,
         enum: ["photographe", "salle", "traiteur", "band"],
     },
-    collaborators: [
-        {
-            userId: String,
-            confirmed: {
-                type: Boolean,
-                default: false,
-            },
-        },
-    ],
     hidden: {
         type: Boolean,
         default: true,
+    },
+    socials: {
+        facebook: String,
+        instagram: String,
+        twitter: String,
+        youtube: String,
     },
     rating: Number,
     availability: [Date],

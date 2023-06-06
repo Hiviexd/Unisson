@@ -43,7 +43,9 @@ export default function ReviewListing(props: { userId: string }) {
 
     return (
         <div className="profile-body-reviews">
-            {login.authenticated && <ReviewCreate userId={userId} />}
+            {login.authenticated && login._id !== userId && (
+                <ReviewCreate userId={userId} />
+            )}
             {reviews.length === 0 ? (
                 <ErrorPage text="No reviews yet..." />
             ) : (

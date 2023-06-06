@@ -16,15 +16,15 @@ export interface User extends UserCompact {
     serviceType?: ServiceType;
     availability?: Date[];
     rating?: number;
-    collaborators?: PostUser[];
     hidden: boolean;
+    socials?: {
+        facebook?: string;
+        instagram?: string;
+        twitter?: string;
+        youtube?: string;
+    };
 }
 
 export type UserPermissions = "admin" | "provider" | "user";
 
 export type ServiceType = "photographe" | "salle" | "traiteur" | "band";
-
-export interface PostUser {
-    userId: string;
-    confirmed: boolean;
-}

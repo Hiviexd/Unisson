@@ -5,15 +5,16 @@ import Review from "./schemas/Review";
 import Gallery from "./schemas/Gallery";
 import Notification from "./schemas/Notification";
 import AdminMessage from "./schemas/AdminMessage";
+import Collab from "./schemas/Collab";
 
 import { User as IUser } from "../types/User";
 import { Review as IReview } from "../types/Review";
 import { AdminMessage as IAdminMessage } from "../types/AdminMessage";
+import { Collab as ICollab } from "../types/Collab";
 
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
 import paginate from "mongoose-paginate-v2";
-//import { UpdateOwner } from "../server/functions/UpdateOwner";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ interface UserDocument extends mongoose.Document<IUser> {}
 User.plugin(paginate);
 Review.plugin(paginate);
 AdminMessage.plugin(paginate);
+Collab.plugin(paginate);
 
 export const users = mongoose.model<
     IUser,
@@ -53,6 +55,11 @@ export const adminMessages = mongoose.model<
     IAdminMessage,
     mongoose.PaginateModel<IAdminMessage, UserDocument>
 >("AdminMessage", AdminMessage);
+
+export const collabs = mongoose.model<
+    ICollab,
+    mongoose.PaginateModel<ICollab, UserDocument>
+>("Collab", Collab);
 
 export const galleries = mongoose.model("Gallery", Gallery);
 

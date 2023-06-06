@@ -2,15 +2,9 @@ import { ContentPasteGo } from "@mui/icons-material";
 
 import "./../../styles/components/profile/ProviderButton.scss";
 
-export default function ProviderButton(props: { user: any }) {
-    const user = props.user;
-
-    const handleClick = () => {
-        console.log("provider request");
-    };
-
+export default function ProviderButton() {
     return (
-        <div className="provider-button" onClick={handleClick}>
+        <div className="provider-button">
             <ContentPasteGo className="provider-icon" />
             Become a provider
         </div>

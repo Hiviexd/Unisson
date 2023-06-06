@@ -48,13 +48,16 @@ export default function Review(props: { loggedInUser: any; review: any }) {
             <div className="profile-body-review-footer">
                 <div className="review-buttons">
                     <ReviewReport review={review} />
-                    {(loggedInUser._id === review.posterId ||
-                        user.isAdmin(loggedInUser)) && (
-                        <div className="user-buttons">
+
+                    <div className="user-buttons">
+                        {(loggedInUser._id === review.posterId ||
+                            user.isAdmin(loggedInUser)) && (
                             <ReviewDelete review={review} />
+                        )}
+                        {loggedInUser._id === review.posterId && (
                             <ReviewUpdate review={review} />
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

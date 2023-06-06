@@ -16,13 +16,7 @@ export const NotificationsContext = createContext<INotificationsContext>({
 
 const NotificationsProvider = ({ children }: any) => {
     const [open, setOpen] = useState(false);
-    const [notifications, setNotifications] = useState([
-        {
-            _id: "1",
-            content: "This is a test notification",
-            date: new Date(),
-        },
-    ]);
+    const [notifications, setNotifications] = useState([{}]);
 
     return (
         <NotificationsContext.Provider

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
 import { useSnackbar } from "notistack";
@@ -24,6 +24,7 @@ export default function AdminProviderRequest(props: { request: any }) {
 
     const [open, setOpen] = useState(false);
     const [response, setResponse] = useState(request.response);
+    const [user, setUser] = useState({} as any);
 
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
@@ -98,6 +99,31 @@ export default function AdminProviderRequest(props: { request: any }) {
             });
     };
 
+    useEffect(() => {
+        fetch(`/api/users/${request.userId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: login.accountToken,
+            },
+        })
+            .then((r) => r.json())
+            .then((r) => {
+                if (r.status !== 200) {
+                    enqueueSnackbar(r.message, {
+                        variant: "error",
+                    });
+                    return;
+                }
+
+                setUser(r.data);
+            });
+    }, []);
+
+    const phoneNumber = (num: number) => {
+        return num.toString().replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
+    };
+
     return (
         <div className="report-message-card">
             <div className="empty" onClick={handleClickOpen}>
@@ -118,6 +144,16 @@ export default function AdminProviderRequest(props: { request: any }) {
                         marginBottom={1}
                         id="admin-request-dialog-requester">
                         Requester: {<b>{request.username}</b>}
+                    </DialogContentText>
+                    <DialogContentText
+                        marginBottom={1}
+                        id="admin-request-dialog-requester">
+                        E-mail: {<b>{user?.email}</b>}
+                    </DialogContentText>
+                    <DialogContentText
+                        marginBottom={1}
+                        id="admin-request-dialog-requester">
+                        Phone: {<b>+216 {user?.phone}</b>}
                     </DialogContentText>
                     <DialogContentText id="admin-request-dialog-reason">
                         Message:
