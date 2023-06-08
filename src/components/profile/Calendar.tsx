@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import MultipleDatesPicker from "@ambiot/material-ui-multiple-dates-picker";
-import { IconButton } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import { CalendarMonth } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import { AuthContext } from "../../providers/AuthContext";
@@ -17,7 +17,6 @@ export default function Calendar(props: { user: any }) {
     const [selectedDates, setSelectedDates] = useState<Date[]>(availability);
 
     function handleUpdateAvailability(dates: Date[]) {
-        console.log(dates);
         fetch(`/api/users/availability`, {
             method: "POST",
             headers: {
@@ -55,9 +54,12 @@ export default function Calendar(props: { user: any }) {
 
     return (
         <div className="profile-date-button">
-            <IconButton onClick={handleOpen}>
+            {/*<IconButton onClick={handleOpen}>
                 <CalendarMonth />
-            </IconButton>
+    </IconButton>*/}
+            <Button startIcon={<CalendarMonth />} onClick={handleOpen}>
+                Calendrier
+            </Button>
             <MultipleDatesPicker
                 open={open}
                 onSubmit={(dates) => {

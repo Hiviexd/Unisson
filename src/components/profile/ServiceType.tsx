@@ -1,10 +1,5 @@
 import { Typography } from "@mui/material";
-import {
-    CameraAlt,
-    LibraryMusic,
-    Restaurant,
-    MeetingRoom,
-} from "@mui/icons-material";
+import { CameraAlt, LibraryMusic, Restaurant, MeetingRoom } from "@mui/icons-material";
 
 import text from "./../../utils/text";
 import "./../../styles/components/profile/ServiceType.scss";
@@ -18,9 +13,13 @@ export default function ServiceType(props: { serviceType: string }) {
                 return <CameraAlt className="icon-color" />;
             case "traiteur":
                 return <Restaurant className="icon-color" />;
-            case "bande":
+            case "bande": //! FIXME remove after db reset
+                return <LibraryMusic className="icon-color" />;
+            case "band":
                 return <LibraryMusic className="icon-color" />;
             case "espace":
+                return <MeetingRoom className="icon-color" />;
+            case "salle":
                 return <MeetingRoom className="icon-color" />;
             default:
                 return <></>;

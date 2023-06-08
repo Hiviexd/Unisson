@@ -8,6 +8,7 @@ export default new Schema({
         {
             userId: String,
             username: String,
+            rating: Number,
             serviceType: {
                 type: String,
                 enum: ["photographe", "salle", "traiteur", "band"],

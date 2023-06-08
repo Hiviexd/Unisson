@@ -6,11 +6,12 @@ import NotificationsSidebar from "../components/global/NotificationsSidebar";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
 import Description from "../components/profile/Description";
-import ProfileSelector from "../components/global/listing/ProfileSelector";
+import CollabUserSelector from "../components/collab/CollabUserSelector";
 
 import { Typography } from "@mui/material";
+import { LocalOffer } from "@mui/icons-material";
 
-//import "./../styles/pages/Collab.scss";
+import "./../styles/pages/Collab.scss";
 
 export default function Collab() {
     const { id } = useParams();
@@ -22,6 +23,7 @@ export default function Collab() {
             .then((res) => res.json())
             .then((data) => {
                 setCollab(data.data);
+                setUsers(data.data.users);
             });
     }, [id]);
 
@@ -50,14 +52,19 @@ export default function Collab() {
             <div className="collab-layout">
                 <div className="collab">
                     <div className="collab-header">
-                        <Typography variant="h4" component="div">
+                        <LocalOffer className="collab-icon" />
+                        <Typography
+                            variant="h4"
+                            component="div"
+                            className="collab-name"
+                            margin={"auto"}>
                             {collab.name}
                         </Typography>
-                        <div className="collab-header-users">
-                            {users.map((user) => {
-                                return <ProfileSelector user={user} key={user._id} />;
-                            })}
-                        </div>
+                    </div>
+                    <div className="collab-users">
+                        {users?.map((user) => {
+                            return <CollabUserSelector user={user} key={user._id} />;
+                        })}
                     </div>
                     <div className="collab-body">
                         <Description desc={collab.description} />

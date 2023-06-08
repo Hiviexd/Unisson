@@ -35,8 +35,9 @@ export default async (req: Request, res: Response) => {
             serviceType: user.serviceType,
             rating: user.rating,
             availability: user.availability,
-            collaborators: user.collaborators,
             hidden: user.hidden,
+            location: user.location,
+            socials: user.socials,
         },
     });
 };

@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 
-import "./../../styles/components/profile/Description.scss";
+import "./../../styles/components/collab/CollabDescription.scss";
 
-export default function Description(props: { desc: string }) {
+export default function CollabDescription(props: { desc: string }) {
     const desc = props.desc;
     return (
-        <div className="profile-body-card">
+        <div className="collab-description">
             <Typography gutterBottom variant="h5" component="div">
                 Description
             </Typography>

@@ -9,6 +9,8 @@ export default async (req: Request, res: Response) => {
     let offset = Number(req.query.page) || 1;
     const search = (req.query.search || "").toString().trim() || "";
     const serviceType = (req.query.service || "").toString().trim() || "";
+    const location = (req.query.location || "").toString().trim() || "";
+    const rating = (Number(req.query.rating) || undefined) as number | undefined;
     const maxPerPage = 20;
 
     const result = await users.paginate(
@@ -22,9 +24,17 @@ export default async (req: Request, res: Response) => {
                   serviceType: { $in: serviceType.split(",") },
                   hidden: false,
               }
-            : {
+            : location != undefined && location != ""
+            ? {
+                  location: { $in: location.split(",") },
                   hidden: false,
-              },
+              }
+            : rating != undefined && rating != 0
+            ? {
+                  rating: { $gte: rating - 1, $lte: rating + 1 },
+                  hidden: false,
+              }
+            : { hidden: false },
         {
             limit: maxPerPage,
             page: offset,

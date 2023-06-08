@@ -1,8 +1,8 @@
 import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
 
-import ProfileSelector from "../components/global/listing/ProfileSelector";
-import Search from "../components/global/listing/Search";
+import ProfileSelector from "../components/listing/ProfileSelector";
+import Search from "../components/listing/Search";
 import LoadingPage from "./LoadingPage";
 import ErrorPage from "./ErrorPage";
 
@@ -14,22 +14,6 @@ export default function listing() {
     const [users, setUsers] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-
-    /*const testUser = {
-        _id: "43f836617c",
-        username: "Achraf Maalel Photographie",
-        email: "johndoe@gmail.com",
-        bio: "Contact me to schedule your session and let's create something beautiful together!",
-        phone: 97123456,
-        permissions: ["provider", "user"],
-        serviceType: "espace",
-        rating: 3.5,
-        location: "Tunis",
-    };
-
-    useEffect(() => {
-        setUser(testUser);
-    }, []);*/
 
     useEffect(() => {
         fetch(`/api/users/listing/get?page=${page}`)
@@ -64,7 +48,7 @@ export default function listing() {
             <NotificationsSidebar />
             <div className="listing-layout">
                 <div className="listing">
-                    <Search />
+                    <Search setUsers={setUsers} setTotalPages={setTotalPages} />
                     {users.length == 0 ? (
                         <ErrorPage text="There's no results for your search..." />
                     ) : (

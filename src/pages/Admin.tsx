@@ -80,7 +80,7 @@ export default function Admin() {
                                 getMessages("request");
                             }}>
                             <ContentPasteGo className="icon" />
-                            <span>Requests</span>
+                            <span>Demandes Fournisseur</span>
                         </div>
                         <div
                             className={`admin-pagination-button ${
@@ -91,22 +91,16 @@ export default function Admin() {
                                 getMessages("report");
                             }}>
                             <Report className="icon" />
-                            Reports
+                            Problèmes
                         </div>
                     </div>
                     <div className="admin-body">
                         {messages.map((message: any) => (
                             <>
                                 {tab === "request" ? (
-                                    <AdminProviderRequest
-                                        request={message}
-                                        key={message._id}
-                                    />
+                                    <AdminProviderRequest request={message} key={message._id} />
                                 ) : (
-                                    <AdminReport
-                                        report={message}
-                                        key={message._id}
-                                    />
+                                    <AdminReport report={message} key={message._id} />
                                 )}
                             </>
                         ))}

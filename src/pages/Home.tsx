@@ -1,11 +1,11 @@
 import "../styles/pages/Home.scss";
 import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
-import HomeMain from "../components/global/home/HomeMain";
-import HomeContaine from "../components/global/home/HomeContaine";
-import HomeDesc from "../components/global/home/HomeDesc";
-import HomeInfo from "../components/global/home/HomeInfo";
-import Last from "../components/global/home/Last";
+import HomeMain from "../components/home/HomeMain";
+import HomeContaine from "../components/home/HomeContaine";
+import HomeDesc from "../components/home/HomeDesc";
+import HomeInfo from "../components/home/HomeInfo";
+import Last from "../components/home/Last";
 
 export default function Home() {
     return (

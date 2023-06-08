@@ -3,15 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
 import user from "../../utils/user";
 import { useContext } from "react";
-import {
-    Avatar,
-    IconButton,
-    Badge,
-    Menu,
-    MenuItem,
-    Divider,
-    Icon,
-} from "@mui/material";
+import { Avatar, IconButton, Badge, Menu, MenuItem, Divider, Icon } from "@mui/material";
 import {
     AccountCircle,
     Settings as SettingsIcon,
@@ -138,8 +130,7 @@ export default function Navbar() {
                 </MenuItem>
             )}
             <MenuItem onClick={handleLogout}>
-                <LogoutIcon className="icon-menu" color="inherit" /> Se
-                Déconnecter
+                <LogoutIcon className="icon-menu" color="inherit" /> Se Déconnecter
             </MenuItem>
         </Menu>
     );
@@ -172,16 +163,10 @@ export default function Navbar() {
                 </div>
                 {!login.authenticated ? (
                     <div className="navbar-right">
-                        <Link
-                            reloadDocument
-                            to="/signup"
-                            className="button signup">
+                        <Link reloadDocument to="/signup" className="button signup">
                             S'INSCRIRE
                         </Link>
-                        <Link
-                            reloadDocument
-                            to="/login"
-                            className="button login">
+                        <Link reloadDocument to="/login" className="button login">
                             CONNECTER
                         </Link>
                     </div>
@@ -199,9 +184,7 @@ export default function Navbar() {
                                 <NotificationsIcon />
                             ) : (
                                 <Badge
-                                    badgeContent={
-                                        notifications?.notifications?.length
-                                    }
+                                    badgeContent={notifications?.notifications?.length}
                                     color="error">
                                     <NotificationsIcon />
                                 </Badge>
@@ -214,7 +197,7 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleMenuOpen}
                             color="inherit">
-                            <Avatar src={`/api/assets/avatar/${login._id}`} />
+                            <Avatar />
                         </IconButton>
                         {renderMenu}
                     </div>

@@ -6,12 +6,7 @@ export default async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     // ? Check if the provided data is valid
-    if (
-        !email ||
-        !password ||
-        typeof email != "string" ||
-        typeof password != "string"
-    )
+    if (!email || !password || typeof email != "string" || typeof password != "string")
         return res.status(400).send({
             status: 400,
             message: "Invalid credentials",
@@ -34,8 +29,6 @@ export default async (req: Request, res: Response) => {
             status: 400,
             message: "Invalid email or password.",
         });
-
-    console.log(user);
 
     return res.status(200).send({
         status: 200,

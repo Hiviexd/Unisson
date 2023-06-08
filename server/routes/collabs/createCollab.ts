@@ -11,12 +11,7 @@ export default async (req: Request, res: Response) => {
 
     logger.printInfo("Creating a new collab...");
 
-    if (
-        !name ||
-        !description ||
-        typeof name != "string" ||
-        typeof description != "string"
-    ) {
+    if (!name || !description || typeof name != "string" || typeof description != "string") {
         logger.printError("Process failed with code 400: Invalid credentials");
 
         return res.status(400).send({
@@ -43,6 +38,7 @@ export default async (req: Request, res: Response) => {
     let collabUsers: CollabUser[] = usersByEmail.map((user) => ({
         userId: user._id,
         username: user.username,
+        rating: user.rating,
         serviceType: user.serviceType,
         status: "pending",
     }));
@@ -50,13 +46,14 @@ export default async (req: Request, res: Response) => {
     collabUsers.unshift({
         userId: req.body.loggedInUser._id,
         username: req.body.loggedInUser.username,
+        rating: req.body.loggedInUser.rating,
         serviceType: req.body.loggedInUser.serviceType,
         status: "accepted",
     });
 
     // ? Create a new collab
     const newCollab: Collab = {
-        _id: crypto.randomBytes(16).toString("hex"),
+        _id: crypto.randomBytes(10).toString("hex"),
         name,
         description,
         users: collabUsers,

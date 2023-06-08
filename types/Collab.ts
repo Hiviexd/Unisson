@@ -10,6 +10,7 @@ export interface Collab {
 export interface CollabUser {
     userId: string;
     username: string;
+    rating?: number;
     serviceType?: "photographe" | "salle" | "traiteur" | "band";
     status: "pending" | "accepted" | "rejected";
 }

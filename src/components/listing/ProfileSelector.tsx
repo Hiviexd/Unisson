@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Rating } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
-import text from "../../../utils/text";
+import text from "../../utils/text";
 
-import ServiceType from "./../../profile/ServiceType";
+import ServiceType from "../profile/ServiceType";
 
-import "../../../styles/components/listing/ProfileSelector.scss";
+import "../../styles/components/listing/ProfileSelector.scss";
 
 export default function ProfileSelector(props: { user: any }) {
     const user = props.user;
@@ -31,11 +31,7 @@ export default function ProfileSelector(props: { user: any }) {
                 />
             </div>
             <div className="profile-selector-text">
-                <Typography
-                    gutterBottom
-                    variant="h6"
-                    component="div"
-                    className="title">
+                <Typography gutterBottom variant="h6" component="div" className="title">
                     {user?.username}
                 </Typography>
                 <Rating

@@ -14,8 +14,6 @@ export default async (req: Request, res: Response) => {
 
     logger.printInfo("Registering a new user...");
 
-    console.log(req.body);
-
     // ? Check if the provided data is valid
     if (
         !email ||
@@ -55,9 +53,7 @@ export default async (req: Request, res: Response) => {
         .spaces(0, "Password cannot contain spaces");
 
     if (!passwordSchema.validate(password)) {
-        logger.printError(
-            "Process failed with code 400: Invalid password format"
-        );
+        logger.printError("Process failed with code 400: Invalid password format");
 
         return res.status(400).send({
             status: 400,
@@ -72,9 +68,7 @@ export default async (req: Request, res: Response) => {
     });
 
     if (user) {
-        logger.printError(
-            "Process failed with code 403: account already exists!"
-        );
+        logger.printError("Process failed with code 403: account already exists!");
 
         return res.status(403).send({
             status: 403,
@@ -124,10 +118,9 @@ export default async (req: Request, res: Response) => {
             _id: createdUser._id,
             username: createdUser.username,
             email: createdUser.email,
-            bio: createdUser.bio,
-            phone: createdUser.phone,
             accountToken: createdUser.accountToken,
             authenticated: true,
+            permissions: createdUser.permissions,
         },
     });
 };
