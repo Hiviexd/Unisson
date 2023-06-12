@@ -6,12 +6,13 @@ import { useContext } from "react";
 import { Avatar, IconButton, Badge, Menu, MenuItem, Divider, Icon } from "@mui/material";
 import {
     AccountCircle,
-    Settings as SettingsIcon,
     Logout as LogoutIcon,
     Home,
     FormatListBulleted,
-    AdminPanelSettings,
     ContentPasteGo,
+    Report,
+    Edit,
+    PeopleAlt,
 } from "@mui/icons-material";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -58,9 +59,19 @@ export default function Navbar() {
         goTo(`/settings`);
     };
 
-    const handleAdminClick = () => {
+    const handleRequestsClick = () => {
         handleMenuClose();
-        goTo(`/admin`);
+        goTo(`/requests`);
+    };
+
+    const handleReportsClick = () => {
+        handleMenuClose();
+        goTo(`/reports`);
+    };
+
+    const handleUsersListClick = () => {
+        handleMenuClose();
+        goTo(`/admin/users`);
     };
 
     const handleLogout = () => {
@@ -81,10 +92,10 @@ export default function Navbar() {
 		}
 	}, [window.location.pathname]);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log(login.permissions);
         console.log(user.isProvider(login));
-    }, [login]);
+    }, [login]);*/
 
     const renderMenu = (
         <Menu
@@ -122,16 +133,27 @@ export default function Navbar() {
                 <AccountCircle className="icon-menu" /> Votre Profil
             </MenuItem>
             <MenuItem onClick={handleSettingsClick}>
-                <SettingsIcon className="icon-menu" /> Paramètres
+                <Edit className="icon-menu" /> Modifier Profil
             </MenuItem>
-            {user.isAdmin(login) && (
-                <MenuItem onClick={handleAdminClick}>
-                    <AdminPanelSettings className="icon-menu" /> Page Admin
-                </MenuItem>
-            )}
             <MenuItem onClick={handleLogout}>
                 <LogoutIcon className="icon-menu" color="inherit" /> Se Déconnecter
             </MenuItem>
+            <Divider sx={{ margin: "5px" }} />
+            <div className="welcome-text">Pages Admin</div>
+            <Divider sx={{ margin: "5px" }} />
+            {user.isAdmin(login) && (
+                <>
+                    <MenuItem onClick={handleRequestsClick}>
+                        <ContentPasteGo className="icon-menu" /> Demandes
+                    </MenuItem>
+                    <MenuItem onClick={handleReportsClick}>
+                        <Report className="icon-menu" /> Signalements
+                    </MenuItem>
+                    <MenuItem onClick={handleUsersListClick}>
+                        <PeopleAlt className="icon-menu" /> Utilisateurs
+                    </MenuItem>
+                </>
+            )}
         </Menu>
     );
 
@@ -154,12 +176,6 @@ export default function Navbar() {
                         <FormatListBulleted className="icon-navbar" />
                         Services
                     </Link>
-                    {!user.isProvider(login) ? (
-                        <Link to="/about" className="button">
-                            <ContentPasteGo className="icon-navbar" />
-                            Partagez Vos Services
-                        </Link>
-                    ) : null}
                 </div>
                 {!login.authenticated ? (
                     <div className="navbar-right">
@@ -197,7 +213,7 @@ export default function Navbar() {
                             aria-haspopup="true"
                             onClick={handleMenuOpen}
                             color="inherit">
-                            <Avatar />
+                            <Avatar src={`/api/assets/avatar/${login._id}`} />
                         </IconButton>
                         {renderMenu}
                     </div>

@@ -17,14 +17,12 @@ import ProviderButton from "../profile/ProviderButton";
 
 import { Send } from "@mui/icons-material";
 
-export default function ProviderRequest(props: { navbar?: boolean }) {
+export default function ProviderRequest() {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState("");
 
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
-
-    const navbar = props.navbar;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,7 +57,7 @@ export default function ProviderRequest(props: { navbar?: boolean }) {
                     return;
                 }
 
-                enqueueSnackbar("Provider request sent!", {
+                enqueueSnackbar("Requête envoyée!", {
                     variant: "success",
                 });
                 setOpen(false);
@@ -78,11 +76,11 @@ export default function ProviderRequest(props: { navbar?: boolean }) {
                 maxWidth="md"
                 aria-labelledby="provider-request-dialog-title"
                 aria-describedby="provider-request-dialog-description">
-                <DialogTitle id="provider-request-dialog-title">Provider Request</DialogTitle>
+                <DialogTitle id="provider-request-dialog-title">Requête de fournisseur</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="provider-request-dialog-description">
-                        Use this form to request to become a provider. Please be sure to include as
-                        much detail as possible.
+                        Utilisez ce formulaire pour demander à devenir fournisseur. Veuillez vous
+                        assurer d'inclure le plus de détails possible dans votre message.
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -98,10 +96,10 @@ export default function ProviderRequest(props: { navbar?: boolean }) {
                 </DialogContent>
                 <DialogActions>
                     <Button color="error" onClick={handleClose}>
-                        Cancel
+                        Annuler
                     </Button>
                     <Button variant="contained" onClick={handleSubmit} endIcon={<Send />}>
-                        Submit
+                        Envoyer
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -5,7 +5,7 @@ import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
-import Description from "../components/profile/Description";
+import CollabDescription from "../components/collab/CollabDescription";
 import CollabUserSelector from "../components/collab/CollabUserSelector";
 
 import { Typography } from "@mui/material";
@@ -67,7 +67,7 @@ export default function Collab() {
                         })}
                     </div>
                     <div className="collab-body">
-                        <Description desc={collab.description} />
+                        <CollabDescription desc={collab.description} />
                     </div>
                 </div>
             </div>

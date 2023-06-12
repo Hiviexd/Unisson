@@ -11,6 +11,7 @@ import { User as IUser } from "../types/User";
 import { Review as IReview } from "../types/Review";
 import { AdminMessage as IAdminMessage } from "../types/AdminMessage";
 import { Collab as ICollab } from "../types/Collab";
+import { Gallery as IGallery } from "../types/Gallery";
 
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
@@ -29,9 +30,7 @@ mongoose
         logger.printSuccess("Database connected!");
     })
     .catch((err) => {
-        return logger.printError(
-            "An error has occurred:\n".concat(err.message)
-        );
+        return logger.printError("An error has occurred:\n".concat(err.message));
     });
 
 interface UserDocument extends mongoose.Document<IUser> {}
@@ -41,26 +40,26 @@ Review.plugin(paginate);
 AdminMessage.plugin(paginate);
 Collab.plugin(paginate);
 
-export const users = mongoose.model<
-    IUser,
-    mongoose.PaginateModel<IUser, UserDocument>
->("User", User);
+export const users = mongoose.model<IUser, mongoose.PaginateModel<IUser, UserDocument>>(
+    "User",
+    User
+);
 
-export const reviews = mongoose.model<
-    IReview,
-    mongoose.PaginateModel<IReview, UserDocument>
->("Review", Review);
+export const reviews = mongoose.model<IReview, mongoose.PaginateModel<IReview, UserDocument>>(
+    "Review",
+    Review
+);
 
 export const adminMessages = mongoose.model<
     IAdminMessage,
     mongoose.PaginateModel<IAdminMessage, UserDocument>
 >("AdminMessage", AdminMessage);
 
-export const collabs = mongoose.model<
-    ICollab,
-    mongoose.PaginateModel<ICollab, UserDocument>
->("Collab", Collab);
+export const collabs = mongoose.model<ICollab, mongoose.PaginateModel<ICollab, UserDocument>>(
+    "Collab",
+    Collab
+);
 
-export const galleries = mongoose.model("Gallery", Gallery);
+export const galleries = mongoose.model<IGallery>("Gallery", Gallery);
 
 export const notifications = mongoose.model("Notification", Notification);

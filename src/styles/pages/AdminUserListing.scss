@@ -1,4 +1,4 @@
-.admin-layout {
+.admin-user-layout {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +7,7 @@
     align-content: center;
     align-items: center;
 
-    .admin-page {
+    .admin-user-page {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -21,7 +21,7 @@
         background-color: #eaeaea;
         box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
 
-        .admin-header {
+        .admin-user-header {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
@@ -41,7 +41,7 @@
             }
         }
 
-        .admin-body {
+        .admin-user-body {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -51,44 +51,32 @@
             margin: 0 0 1em 0;
             width: 100%;
             border-radius: 10px;
-        }
 
-        .admin-pagination {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 1em;
-            width: 100%;
-            margin: 0 0 1em 0;
-            padding: 0 0 1em 0;
-            border-bottom: 1px solid rgba(41, 41, 41, 0.5);
-
-            .admin-pagination-button {
+            .search-bar {
+                width: 80%;
                 display: flex;
                 flex-direction: row;
-                justify-content: center;
+                justify-content: start;
                 align-content: center;
                 align-items: center;
-                font-size: 1.2em;
-                padding: 1em;
-                border-radius: 10px;
-                background-color: #f1f1f1;
-                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
-                transition: all 0.2s ease-in-out;
+                margin: 0 0 1em 0;
+                padding: 0 0 1em 0;
 
-                &:hover {
-                    cursor: pointer;
-                    background-color: darken(#f1f1f1, 5%);
+                .search-bar-input {
+                    width: 100%;
                 }
-
-
             }
 
-            .active {
-                background-color: #AAC7D8;
+            .listing-profiles {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                max-width: 80%;
+                justify-content: flex-start;
+                align-items: flex-start;
+                align-content: flex-start;
+                margin: 0 1rem 0 0;
 
-                &:hover {
-                    background-color: darken(#AAC7D8, 5%)
-                }
             }
         }
     }

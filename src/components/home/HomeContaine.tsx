@@ -10,9 +10,7 @@ export default function HomeContaine() {
                     the expertise to make it an unforgettable experience.
                 </h1>
             </div>
-            <div className="Containte-image">
-                <img src={moment} alt="Containte" />
-            </div>
+            <div className="Containte-image">{/*<img src={moment} alt="Containte" />*/}</div>
         </div>
     );
 }

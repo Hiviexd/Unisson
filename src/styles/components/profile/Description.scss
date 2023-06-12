@@ -1,21 +1,35 @@
-.profile-body-card {
+/*.profile-body-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-content: center;
     align-items: flex-start;
     height: fit-content;
-    padding: 1em;
-    margin: 0 0 1em 0;
+    padding: 0 1em 1em 1em;
     width: auto;
     text-align: left;
     border-radius: 10px;
-    background-color: #f1f1f1;
+    background-color: #eaeaea;
     box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
 
-    // https://stackoverflow.com/questions/35351706/how-to-render-a-multi-line-text-string-in-react
-    .text-display {
-        white-space: pre-line;
-        text-align: left;
-    }
-}
+    .profile-body-card-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: fit-content;
+        margin-bottom: 1em;
+        padding: 1em 0;
+        border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+        .profile-body-card-icon {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.5em;
+            color: rgba(0, 0, 0, 0.6);
+        }
+    }*/
+
+// https://stackoverflow.com/questions/35351706/how-to-render-a-multi-line-text-string-in-react

@@ -6,7 +6,7 @@ export default function ProviderButton() {
     return (
         <div className="provider-button">
             <ContentPasteGo className="provider-icon" />
-            Become a provider
+            Devenir un fournisseur
         </div>
     );
 }

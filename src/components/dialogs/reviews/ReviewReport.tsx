@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../providers/AuthContext";
+import { AuthContext } from "../../../providers/AuthContext";
 import { useSnackbar } from "notistack";
 
 import {
@@ -13,22 +13,21 @@ import {
     DialogTitle,
     Divider,
 } from "@mui/material";
-import CreateReviewButton from "../profile/CreateReviewButton";
+import CreateReviewButton from "../../profile/CreateReviewButton";
 
-import { Send } from "@mui/icons-material";
+import { Warning, Send } from "@mui/icons-material";
 
-import "./../../styles/components/dialogs/ReviewCreate.scss";
-import "./../../styles/components/profile/CreateReviewButton.scss";
+import "./../../../styles/components/dialogs/ReviewCreate.scss";
+import "./../../../styles/components/profile/CreateReviewButton.scss";
 
-export default function ReviewCreate(props: { userId: string }) {
+export default function ReviewReport(props: { review: any }) {
     const [open, setOpen] = useState(false);
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState("");
+    const [content, setContent] = useState("");
 
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
 
-    const userId = props.userId;
+    const review = props.review;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,24 +37,25 @@ export default function ReviewCreate(props: { userId: string }) {
         setOpen(false);
     };
 
-    const handleCommentChange = (e: any) => {
-        setComment(e.target.value);
-    };
-
-    const handleRatingChange = (e: any) => {
-        setRating(e.target.value);
+    const handleContentChange = (e: any) => {
+        setContent(e.target.value);
     };
 
     const handleSubmit = (e: any) => {
-        fetch(`/api/reviews/${userId}/create`, {
+        fetch(`/api/admin/messages/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: login.accountToken,
             },
             body: JSON.stringify({
-                rating: Number(rating),
-                comment,
+                type: "report",
+                reportType: "review",
+                culpritId: review.posterId,
+                culpritUsername: review.posterName,
+                content,
+                reviewId: review._id,
+                reviewContent: review.comment,
             }),
         })
             .then((r) => r.json())
@@ -67,19 +67,23 @@ export default function ReviewCreate(props: { userId: string }) {
                     return;
                 }
 
-                enqueueSnackbar("Review created!", {
+                enqueueSnackbar("Review reported!", {
                     variant: "success",
                 });
                 setOpen(false);
-                window.location.reload();
             });
     };
 
     return (
-        <div className="create-review-button">
-            <div onClick={handleClickOpen}>
-                <CreateReviewButton />
-            </div>
+        <>
+            <Button
+                variant="outlined"
+                size="small"
+                color="error"
+                startIcon={<Warning />}
+                onClick={handleClickOpen}>
+                Signaler
+            </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -87,47 +91,32 @@ export default function ReviewCreate(props: { userId: string }) {
                 maxWidth="md"
                 aria-labelledby="create-review-dialog-title"
                 aria-describedby="create-review-dialog-description">
-                <DialogTitle id="create-review-dialog-title">
-                    Create a review
-                </DialogTitle>
+                <DialogTitle id="create-review-dialog-title">Signaler un avis</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="create-review-dialog-description">
-                        Use this form to create a review!
+                        Signaler un avis pour contenu inapproprié.
                     </DialogContentText>
-                    <div className="rating">
-                        <span>Rating:</span>
-                        <Rating
-                            className="rating-stars"
-                            name="simple-controlled"
-                            precision={0.5}
-                            value={rating}
-                            onChange={handleRatingChange}
-                        />
-                    </div>
                     <TextField
                         autoFocus
                         multiline
-                        margin="none"
+                        margin="dense"
                         id="name"
                         label="Comment..."
                         type="text"
                         fullWidth
                         variant="standard"
-                        onChange={handleCommentChange}
+                        onChange={handleContentChange}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button color="error" onClick={handleClose}>
-                        Cancel
+                        Annuler
                     </Button>
-                    <Button
-                        variant="contained"
-                        onClick={handleSubmit}
-                        endIcon={<Send />}>
-                        Submit
+                    <Button variant="contained" onClick={handleSubmit} endIcon={<Send />}>
+                        Envoyer
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }

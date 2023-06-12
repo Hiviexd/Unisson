@@ -13,7 +13,7 @@ export default async (req: Request, res: Response) => {
             profileId: req.params.id,
         },
         {
-            limit: 20,
+            limit: 5,
             page: offset,
             sort: {
                 createdAt: -1,

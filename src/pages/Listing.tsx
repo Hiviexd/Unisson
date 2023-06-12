@@ -50,7 +50,7 @@ export default function listing() {
                 <div className="listing">
                     <Search setUsers={setUsers} setTotalPages={setTotalPages} />
                     {users.length == 0 ? (
-                        <ErrorPage text="There's no results for your search..." />
+                        <ErrorPage text="Pas de résultats..." />
                     ) : (
                         <div className="listing-profiles">
                             {users.map((user) => {

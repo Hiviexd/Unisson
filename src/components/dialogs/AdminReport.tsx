@@ -61,7 +61,7 @@ export default function AdminReport(props: { report: any }) {
                     return;
                 }
 
-                enqueueSnackbar("Report rejected!", {
+                enqueueSnackbar("Signalement rejeté!", {
                     variant: "success",
                 });
                 setOpen(false);
@@ -90,7 +90,7 @@ export default function AdminReport(props: { report: any }) {
                     return;
                 }
 
-                enqueueSnackbar("Report accepted!", {
+                enqueueSnackbar("Signalement accepté!", {
                     variant: "success",
                 });
                 setOpen(false);
@@ -112,29 +112,23 @@ export default function AdminReport(props: { report: any }) {
                 aria-describedby="admin-report-dialog-description">
                 <DialogTitle id="admin-report-dialog-title">
                     {report.reportType === "user"
-                        ? "User Report"
-                        : "Review Report"}
+                        ? "Signalement d'utilisateur"
+                        : "Signalement d'avis"}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText
-                        marginBottom={1}
-                        id="admin-report-dialog-reporter">
-                        Reporter: {<b>{report.username}</b>}
+                    <DialogContentText marginBottom={1} id="admin-report-dialog-reporter">
+                        Signaleur: {<b>{report.username}</b>}
                     </DialogContentText>
-                    <DialogContentText
-                        marginBottom={1}
-                        id="admin-report-dialog-reported">
-                        Reported:{" "}
-                        <Link
-                            className="link-decoration"
-                            to={`/profile/${report.culpritId}`}>
+                    <DialogContentText marginBottom={1} id="admin-report-dialog-reported">
+                        Utilisateur signalé:{" "}
+                        <Link className="link-decoration" to={`/profile/${report.culpritId}`}>
                             {report.culpritUsername}
                         </Link>
                     </DialogContentText>
                     {report.reviewContent && (
                         <>
                             <DialogContentText id="admin-report-dialog-reason">
-                                Review Content:
+                                Avis signalé:
                             </DialogContentText>
                             <Typography
                                 marginBottom={1}
@@ -144,9 +138,7 @@ export default function AdminReport(props: { report: any }) {
                             </Typography>
                         </>
                     )}
-                    <DialogContentText id="admin-report-dialog-reason">
-                        Reason:
-                    </DialogContentText>
+                    <DialogContentText id="admin-report-dialog-reason">Raison:</DialogContentText>
                     <Typography className="text-display" color="text.primary">
                         {report.content}
                     </Typography>
@@ -156,7 +148,7 @@ export default function AdminReport(props: { report: any }) {
                         disabled={report.status !== "pending"}
                         margin="dense"
                         id="name"
-                        label="Comment"
+                        label="Réponse"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -167,21 +159,21 @@ export default function AdminReport(props: { report: any }) {
                 {report.status === "pending" && (
                     <DialogActions>
                         <Button color="error" onClick={handleClose}>
-                            Cancel
+                            Annuler
                         </Button>
                         <Button
                             variant="contained"
                             endIcon={<DoDisturb />}
                             color="error"
                             onClick={handleReject}>
-                            Reject
+                            Rejeter
                         </Button>
                         <Button
                             variant="contained"
                             endIcon={<CheckCircle />}
                             color="success"
                             onClick={handleAccept}>
-                            Resolve
+                            Résoudre
                         </Button>
                     </DialogActions>
                 )}

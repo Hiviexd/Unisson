@@ -65,7 +65,7 @@ export default function Search(props: any) {
                 </Typography>
             </div>
             <div className="listing-search-input">
-                <TextField label="Search.." variant="outlined" onChange={handleSearchChange} />
+                <TextField label="Rechercher.." variant="outlined" onChange={handleSearchChange} />
                 <div className="filters">
                     <FormControl className="filter" variant="outlined">
                         <InputLabel id="state-select-label">Ville</InputLabel>

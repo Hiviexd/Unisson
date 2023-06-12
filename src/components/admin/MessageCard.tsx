@@ -25,11 +25,8 @@ export default function MessageCard(props: { message: AdminMessage }) {
                 return (
                     <>
                         <AccessTime className="message-status-icon" />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            component="div">
-                            Pending
+                        <Typography variant="body2" color="text.secondary" component="div">
+                            En attente
                         </Typography>
                     </>
                 );
@@ -37,13 +34,8 @@ export default function MessageCard(props: { message: AdminMessage }) {
                 return (
                     <>
                         <CheckCircle className="message-status-icon" />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            component="div">
-                            {message.type === "request"
-                                ? "Accepted"
-                                : "Resolved"}
+                        <Typography variant="body2" color="text.secondary" component="div">
+                            {message.type === "request" ? "Accepté" : "Traité"}
                         </Typography>
                     </>
                 );
@@ -51,11 +43,8 @@ export default function MessageCard(props: { message: AdminMessage }) {
                 return (
                     <>
                         <Cancel className="message-status-icon" />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            component="div">
-                            Rejected
+                        <Typography variant="body2" color="text.secondary" component="div">
+                            Rejeté
                         </Typography>
                     </>
                 );
@@ -63,11 +52,8 @@ export default function MessageCard(props: { message: AdminMessage }) {
                 return (
                     <>
                         <AccessTime className="message-status-icon" />
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            component="div">
-                            Pending
+                        <Typography variant="body2" color="text.secondary" component="div">
+                            En attente
                         </Typography>
                     </>
                 );
@@ -93,21 +79,15 @@ export default function MessageCard(props: { message: AdminMessage }) {
                         variant="body2"
                         color="text.secondary"
                         component="div">
-                        reported {message.culpritUsername}'s{" "}
-                        {message.reportType === "review" ? (
-                            <b>review</b>
-                        ) : (
-                            <b>profile</b>
-                        )}
+                        a signalé{" "}
+                        {message.reportType === "review" ? <b>l'avis</b> : <b>le profil</b>} de{" "}
+                        {message.culpritUsername}
                     </Typography>
                 )}
             </div>
             <div className="message-status">
-                <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    component="div">
-                    Status:
+                <Typography variant="body2" color="text.secondary" component="div">
+                    Statut:
                 </Typography>
                 <GetStatus />
             </div>

@@ -20,7 +20,7 @@ export default function HomeMain() {
                 <Button size="small">Get Started</Button>
             </div>
             <div className="main-image">
-                <img src={hereux} alt="hereux" />
+                {/*<img src={hereux} alt="hereux" className="image" />*/}
             </div>
         </div>
     );

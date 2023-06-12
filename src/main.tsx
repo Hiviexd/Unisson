@@ -12,9 +12,13 @@ import Login from "./pages/Login";
 import Listing from "./pages/Listing";
 import Upload from "./pages/Upload";
 import Profile from "./pages/Profile";
-import Admin from "./pages/Admin";
 import Collab from "./pages/Collab";
 import Settings from "./pages/Settings";
+
+// admin
+import ProviderRequests from "./pages/ProviderRequests";
+import Reports from "./pages/Reports";
+import AdminUserListing from "./pages/AdminUserListing";
 
 import main from "./themes/main";
 import "./styles/index.scss";
@@ -36,7 +40,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                             <Route path="/listing" element={<Listing />} />
                             <Route path="/upload" element={<Upload />} />
                             <Route path="/profile/:id" element={<Profile />} />
-                            <Route path="/admin" element={<Admin />} />
+                            <Route path="/requests" element={<ProviderRequests />} />
+                            <Route path="/reports" element={<Reports />} />
+                            <Route path="/admin/users" element={<AdminUserListing />} />
                             <Route path="/collab/:id" element={<Collab />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="*" element={<Home />} />

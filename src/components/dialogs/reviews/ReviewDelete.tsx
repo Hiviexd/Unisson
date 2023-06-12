@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../providers/AuthContext";
+import { AuthContext } from "../../../providers/AuthContext";
 import { useSnackbar } from "notistack";
 
 import {
@@ -63,22 +63,20 @@ export default function ReviewDelete(props: { review: any }) {
                 onClose={handleClose}
                 aria-labelledby="delete-review-dialog-title"
                 aria-describedby="delete-review-dialog-description">
-                <DialogTitle id="delete-review-dialog-title">
-                    Delete review
-                </DialogTitle>
+                <DialogTitle id="delete-review-dialog-title">Supprimer un avis</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="delete-review-dialog-description">
-                        Are you sure you want to delete this review?
+                        Êtes-vous sûr de vouloir supprimer cet avis?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Annuler</Button>
                     <Button
                         variant="contained"
                         startIcon={<Delete />}
                         color="error"
                         onClick={handleDelete}>
-                        Delete
+                        Supprimer
                     </Button>
                 </DialogActions>
             </Dialog>

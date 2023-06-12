@@ -3,10 +3,10 @@ import { galleries, users } from "../../../database";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 
 export default async (req: Request, res: Response) => {
-    const logger = new LoggerConsumer("getGallery", req);
+    const logger = new LoggerConsumer("deleteGallery", req);
 
     const user = await users.findOne({
-        _id: req.params.userId,
+        accountToken: req.headers.authorization,
     });
 
     if (!user)
@@ -15,9 +15,7 @@ export default async (req: Request, res: Response) => {
             message: "User not found!",
         });
 
-    logger.printInfo(`Getting gallery ${req.params.userId}`);
-
-    const gallery = await galleries.findOne({ userId: req.params.userId });
+    const gallery = await galleries.findOne({ userId: user._id });
 
     if (!gallery) {
         logger.printError("Gallery not found");
@@ -27,11 +25,14 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    logger.printSuccess(`Gallery ${req.params.userId} found!`);
+    logger.printSuccess(`Deleting gallery ${gallery._id}`);
+
+    gallery.deleteOne();
+
+    logger.printSuccess(`Gallery ${gallery._id} deleted!`);
 
     return res.status(200).send({
         status: 200,
-        message: "Gallery found!",
-        data: gallery,
+        message: "Galerie supprimé!",
     });
 };

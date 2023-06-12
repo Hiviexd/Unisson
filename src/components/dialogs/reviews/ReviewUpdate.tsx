@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../providers/AuthContext";
+import { AuthContext } from "../../../providers/AuthContext";
 import { useSnackbar } from "notistack";
 
 import {
@@ -15,7 +15,7 @@ import {
 
 import { Edit } from "@mui/icons-material";
 
-import "./../../styles/components/dialogs/ReviewCreate.scss";
+import "./../../../styles/components/dialogs/ReviewCreate.scss";
 
 export default function ReviewUpdate(props: { review: any }) {
     const review = props.review;
@@ -76,7 +76,7 @@ export default function ReviewUpdate(props: { review: any }) {
                 color="primary"
                 startIcon={<Edit />}
                 onClick={handleClickOpen}>
-                Edit
+                Modifier
             </Button>
             <Dialog
                 open={open}
@@ -85,15 +85,13 @@ export default function ReviewUpdate(props: { review: any }) {
                 maxWidth="md"
                 aria-labelledby="delete-review-dialog-title"
                 aria-describedby="delete-review-dialog-description">
-                <DialogTitle id="delete-review-dialog-title">
-                    Edit review
-                </DialogTitle>
+                <DialogTitle id="delete-review-dialog-title">Modifier votre avis</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="delete-review-dialog-description">
-                        Edit your review here
+                        Modifiez votre avis ci-dessous.
                     </DialogContentText>
                     <div className="rating">
-                        <span>Rating:</span>
+                        <span>Note:</span>
                         <Rating
                             name="simple-controlled"
                             precision={0.5}
@@ -106,7 +104,7 @@ export default function ReviewUpdate(props: { review: any }) {
                         multiline
                         margin="none"
                         id="name"
-                        label="Comment..."
+                        label="Commentaire"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -116,14 +114,14 @@ export default function ReviewUpdate(props: { review: any }) {
                 </DialogContent>
                 <DialogActions>
                     <Button color="error" onClick={handleClose}>
-                        Cancel
+                        Annuler
                     </Button>
                     <Button
                         variant="contained"
                         startIcon={<Edit />}
                         color="primary"
                         onClick={handleUpdate}>
-                        Update
+                        Modifier
                     </Button>
                 </DialogActions>
             </Dialog>

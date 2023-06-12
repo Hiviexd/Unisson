@@ -35,6 +35,24 @@
             box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
         }
 
+        .profile-review-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: flex-start;
+            width: 100%;
+            height: fit-content;
+            margin: 0 0 0 0;
+
+            .review-title {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-content: center;
+                align-items: center;
+            }
+        }
     }
 
     .profile-body-review-body {

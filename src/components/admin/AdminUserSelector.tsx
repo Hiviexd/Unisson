@@ -5,12 +5,12 @@ import ServiceType from "../profile/ServiceType";
 
 import "../../styles/components/collab/CollabSelector.scss";
 
-export default function CollabUserSelector(props: { user: any }) {
+export default function AdminUserSelector(props: { user: any }) {
     const user = props.user;
     const navigate = useNavigate();
 
     function handleClick() {
-        navigate(`/profile/${user.userId}`);
+        navigate(`/profile/${user._id}`);
     }
 
     return (
@@ -18,14 +18,12 @@ export default function CollabUserSelector(props: { user: any }) {
             className="collab-selector"
             onClick={handleClick}
             style={{
-                background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${
-                    user.userId || user._id
-                })`,
+                background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`,
             }}>
             <div className="collab-selector-top" />
             <div className="collab-selector-image">
                 <img
-                    src={`/api/assets/avatar/${user.userId || user._id}`}
+                    src={`/api/assets/avatar/${user._id}`}
                     alt="profile picture"
                     className="avatar"
                 />
@@ -41,7 +39,7 @@ export default function CollabUserSelector(props: { user: any }) {
                     size="small"
                     precision={0.5}
                 />
-                <ServiceType serviceType={user?.serviceType} />
+                <ServiceType user={user} serviceType={user?.serviceType} />
             </div>
         </div>
     );

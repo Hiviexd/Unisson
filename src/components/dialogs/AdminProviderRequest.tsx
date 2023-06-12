@@ -62,7 +62,7 @@ export default function AdminProviderRequest(props: { request: any }) {
                     return;
                 }
 
-                enqueueSnackbar("Provider request rejected!", {
+                enqueueSnackbar("Demande rejeté!", {
                     variant: "success",
                 });
                 setOpen(false);
@@ -91,7 +91,7 @@ export default function AdminProviderRequest(props: { request: any }) {
                     return;
                 }
 
-                enqueueSnackbar("Provider request accepted!", {
+                enqueueSnackbar("Demande accepté", {
                     variant: "success",
                 });
                 setOpen(false);
@@ -136,28 +136,18 @@ export default function AdminProviderRequest(props: { request: any }) {
                 maxWidth="sm"
                 aria-labelledby="admin-request-dialog-title"
                 aria-describedby="admin-request-dialog-description">
-                <DialogTitle id="admin-request-dialog-title">
-                    Provider Request
-                </DialogTitle>
+                <DialogTitle id="admin-request-dialog-title">Demande de fournisseur</DialogTitle>
                 <DialogContent>
-                    <DialogContentText
-                        marginBottom={1}
-                        id="admin-request-dialog-requester">
-                        Requester: {<b>{request.username}</b>}
+                    <DialogContentText marginBottom={1} id="admin-request-dialog-requester">
+                        Nom d'utilisateur: {<b>{request.username}</b>}
                     </DialogContentText>
-                    <DialogContentText
-                        marginBottom={1}
-                        id="admin-request-dialog-requester">
+                    <DialogContentText marginBottom={1} id="admin-request-dialog-requester">
                         E-mail: {<b>{user?.email}</b>}
                     </DialogContentText>
-                    <DialogContentText
-                        marginBottom={1}
-                        id="admin-request-dialog-requester">
-                        Phone: {<b>+216 {user?.phone}</b>}
+                    <DialogContentText marginBottom={1} id="admin-request-dialog-requester">
+                        Téléphone: {<b>+216 {user?.phone}</b>}
                     </DialogContentText>
-                    <DialogContentText id="admin-request-dialog-reason">
-                        Message:
-                    </DialogContentText>
+                    <DialogContentText id="admin-request-dialog-reason">Message:</DialogContentText>
                     <Typography className="text-display" color="text.primary">
                         {request.content}
                     </Typography>
@@ -167,7 +157,7 @@ export default function AdminProviderRequest(props: { request: any }) {
                         disabled={request.status !== "pending"}
                         margin="dense"
                         id="name"
-                        label="Comment"
+                        label="Réponse"
                         type="text"
                         fullWidth
                         variant="standard"
@@ -178,21 +168,21 @@ export default function AdminProviderRequest(props: { request: any }) {
                 {request.status === "pending" && (
                     <DialogActions>
                         <Button color="error" onClick={handleClose}>
-                            Cancel
+                            Annuler
                         </Button>
                         <Button
                             variant="contained"
                             endIcon={<DoDisturb />}
                             color="error"
                             onClick={handleReject}>
-                            Reject
+                            Refuser
                         </Button>
                         <Button
                             variant="contained"
                             endIcon={<CheckCircle />}
                             color="success"
                             onClick={handleAccept}>
-                            Accept
+                            Accepter
                         </Button>
                     </DialogActions>
                 )}

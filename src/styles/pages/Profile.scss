@@ -18,17 +18,50 @@
 
         .profile-body {
             display: flex;
+            gap: 2em;
             flex-direction: column;
             justify-content: flex-start;
             align-content: center;
             align-items: center;
             height: fit-content;
-            padding: 1em 2em;
             margin: 0 0 1em 2em;
             width: 80%;
-            border-radius: 10px;
-            background-color: #eaeaea;
-            box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+            .profile-body-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-content: center;
+                align-items: flex-start;
+                width: 100% !important;
+                height: fit-content;
+                padding: 0 1em 1em 1em;
+                width: auto;
+                text-align: left;
+                border-radius: 10px;
+                background-color: #eaeaea;
+                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+                .profile-body-card-header {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: fit-content;
+                    margin-bottom: 1em;
+                    padding: 1em 0;
+                    border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+                    .profile-body-card-icon {
+                        width: 1.2em;
+                        height: 1.2em;
+                        margin-right: 0.5em;
+                        color: rgba(0, 0, 0, 0.6);
+                    }
+                }
+            }
 
             .profile-body-pagination {
                 display: grid;
@@ -70,4 +103,9 @@
     max-width: 80%;
     padding: 1rem;
     background-color: #d8d8d8;
+}
+
+.text-display {
+    white-space: pre-line;
+    text-align: left;
 }

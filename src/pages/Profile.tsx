@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import moment from "moment";
+import { AuthContext } from "../providers/AuthContext";
+import user from "../utils/user";
 
 import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
@@ -10,23 +11,25 @@ import Info from "../components/profile/Info";
 import Description from "../components/profile/Description";
 import ReviewListing from "../components/profile/ReviewListing";
 import Gallery from "../components/profile/Gallery";
+import BecomeProvider from "../components/profile/BecomeProvider";
 
 import "./../styles/pages/Profile.scss";
 export default function Profile() {
     const id = useParams<{ id: string }>().id;
 
-    const [user, setUser] = useState<any>(null);
+    const [selectedUser, setSelectedUser] = useState<any>(null);
     const [page, setPage] = useState(1);
+    const { login } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`/api/users/${id}`)
             .then((res) => res.json())
             .then((d) => {
-                setUser(d.data);
+                setSelectedUser(d.data);
             });
     }, [id]);
 
-    if (user === null)
+    if (selectedUser === null)
         return (
             <>
                 <Navbar />
@@ -35,12 +38,12 @@ export default function Profile() {
             </>
         );
 
-    if (user === undefined)
+    if (selectedUser === undefined)
         return (
             <>
                 <Navbar />
                 <NotificationsSidebar />
-                <ErrorPage text="We looked hard, but we can't find this user sadly..." />
+                <ErrorPage text="Utilisateur pas trouvé..." />
             </>
         );
 
@@ -50,34 +53,17 @@ export default function Profile() {
             <NotificationsSidebar />
             <div className="profile-layout">
                 <div className="profile">
-                    <Info user={user} />
+                    <Info user={selectedUser} />
                     <div className="profile-body">
-                        <div className="profile-body-pagination">
-                            <div
-                                className={`profile-body-pagination-button ${
-                                    page === 1 ? "active" : ""
-                                }`}
-                                onClick={() => setPage(1)}>
-                                Info
-                            </div>
-                            <div
-                                className={`profile-body-pagination-button ${
-                                    page === 2 ? "active" : ""
-                                }`}
-                                onClick={() => setPage(2)}>
-                                Gallery
-                            </div>
-                            <div
-                                className={`profile-body-pagination-button ${
-                                    page === 3 ? "active" : ""
-                                }`}
-                                onClick={() => setPage(3)}>
-                                Reviews
-                            </div>
-                        </div>
-                        {page === 1 && <Description desc={user?.description} />}
-                        {page === 2 && <Gallery userId={user?._id} />}
-                        {page === 3 && <ReviewListing userId={user?._id} />}
+                        {login._id === selectedUser._id && !user.isProvider(login) ? (
+                            <BecomeProvider />
+                        ) : (
+                            <>
+                                <Description desc={selectedUser?.description} />
+                                <Gallery userId={selectedUser?._id} loggedInUser={login} />
+                                <ReviewListing userId={selectedUser?._id} />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

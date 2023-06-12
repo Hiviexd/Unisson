@@ -9,20 +9,19 @@ import MessageCard from "../components/admin/MessageCard";
 import AdminReport from "../components/dialogs/AdminReport";
 import AdminProviderRequest from "../components/dialogs/AdminProviderRequest";
 
-import { Pagination } from "@mui/material";
-import { ContentPasteGo, Report } from "@mui/icons-material";
+import { Pagination, Typography } from "@mui/material";
+import { Report } from "@mui/icons-material";
 
 import "../styles/pages/Admin.scss";
 
-export default function Admin() {
+export default function ProviderRequest() {
     const [messages, setMessages] = useState(null);
-    const [tab, setTab] = useState("request");
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const { login } = useContext(AuthContext);
 
-    function getMessages(type: string) {
-        fetch(`/api/admin/messages/listing/get?page=${page}&type=${type}`, {
+    function getMessages() {
+        fetch(`/api/admin/messages/listing/get?page=${page}&type=report`, {
             method: "GET",
             headers: {
                 authorization: login.accountToken,
@@ -31,19 +30,18 @@ export default function Admin() {
             .then((r) => r.json())
             .then((d) => {
                 setMessages(d.data.messages);
-                console.log(d.data.messages);
                 setTotalPages(d.data.totalPages);
             });
     }
 
     function handlePageChange(event: any, value: any) {
         setPage(value);
-        getMessages(tab);
+        getMessages();
     }
 
     useEffect(() => {
         setPage(1);
-        getMessages(tab);
+        getMessages();
     }, []);
 
     if (messages === null)
@@ -60,7 +58,7 @@ export default function Admin() {
             <>
                 <Navbar />
                 <NotificationsSidebar />
-                <ErrorPage text="No messages..." />
+                <ErrorPage text="Pas de messages..." />
             </>
         );
 
@@ -70,39 +68,15 @@ export default function Admin() {
             <NotificationsSidebar />
             <div className="admin-layout">
                 <div className="admin-page">
-                    <div className="admin-pagination">
-                        <div
-                            className={`admin-pagination-button ${
-                                tab === "request" ? "active" : ""
-                            }`}
-                            onClick={() => {
-                                setTab("request");
-                                getMessages("request");
-                            }}>
-                            <ContentPasteGo className="icon" />
-                            <span>Demandes Fournisseur</span>
-                        </div>
-                        <div
-                            className={`admin-pagination-button ${
-                                tab === "report" ? "active" : ""
-                            }`}
-                            onClick={() => {
-                                setTab("report");
-                                getMessages("report");
-                            }}>
-                            <Report className="icon" />
-                            Problèmes
-                        </div>
+                    <div className="admin-header">
+                        <Report className="icon" />
+                        <Typography color="text.secondary" variant="h5" component="div">
+                            Signalements
+                        </Typography>
                     </div>
                     <div className="admin-body">
                         {messages.map((message: any) => (
-                            <>
-                                {tab === "request" ? (
-                                    <AdminProviderRequest request={message} key={message._id} />
-                                ) : (
-                                    <AdminReport report={message} key={message._id} />
-                                )}
-                            </>
+                            <AdminReport report={message} key={message._id} />
                         ))}
                     </div>
                     <Pagination

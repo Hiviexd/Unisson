@@ -5,6 +5,7 @@ import crypto from "crypto";
 import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 import { createWriteStream, mkdirSync, existsSync } from "fs";
 import path from "path";
+import ffmpeg from "fluent-ffmpeg";
 
 export default async (req: Request, res: Response) => {
     const logger = new LoggerConsumer("createPost", req);
@@ -43,12 +44,7 @@ export default async (req: Request, res: Response) => {
             message: "Missing files!",
         });
 
-    const allowedMimeTypes = [
-        "image/png",
-        "image/jpeg",
-        "image/gif",
-        "video/mp4",
-    ];
+    const allowedMimeTypes = ["image/png", "image/jpeg", "image/gif", "video/mp4"];
 
     for (let file of req.files) {
         if (!allowedMimeTypes.includes(file.mimetype)) {
@@ -80,18 +76,12 @@ export default async (req: Request, res: Response) => {
         recursive: true,
     });
 
-    mkdirSync(
-        path.resolve(`./uploads/`).concat(`/galleries/${galleryId}/images`),
-        {
-            recursive: true,
-        }
-    );
-    mkdirSync(
-        path.resolve(`./uploads/`).concat(`/galleries/${galleryId}/videos`),
-        {
-            recursive: true,
-        }
-    );
+    mkdirSync(path.resolve(`./uploads/`).concat(`/galleries/${galleryId}/images`), {
+        recursive: true,
+    });
+    mkdirSync(path.resolve(`./uploads/`).concat(`/galleries/${galleryId}/videos`), {
+        recursive: true,
+    });
 
     for (let file of req.files) {
         let fileFormat = file.mimetype.split("/")[1];
@@ -106,30 +96,40 @@ export default async (req: Request, res: Response) => {
             createWriteStream(
                 path
                     .resolve(`./uploads/`)
-                    .concat(
-                        `/galleries/${galleryId}/images/${fileId}.${fileFormat}`
-                    )
+                    .concat(`/galleries/${galleryId}/images/${fileId}.${fileFormat}`)
             ).write(new Uint8Array(file.buffer));
         } else if (file.mimetype.includes("video")) {
-            gallery.videos.push({
+            const video: Video = {
                 _id: fileId,
                 type: "video",
-                poster: `/api/assets/galleries/${galleryId}/videos/${fileId}.${fileFormat}`,
+                poster: `/api/assets/galleries/${galleryId}/videos/thumb/${fileId}.jpg`,
                 sources: [
                     {
                         src: `/api/assets/galleries/${galleryId}/videos/${fileId}.${fileFormat}`,
                         type: file.mimetype,
                     },
                 ],
-            });
+            };
+
+            gallery.videos.push(video);
 
             createWriteStream(
                 path
                     .resolve(`./uploads/`)
-                    .concat(
-                        `/galleries/${galleryId}/videos/${fileId}.${fileFormat}`
-                    )
+                    .concat(`/galleries/${galleryId}/videos/${fileId}.${fileFormat}`)
             ).write(new Uint8Array(file.buffer));
+
+            //create thumbnail
+            ffmpeg(
+                path
+                    .resolve(`./uploads/`)
+                    .concat(`/galleries/${galleryId}/videos/${fileId}.${fileFormat}`)
+            ).screenshots({
+                timestamps: ["50%"],
+                filename: `${fileId}.jpg`,
+                folder: path.resolve(`./uploads/`).concat(`/galleries/${galleryId}/videos/thumb`),
+                size: "320x240",
+            });
         }
     }
 

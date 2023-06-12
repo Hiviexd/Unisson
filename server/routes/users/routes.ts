@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isLoggedIn, isProvider } from "../../middlewares";
+import { isLoggedIn, isProvider, isAdmin } from "../../middlewares";
 import multer from "multer";
 
 import getUser from "./getUser";
@@ -7,6 +7,7 @@ import registerUser from "./registerUser";
 import authenticateUser from "./authenticateUser";
 import getUserAvatar from "./getUserAvatar";
 import listUsers from "./listUsers";
+import listAllUsers from "./listAllUsers";
 import updateAvailability from "./updateAvailability";
 import updateUser from "./updateUser";
 
@@ -27,5 +28,6 @@ router.post(
 router.get("/:id", getUser);
 router.get("/:id/avatar", getUserAvatar);
 router.get("/listing/get", listUsers);
+router.get("/listing/get/all", isLoggedIn, isAdmin, listAllUsers);
 
 export const userRouter = router;

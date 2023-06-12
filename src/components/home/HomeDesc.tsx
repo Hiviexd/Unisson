@@ -14,9 +14,7 @@ export default function HomeDesc() {
                     our clients
                 </h3>
             </div>
-            <div className="Desc-image">
-                <img src={events} alt="Desc" />
-            </div>
+            <div className="Desc-image">{/*<img src={events} alt="Desc" />*/}</div>
         </div>
     );
 }

@@ -149,7 +149,7 @@ export default function Settings() {
                             color={"textPrimary"}
                             component="div"
                             className="settings-header-title">
-                            Paramètres
+                            Modifier votre profil
                         </Typography>
                     </div>
                     <div className="settings-body">

@@ -12,12 +12,18 @@ export default new Schema({
     videos: [
         {
             _id: String,
-            type: String,
+            type: {
+                type: String,
+                required: true,
+            },
             poster: String,
             sources: [
                 {
                     src: String,
-                    type: String,
+                    type: {
+                        type: String,
+                        required: true,
+                    },
                 },
             ],
         },

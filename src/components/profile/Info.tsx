@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthContext";
 import user from "../../utils/user";
+import { useNavigate } from "react-router-dom";
 
 import { Typography, Rating, Tooltip } from "@mui/material";
 
@@ -8,16 +9,21 @@ import ServiceType from "./ServiceType";
 import ChatButton from "./ChatButton";
 import Calendar from "./Calendar";
 import ProviderRequest from "../dialogs/ProviderRequest";
+import EditProfileButton from "./EditProfileButton";
 
 import "./../../styles/components/profile/Info.scss";
 
 export default function Info(props: { user: any }) {
     const selectedUser = props.user;
-
+    const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
     const phoneNumber = (num: number) => {
         return num.toString().replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
+    };
+
+    const handleProfileEdit = () => {
+        navigate(`/settings`);
     };
 
     return (
@@ -49,20 +55,11 @@ export default function Info(props: { user: any }) {
                         />
                     </div>
                 </Tooltip>
-                <Typography
-                    gutterBottom
-                    variant="body2"
-                    color="text.secondary"
-                    component="div">
+                <Typography gutterBottom variant="body2" color="text.secondary" component="div">
                     {selectedUser?.email}
                 </Typography>
-                <Typography
-                    gutterBottom
-                    variant="body2"
-                    color="text.secondary"
-                    component="div">
-                    +216{" "}
-                    {selectedUser?.phone && phoneNumber(selectedUser.phone)}
+                <Typography gutterBottom variant="body2" color="text.secondary" component="div">
+                    +216 {selectedUser?.phone && phoneNumber(selectedUser.phone)}
                 </Typography>
                 <div className="profile-header-bio">
                     <Typography gutterBottom component="div">
@@ -70,7 +67,9 @@ export default function Info(props: { user: any }) {
                     </Typography>
                 </div>
                 {login._id === selectedUser._id ? (
-                    user.isProvider(login) && <ProviderRequest />
+                    <div onClick={handleProfileEdit}>
+                        <EditProfileButton />
+                    </div>
                 ) : (
                     <ChatButton user={selectedUser} />
                 )}
