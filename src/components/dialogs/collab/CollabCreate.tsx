@@ -143,7 +143,7 @@ export default function CollabCreate(props: { collabs: any; setCollabs: any }) {
     };
 
     return (
-        <div className="create-collab-button">
+        <div className="create-review-button">
             <div onClick={handleClickOpen}>
                 <CreateCollabButton />
             </div>
