@@ -1,16 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { Typography, Rating } from "@mui/material";
+import { AccessTime, CheckCircle, DoDisturb } from "@mui/icons-material";
 
 import ServiceType from "../profile/ServiceType";
 
-import "../../styles/components/collab/CollabSelector.scss";
+import "../../styles/components/collab/CollabUserSelector.scss";
 
-export default function CollabUserSelector(props: { user: any }) {
-    const user = props.user;
+export default function CollabUserSelector(props: { user: any; hidden: boolean }) {
+    const { user, hidden } = props;
     const navigate = useNavigate();
 
     function handleClick() {
         navigate(`/profile/${user.userId}`);
+    }
+
+    function StatusIcon() {
+        switch (user.status) {
+            case "accepted":
+                return <CheckCircle color="success" className="icon" />;
+            case "rejected":
+                return <DoDisturb color="error" className="icon" />;
+            default:
+                return <AccessTime color="warning" className="icon" />;
+        }
     }
 
     return (
@@ -31,9 +43,12 @@ export default function CollabUserSelector(props: { user: any }) {
                 />
             </div>
             <div className="collab-selector-text">
-                <Typography gutterBottom variant="h6" component="div" className="title">
-                    {user?.username}
-                </Typography>
+                <div className="collab-selector-text-top">
+                    <Typography gutterBottom variant="h6" component="div" className="title">
+                        {user?.username}
+                    </Typography>
+                    {hidden && <StatusIcon />}
+                </div>
                 <Rating
                     name="read-only"
                     value={user?.rating}

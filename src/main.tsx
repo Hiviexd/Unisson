@@ -13,6 +13,7 @@ import Listing from "./pages/Listing";
 import Upload from "./pages/Upload";
 import Profile from "./pages/Profile";
 import Collab from "./pages/Collab";
+import YourCollabs from "./pages/YourCollabs";
 import Settings from "./pages/Settings";
 
 // admin
@@ -44,6 +45,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                             <Route path="/reports" element={<Reports />} />
                             <Route path="/admin/users" element={<AdminUserListing />} />
                             <Route path="/collab/:id" element={<Collab />} />
+                            <Route path="/yourCollabs" element={<YourCollabs />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="*" element={<Home />} />
                         </Routes>

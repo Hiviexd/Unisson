@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import ErrorPage from "../../pages/ErrorPage";
 import LoadingPage from "../../pages/LoadingPage";
 
-import { Typography, Button } from "@mui/material";
-import { Collections, Edit, Delete, Upload } from "@mui/icons-material";
+import { Typography } from "@mui/material";
+import { Collections } from "@mui/icons-material";
 
 import Lightbox from "yet-another-react-lightbox";
 import {
@@ -55,7 +54,6 @@ export default function Gallery(props: { userId: string; loggedInUser: any }) {
                 setLoaded(true);
             })
             .catch((err) => {
-                console.log(err);
                 setLoaded(true);
             });
     }, [userId]);
@@ -68,19 +66,6 @@ export default function Gallery(props: { userId: string; loggedInUser: any }) {
             margin: "0 auto",
         },
     };
-
-    const videos = [
-        {
-            type: "video",
-            poster: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            sources: [
-                {
-                    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                    type: "video/mp4",
-                },
-            ],
-        },
-    ];
 
     if (!loaded) return <LoadingPage />;
 

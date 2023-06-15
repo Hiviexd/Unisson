@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import {
     KeyboardDoubleArrowRight,
+    Check,
     Delete,
     Warning,
     Announcement,
     Notifications,
-    Check,
+    Groups,
 } from "@mui/icons-material";
 import { Icon } from "@mui/material";
 
@@ -55,14 +56,9 @@ export default function NotificationsSidebar() {
             .then((d) => {
                 if (d.status != 200) return;
 
-                context.setNotifications(
-                    context.notifications?.filter((n) => n._id != data._id)
-                );
+                context.setNotifications(context.notifications?.filter((n) => n._id != data._id));
 
-                if (
-                    data.extra.redirect &&
-                    ev.target.className == "notification"
-                ) {
+                if (data.extra.redirect && ev.target.className == "notification") {
                     goTo(data.extra.redirect);
                     handleClose();
                 }
@@ -96,24 +92,15 @@ export default function NotificationsSidebar() {
 
     return (
         <div
-            className={
-                context.open
-                    ? "notifications-sidebar"
-                    : "notifications-sidebar closed"
-            }
+            className={context.open ? "notifications-sidebar" : "notifications-sidebar closed"}
             onClick={handleAuxClose}>
             <div className="container">
                 <div className="title">
                     Notifications{" "}
-                    <KeyboardDoubleArrowRight
-                        onClick={handleClose}
-                        className="close-icon"
-                    />
+                    <KeyboardDoubleArrowRight onClick={handleClose} className="close-icon" />
                 </div>
                 <div className="notifications" key={generateComponentKey(20)}>
-                    <div
-                        className="clear-container"
-                        onClick={clearNotifications}>
+                    <div className="clear-container" onClick={clearNotifications}>
                         <Delete />
                         Clear all notifications
                     </div>
@@ -130,21 +117,15 @@ export default function NotificationsSidebar() {
                                       <div className="content-container">
                                           <div className="icon">
                                               <Icon>
-                                                  {notification.extra?.icon ||
-                                                      "notifications"}
+                                                  {notification.extra?.icon || "notifications"}
                                               </Icon>
                                           </div>
-                                          <p className="content">
-                                              {notification.content}
-                                          </p>
+                                          <p className="content">{notification.content}</p>
                                       </div>
                                       <div
                                           className="dimiss-container"
                                           onClick={(ev) => {
-                                              deleteNotification(
-                                                  notification._id,
-                                                  ev
-                                              );
+                                              deleteNotification(notification._id, ev);
                                           }}>
                                           <Check />
                                       </div>

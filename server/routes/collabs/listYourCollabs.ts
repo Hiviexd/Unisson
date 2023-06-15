@@ -4,30 +4,15 @@ import { LoggerConsumer } from "../../helpers/LoggerConsumer";
 
 export default async (req: Request, res: Response) => {
     const logger = new LoggerConsumer("listCollabs", req);
-    const search = (req.query.search || "").toString().trim() || "";
-    const serviceType = (req.query.service || "").toString().trim() || "";
-    const { page, limit } = req.query;
+    const { page } = req.query;
 
     logger.printInfo("Getting collabs...");
 
     let offset = Number(page) || 1;
-    let collabsPerPage = Number(limit) || 20;
+    let collabsPerPage = 10;
 
     const result = await collabs.paginate(
-        search != undefined && search != ""
-            ? {
-                  $or: [
-                      { name: { $regex: search, $options: "i" } },
-                      { "users.username": { $regex: search, $options: "i" } },
-                  ],
-                  hidden: false,
-              }
-            : serviceType != undefined && serviceType != ""
-            ? {
-                  "users.serviceType": { $in: serviceType.split(",") },
-                  hidden: false,
-              }
-            : { hidden: false },
+        { "users.userId": req.body.loggedInUser._id },
         {
             limit: collabsPerPage,
             page: offset,

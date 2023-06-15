@@ -6,14 +6,16 @@ export interface ILoginUser {
     accountToken: string;
     authenticated: boolean;
     permissions: string[];
+    email: string;
 }
 
 const defaultUser = JSON.stringify({
     _id: "-1",
-    accountToken: "",
     username: "Guest",
+    accountToken: "",
     authenticated: false,
     permissions: [""],
+    email: "",
 });
 
 function getStoredUser() {

@@ -3,6 +3,7 @@ import { isLoggedIn, isProvider, isAdmin } from "../../middlewares";
 import multer from "multer";
 
 import getUser from "./getUser";
+import getUserByEmail from "./getUserByEmail";
 import registerUser from "./registerUser";
 import authenticateUser from "./authenticateUser";
 import getUserAvatar from "./getUserAvatar";
@@ -25,6 +26,7 @@ router.post(
 );
 
 //? GET requests
+router.get("/email/:email", getUserByEmail); // TODO: reword this route to specify that it only fetches providers
 router.get("/:id", getUser);
 router.get("/:id/avatar", getUserAvatar);
 router.get("/listing/get", listUsers);

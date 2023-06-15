@@ -1,11 +1,5 @@
 import { VisibilityOff, Visibility, Error } from "@mui/icons-material";
-import {
-    Button,
-    IconButton,
-    InputAdornment,
-    TextField,
-    ThemeProvider,
-} from "@mui/material";
+import { Button, IconButton, InputAdornment, TextField, ThemeProvider } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState, useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -15,9 +9,7 @@ import theme from "../themes/login";
 import "../styles/pages/Login.scss";
 
 export default function Login() {
-    const [signup, setSignUp] = useState(
-        window.location.pathname.includes("signup")
-    );
+    const [signup, setSignUp] = useState(window.location.pathname.includes("signup"));
     const [loading, setLoading] = useState(false);
     const loginContext = useContext(AuthContext);
     const { login, logout } = useContext(AuthContext);
@@ -110,7 +102,7 @@ export default function Login() {
     function LogInOptions() {
         return (
             <>
-                <div className="title">Log-In</div>
+                <div className="title">Se connecter</div>
                 <TextField
                     type="text"
                     label="E-mail"
@@ -123,7 +115,7 @@ export default function Login() {
                 />
                 <TextField
                     type={showPassword ? "text" : "password"}
-                    label="Password"
+                    label="Mot de passe"
                     variant="outlined"
                     onInput={(ev: any) => {
                         data.password = ev.target.value;
@@ -137,23 +129,19 @@ export default function Login() {
                                     aria-label="toggle password visibility"
                                     onClick={handleClickShowPassword}
                                     edge="end">
-                                    {showPassword ? (
-                                        <VisibilityOff />
-                                    ) : (
-                                        <Visibility />
-                                    )}
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
                         ),
                     }}
                 />
                 <Button variant="contained" onClick={loginUser}>
-                    Log-in
+                    Se connecter
                 </Button>
                 <p className="switch-type">
-                    Are you new here?{" "}
+                    Vous n'avez pas de compte?{" "}
                     <span className="switch-link" onClick={switchFormType}>
-                        Create an account!
+                        Inscrivez-vous!
                     </span>
                 </p>
             </>
@@ -163,15 +151,12 @@ export default function Login() {
     function SignUpOptions() {
         return (
             <>
-                <div className="title">Sign-Up</div>
+                <div className="title">S'inscrire</div>
                 <div
                     className={
-                        passwordMatch
-                            ? "password-match-alert"
-                            : "password-match-alert visible"
+                        passwordMatch ? "password-match-alert" : "password-match-alert visible"
                     }>
-                    <Error></Error>
-                    <p>Passwords must match</p>
+                    <Error sx={{ mr: 1 }} /> <p>Les mots de passe ne correspondent pas!</p>
                 </div>
                 <ThemeProvider theme={theme}>
                     <TextField
@@ -186,7 +171,7 @@ export default function Login() {
                     />
                     <TextField
                         type="text"
-                        label="Username"
+                        label="Nom d'utilisateur"
                         variant="outlined"
                         defaultValue={data.username}
                         onInput={(ev: any) => {
@@ -196,7 +181,7 @@ export default function Login() {
                     />
                     <TextField
                         type={showPassword ? "text" : "password"}
-                        label="Password"
+                        label="Mot de passe"
                         variant="outlined"
                         onInput={(ev: any) => {
                             data.password = ev.target.value;
@@ -210,11 +195,7 @@ export default function Login() {
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                         edge="end">
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -222,7 +203,7 @@ export default function Login() {
                     />
                     <TextField
                         type={showPassword ? "text" : "password"}
-                        label="Confirm Password"
+                        label="Confirmer mot de passe"
                         variant="outlined"
                         defaultValue={data.confirmPassword}
                         onInput={(ev: any) => {
@@ -230,9 +211,7 @@ export default function Login() {
                             setData(data);
                         }}
                         onBlur={() => {
-                            setPasswordMatch(
-                                data.confirmPassword == data.password
-                            );
+                            setPasswordMatch(data.confirmPassword == data.password);
                         }}
                         InputProps={{
                             endAdornment: (
@@ -241,11 +220,7 @@ export default function Login() {
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                         edge="end">
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -253,7 +228,7 @@ export default function Login() {
                     />
                     <TextField
                         type="number"
-                        label="Phone Number"
+                        label="Numéro de téléphone"
                         variant="outlined"
                         defaultValue={data.phone}
                         onInput={(ev: any) => {
@@ -263,12 +238,12 @@ export default function Login() {
                     />
                 </ThemeProvider>
                 <Button variant="contained" onClick={registerUser}>
-                    Sign-Up
+                    S'inscrire
                 </Button>
                 <p className="switch-type" onClick={switchFormType}>
-                    Already have an account?{" "}
+                    Vous avez déjà un compte?{" "}
                     <span className="switch-link" onClick={switchFormType}>
-                        Log-In here!
+                        Connectez-vous!
                     </span>
                 </p>
             </>

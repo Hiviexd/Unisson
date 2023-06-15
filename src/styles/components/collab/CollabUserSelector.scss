@@ -1,0 +1,51 @@
+.collab-selector {
+    flex-grow: 1;
+    flex-shrink: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 2em 2em 1em 2em;
+    width: 10em;
+    max-width: 12em;
+    border-radius: 10px;
+    //background: linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(https://picsum.photos/200);
+    background-size: cover;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 0 rgba(41, 41, 41, 0.5);
+        cursor: pointer;
+    }
+
+    .avatar {
+        width: 6em;
+        height: 6em;
+        border-radius: 50%;
+        background-color: #000000;
+        margin: 0 0 1em 0;
+        box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+    }
+
+    /*.collab-selector-text-top {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+
+        .icon {}
+    }*/
+
+    .title {
+        line-height: 1.2em;
+    }
+
+    .icon-color {
+        color: rgba(0, 0, 0, 0.6);
+    }
+}

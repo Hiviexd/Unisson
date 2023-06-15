@@ -12,7 +12,7 @@ export default function ChatButton(props: { user: any }) {
     return (
         <div className="chat-button" onClick={handleClick}>
             <ChatBubble className="chat-button-icon" />
-            Chat
+            Contacter
         </div>
     );
 }

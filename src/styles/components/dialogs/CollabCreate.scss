@@ -1,0 +1,18 @@
+.users-list {
+    margin: 1em 0 0.5em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+
+}
+
+.add-user {
+    margin: 0.5em 0 1em 0;
+}
+
+.text-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

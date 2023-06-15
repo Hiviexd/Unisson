@@ -43,6 +43,7 @@
 
         .collab-users {
             display: flex;
+            gap: 1em;
             flex-direction: row;
             justify-content: center;
             align-content: center;
@@ -58,6 +59,22 @@
         .collab-body {
             width: 100%;
             margin: 0 0 1em 0;
+
+            .collab-action-buttons {
+                display: flex;
+                gap: 1em;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                width: 100%;
+                height: fit-content;
+                margin-bottom: 1em;
+                padding: 1em 0;
+                border-radius: 10px;
+                background-color: #f1f1f1;
+                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+            }
         }
 
     }

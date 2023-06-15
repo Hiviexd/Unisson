@@ -13,6 +13,7 @@ import {
     Report,
     Edit,
     PeopleAlt,
+    Groups,
 } from "@mui/icons-material";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -59,6 +60,19 @@ export default function Navbar() {
         goTo(`/settings`);
     };
 
+    const handleYourCollabsClick = () => {
+        handleMenuClose();
+        goTo(`/yourCollabs`);
+    };
+
+    const handleLogout = () => {
+        handleMenuClose();
+        logout();
+        goTo("/");
+    };
+
+    /* Admin*/
+
     const handleRequestsClick = () => {
         handleMenuClose();
         goTo(`/requests`);
@@ -72,12 +86,6 @@ export default function Navbar() {
     const handleUsersListClick = () => {
         handleMenuClose();
         goTo(`/admin/users`);
-    };
-
-    const handleLogout = () => {
-        handleMenuClose();
-        logout();
-        goTo("/");
     };
 
     function handleNotificationToggle() {
@@ -132,17 +140,23 @@ export default function Navbar() {
             <MenuItem onClick={handleProfileClick}>
                 <AccountCircle className="icon-menu" /> Votre Profil
             </MenuItem>
-            <MenuItem onClick={handleSettingsClick}>
+            {/*<MenuItem onClick={handleSettingsClick}>
                 <Edit className="icon-menu" /> Modifier Profil
-            </MenuItem>
+            </MenuItem>*/}
+            {user.isProvider(login) && (
+                <MenuItem onClick={handleYourCollabsClick}>
+                    <Groups className="icon-menu" /> Votre Collaborations
+                </MenuItem>
+            )}
             <MenuItem onClick={handleLogout}>
                 <LogoutIcon className="icon-menu" color="inherit" /> Se Déconnecter
             </MenuItem>
-            <Divider sx={{ margin: "5px" }} />
-            <div className="welcome-text">Pages Admin</div>
-            <Divider sx={{ margin: "5px" }} />
+
             {user.isAdmin(login) && (
                 <>
+                    <Divider sx={{ margin: "5px" }} />
+                    <div className="welcome-text">Pages Admin</div>
+                    <Divider sx={{ margin: "5px" }} />
                     <MenuItem onClick={handleRequestsClick}>
                         <ContentPasteGo className="icon-menu" /> Demandes
                     </MenuItem>

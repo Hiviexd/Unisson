@@ -61,7 +61,7 @@ export default function Search(props: any) {
                     gutterBottom
                     variant="h6"
                     component="div">
-                    Search & Filter
+                    Rechercher et filtrer
                 </Typography>
             </div>
             <div className="listing-search-input">
@@ -83,7 +83,14 @@ export default function Search(props: any) {
                             ))}
                         </Select>
                     </FormControl>
-                    <InputLabel id="service-select-label">Service</InputLabel>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        component="div"
+                        className="filter"
+                        sx={{ marginTop: "10px" }}>
+                        Service
+                    </Typography>
                     <FormControl className="filter" variant="outlined">
                         <RadioGroup
                             aria-label="service"
@@ -101,7 +108,7 @@ export default function Search(props: any) {
                         </RadioGroup>
                     </FormControl>
 
-                    <InputLabel className="filter">Rating</InputLabel>
+                    <InputLabel className="filter">Note</InputLabel>
                     <Rating
                         name="rating-input"
                         value={rating}
@@ -112,7 +119,7 @@ export default function Search(props: any) {
                 </div>
             </div>
             <Button className="filter-button" variant="contained" onClick={refreshListing}>
-                Filter
+                Filtrer
             </Button>
         </div>
     );

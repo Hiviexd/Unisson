@@ -87,7 +87,7 @@ export default function ReviewCreate(props: { userId: string }) {
                 maxWidth="md"
                 aria-labelledby="create-review-dialog-title"
                 aria-describedby="create-review-dialog-description">
-                <DialogTitle id="create-review-dialog-title">Soumetter un avis</DialogTitle>
+                <DialogTitle id="create-review-dialog-title">Evaluer service</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="create-review-dialog-description">
                         Utilisez ce formulaire pour soumettre un avis à propos de cet utilisateur.

@@ -7,11 +7,17 @@ import crypto from "crypto";
 
 export default async (req: Request, res: Response) => {
     const logger = new LoggerConsumer("createCollab", req);
-    const { name, description, emails } = req.body;
+    const { name, description, users, loggedInUser } = req.body;
 
     logger.printInfo("Creating a new collab...");
 
-    if (!name || !description || typeof name != "string" || typeof description != "string") {
+    if (
+        !users ||
+        !name ||
+        !description ||
+        typeof name != "string" ||
+        typeof description != "string"
+    ) {
         logger.printError("Process failed with code 400: Invalid credentials");
 
         return res.status(400).send({
@@ -20,22 +26,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    // find users by email
-    const usersByEmail = await users.find({
-        email: { $in: emails },
-    });
-
-    // ? Check if the provided data is valid
-    if (!usersByEmail.length) {
-        logger.printError("Process failed with code 400: Invalid user emails");
-
-        return res.status(400).send({
-            status: 400,
-            message: "Invalid user emails",
-        });
-    }
-
-    let collabUsers: CollabUser[] = usersByEmail.map((user) => ({
+    let collabUsers: CollabUser[] = users.map((user) => ({
         userId: user._id,
         username: user.username,
         rating: user.rating,
@@ -44,10 +35,10 @@ export default async (req: Request, res: Response) => {
     }));
 
     collabUsers.unshift({
-        userId: req.body.loggedInUser._id,
-        username: req.body.loggedInUser.username,
-        rating: req.body.loggedInUser.rating,
-        serviceType: req.body.loggedInUser.serviceType,
+        userId: loggedInUser._id,
+        username: loggedInUser.username,
+        rating: loggedInUser.rating,
+        serviceType: loggedInUser.serviceType,
         status: "accepted",
     });
 
@@ -66,13 +57,15 @@ export default async (req: Request, res: Response) => {
     // ? Send notifications to users
     const notif = new NotificationsManager();
 
-    usersByEmail.forEach((user) => {
+    users.forEach((user) => {
         notif.createNotification(
             user._id,
-            "You have been invited to a collaboration! Review the invitation by clicking here.",
+            user._id !== loggedInUser
+                ? "Vous avez été invité à une collaboration! Consultez l'invitation en cliquant ici."
+                : "Vous avez créé une collaboration! Consultez la collaboration en cliquant ici.",
             {
-                icon: "collab",
-                redirect: `/collabs/${newCollab._id}`,
+                icon: "groups",
+                redirect: `/collab/${newCollab._id}`,
             }
         );
     });
@@ -82,6 +75,6 @@ export default async (req: Request, res: Response) => {
     return res.status(200).send({
         status: 200,
         message: "Collab created",
-        newCollab,
+        data: newCollab,
     });
 };
