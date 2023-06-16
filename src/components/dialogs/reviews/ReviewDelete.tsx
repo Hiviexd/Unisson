@@ -56,7 +56,7 @@ export default function ReviewDelete(props: { review: any }) {
                 color="error"
                 startIcon={<Delete />}
                 onClick={handleClickOpen}>
-                Delete
+                Supprimer
             </Button>
             <Dialog
                 open={open}
