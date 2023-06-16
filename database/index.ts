@@ -6,12 +6,14 @@ import Gallery from "./schemas/Gallery";
 import Notification from "./schemas/Notification";
 import AdminMessage from "./schemas/AdminMessage";
 import Collab from "./schemas/Collab";
+import Contract from "./schemas/Contract";
 
 import { User as IUser } from "../types/User";
 import { Review as IReview } from "../types/Review";
 import { AdminMessage as IAdminMessage } from "../types/AdminMessage";
 import { Collab as ICollab } from "../types/Collab";
 import { Gallery as IGallery } from "../types/Gallery";
+import { Contract as IContract } from "../types/Contract";
 
 import { LoggerConsumer } from "../server/helpers/LoggerConsumer";
 import dotenv from "dotenv";
@@ -39,6 +41,7 @@ User.plugin(paginate);
 Review.plugin(paginate);
 AdminMessage.plugin(paginate);
 Collab.plugin(paginate);
+Contract.plugin(paginate);
 
 export const users = mongoose.model<IUser, mongoose.PaginateModel<IUser, UserDocument>>(
     "User",
@@ -58,6 +61,11 @@ export const adminMessages = mongoose.model<
 export const collabs = mongoose.model<ICollab, mongoose.PaginateModel<ICollab, UserDocument>>(
     "Collab",
     Collab
+);
+
+export const contracts = mongoose.model<IContract, mongoose.PaginateModel<IContract, UserDocument>>(
+    "Contract",
+    Contract
 );
 
 export const galleries = mongoose.model<IGallery>("Gallery", Gallery);

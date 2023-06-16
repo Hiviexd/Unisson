@@ -1,0 +1,57 @@
+.contract-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+
+    .contract-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        height: fit-content;
+        padding: 0 2em 1em 2em;
+        margin: 0 0 1em 2em;
+        width: 70%;
+        border-radius: 10px;
+        background-color: #eaeaea;
+        box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+        .contract-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            width: 100%;
+            height: fit-content;
+            margin-bottom: 1em;
+            padding: 1.5em 0;
+            border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+            .icon {
+                width: 1.2em;
+                height: 1.2em;
+                margin-right: 0.5em;
+                color: rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        .contract-body {
+            display: flex;
+            gap: 1em;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            height: fit-content;
+            margin: 0 0 1em 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+}

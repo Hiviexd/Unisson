@@ -1,0 +1,95 @@
+.contracts-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+
+    .contracts-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        height: fit-content;
+        padding: 0 2em 1em 2em;
+        margin: 0 0 1em 2em;
+        width: 70%;
+        border-radius: 10px;
+        background-color: #eaeaea;
+        box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+
+        .contracts-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            width: 100%;
+            height: fit-content;
+            margin-bottom: 1em;
+            padding: 1.5em 0;
+            border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+            .icon {
+                width: 1.2em;
+                height: 1.2em;
+                margin-right: 0.5em;
+                color: rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        .contracts-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            height: fit-content;
+            margin: 0 0 1em 0;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .contracts-pagination {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1em;
+            width: 100%;
+            margin: 0 0 1em 0;
+            padding: 0 0 1em 0;
+            border-bottom: 1px solid rgba(41, 41, 41, 0.5);
+
+            .contracts-pagination-button {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                font-size: 1.2em;
+                padding: 1em;
+                border-radius: 10px;
+                background-color: #f1f1f1;
+                box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: darken(#f1f1f1, 5%);
+                }
+
+
+            }
+
+            .active {
+                background-color: #AAC7D8;
+
+                &:hover {
+                    background-color: darken(#AAC7D8, 5%)
+                }
+            }
+        }
+    }
+}

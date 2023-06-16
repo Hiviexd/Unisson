@@ -14,6 +14,7 @@ import {
     Edit,
     PeopleAlt,
     Groups,
+    ContentPasteSearch,
 } from "@mui/icons-material";
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -23,6 +24,7 @@ import { generateComponentKey } from "../../utils/generateComponentKey";
 import Alert from "@mui/material/Alert";
 import { ProfileNonceContext } from "../../providers/ProfileNonceContext";
 import { NotificationsContext } from "../../providers/NotificationsContext";
+import unissonLogo from "../../assets/unisson.svg";
 
 export default function Navbar() {
     const { login, logout } = useContext(AuthContext);
@@ -58,6 +60,11 @@ export default function Navbar() {
     const handleSettingsClick = () => {
         handleMenuClose();
         goTo(`/settings`);
+    };
+
+    const handleContractsClick = () => {
+        handleMenuClose();
+        goTo(`/contracts`);
     };
 
     const handleYourCollabsClick = () => {
@@ -140,6 +147,9 @@ export default function Navbar() {
             <MenuItem onClick={handleProfileClick}>
                 <AccountCircle className="icon-menu" /> Votre Profil
             </MenuItem>
+            <MenuItem onClick={handleContractsClick}>
+                <ContentPasteSearch className="icon-menu" /> Votre Contrats
+            </MenuItem>
             {/*<MenuItem onClick={handleSettingsClick}>
                 <Edit className="icon-menu" /> Modifier Profil
             </MenuItem>*/}
@@ -179,9 +189,7 @@ export default function Navbar() {
                 /*style={{ backgroundColor: isHome }}*/
             >
                 <div className="navbar-left">
-                    <Link to="/" className="logo-container">
-                        <p>logo</p>
-                    </Link>
+                    <img src={unissonLogo} className="logo" alt="logo" />
                     <Link to="/" className="button">
                         <Home className="icon-navbar" />
                         Acceuil

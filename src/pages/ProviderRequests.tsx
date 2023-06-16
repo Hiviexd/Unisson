@@ -5,8 +5,6 @@ import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
 import LoadingPage from "./LoadingPage";
 import ErrorPage from "./ErrorPage";
-import MessageCard from "../components/admin/MessageCard";
-import AdminReport from "../components/dialogs/AdminReport";
 import AdminProviderRequest from "../components/dialogs/AdminProviderRequest";
 
 import { Pagination, Typography } from "@mui/material";

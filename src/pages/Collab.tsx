@@ -114,7 +114,11 @@ export default function Collab() {
                                     <Alert
                                         variant="filled"
                                         severity="warning"
-                                        sx={{ marginBottom: "1em" }}>
+                                        sx={{
+                                            marginBottom: "1em",
+                                            borderRadius: "10px",
+                                            boxShadow: "0 0 5px 0 rgba(41, 41, 41, 0.5)",
+                                        }}>
                                         cette collaboration est actuellement masquée, elle sera
                                         publique une fois que tous les collaborateurs auront accepté
                                         leur invitation

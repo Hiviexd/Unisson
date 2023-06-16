@@ -7,6 +7,7 @@ import { reviewsRouter } from "./reviews/routes";
 import { adminRouter } from "./admin/routes";
 import { notificationsRouter } from "./notifications/routes";
 import { collabRouter } from "./collabs/routes";
+import { contractsRouter } from "./contracts/routes";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/reviews", reviewsRouter);
 router.use("/admin", adminRouter);
 router.use("/notifications", notificationsRouter);
 router.use("/collabs", collabRouter);
+router.use("/contracts", contractsRouter);
 
 export const routes = router;

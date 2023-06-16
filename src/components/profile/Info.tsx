@@ -8,7 +8,7 @@ import { Typography, Rating, Tooltip } from "@mui/material";
 import ServiceType from "./ServiceType";
 import ChatButton from "./ChatButton";
 import Calendar from "./Calendar";
-import ProviderRequest from "../dialogs/ProviderRequest";
+import ContractCreate from "../dialogs/contract/ContractCreate";
 import EditProfileButton from "./EditProfileButton";
 
 import "./../../styles/components/profile/Info.scss";
@@ -71,7 +71,12 @@ export default function Info(props: { user: any }) {
                         <EditProfileButton />
                     </div>
                 ) : (
-                    <ChatButton user={selectedUser} />
+                    <>
+                        <ChatButton user={selectedUser} />
+                        {!login.permissions.includes("provider") && (
+                            <ContractCreate user={selectedUser} />
+                        )}
+                    </>
                 )}
             </div>
         </div>

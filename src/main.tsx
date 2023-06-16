@@ -15,6 +15,8 @@ import Profile from "./pages/Profile";
 import Collab from "./pages/Collab";
 import YourCollabs from "./pages/YourCollabs";
 import Settings from "./pages/Settings";
+import ContractListing from "./pages/ContractListing";
+import Contract from "./pages/Contract";
 
 // admin
 import ProviderRequests from "./pages/ProviderRequests";
@@ -46,6 +48,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                             <Route path="/admin/users" element={<AdminUserListing />} />
                             <Route path="/collab/:id" element={<Collab />} />
                             <Route path="/yourCollabs" element={<YourCollabs />} />
+                            <Route path="/contracts" element={<ContractListing />} />
+                            <Route path="/contract/:id" element={<Contract />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="*" element={<Home />} />
                         </Routes>
