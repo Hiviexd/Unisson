@@ -10,6 +10,7 @@ import ChatButton from "./ChatButton";
 import Calendar from "./Calendar";
 import ContractCreate from "../dialogs/contract/ContractCreate";
 import EditProfileButton from "./EditProfileButton";
+import BanButton from "./BanButton";
 
 import "./../../styles/components/profile/Info.scss";
 
@@ -43,18 +44,22 @@ export default function Info(props: { user: any }) {
                 <Typography gutterBottom variant="h5" component="div">
                     {selectedUser?.username}
                 </Typography>
-                <ServiceType serviceType={selectedUser?.serviceType} />
-                <Calendar user={selectedUser} />
-                <Tooltip title={selectedUser?.rating} placement="right" arrow>
-                    <div className="profile-header-rating">
-                        <Rating
-                            name="read-only"
-                            value={selectedUser?.rating}
-                            readOnly
-                            precision={0.5}
-                        />
-                    </div>
-                </Tooltip>
+                {selectedUser?.permissions.includes("provider") && (
+                    <>
+                        <ServiceType serviceType={selectedUser?.serviceType} />
+                        <Calendar user={selectedUser} />
+                        <Tooltip title={selectedUser?.rating} placement="right" arrow>
+                            <div className="profile-header-rating">
+                                <Rating
+                                    name="read-only"
+                                    value={selectedUser?.rating}
+                                    readOnly
+                                    precision={0.5}
+                                />
+                            </div>
+                        </Tooltip>
+                    </>
+                )}
                 <Typography gutterBottom variant="body2" color="text.secondary" component="div">
                     {selectedUser?.email}
                 </Typography>
@@ -73,9 +78,8 @@ export default function Info(props: { user: any }) {
                 ) : (
                     <>
                         <ChatButton user={selectedUser} />
-                        {!login.permissions.includes("provider") && (
-                            <ContractCreate user={selectedUser} />
-                        )}
+                        {!user.isProvider(login) && <ContractCreate user={selectedUser} />}
+                        {user.isAdmin(login) && <BanButton />}
                     </>
                 )}
             </div>
