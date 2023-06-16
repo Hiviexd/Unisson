@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../providers/AuthContext";
 import { useSnackbar } from "notistack";
 import Avatar from "react-avatar-edit";
+import user from "../utils/user";
 
 import Navbar from "../components/global/Navbar";
 import NotificationsSidebar from "../components/global/NotificationsSidebar";
@@ -27,7 +28,7 @@ export default function Settings() {
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
 
-    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [image, setImage] = useState(null);
 
     const formData = useRef(new FormData());
@@ -55,11 +56,11 @@ export default function Settings() {
                         variant: "error",
                     });
 
-                enqueueSnackbar("Paramètres mis à jour", {
+                enqueueSnackbar("Paramètres mis à jour!", {
                     variant: "success",
                 });
 
-                setUser(d.data);
+                setCurrentUser(d.data);
             });
     }
 
@@ -81,7 +82,7 @@ export default function Settings() {
 
         function onBeforeFileLoad(elem: any) {
             if (elem.target.files[0].size > 716800) {
-                alert("File is too big!");
+                alert("Fichier trop volumineux!");
                 elem.target.value = "";
             }
         }
@@ -90,7 +91,7 @@ export default function Settings() {
             <div className="settings-avatar pfp-margin">
                 <Avatar
                     width={320}
-                    height={220}
+                    height={270}
                     imageWidth={255}
                     onCrop={onCrop}
                     onClose={onClose}
@@ -103,7 +104,7 @@ export default function Settings() {
                     variant="contained"
                     component="label"
                     onClick={selectImage}>
-                    Changer
+                    Confirmer
                 </Button>
             </div>
         );
@@ -113,12 +114,12 @@ export default function Settings() {
         fetch(`/api/users/${login?._id}`)
             .then((res) => res.json())
             .then((d) => {
-                setUser(d.data);
+                setCurrentUser(d.data);
                 setImage(`/api/assets/avatar/${d.data._id}`);
             });
     }, []);
 
-    if (user === null)
+    if (currentUser === null)
         return (
             <>
                 <Navbar />
@@ -127,7 +128,7 @@ export default function Settings() {
             </>
         );
 
-    if (user === undefined)
+    if (currentUser === undefined)
         return (
             <>
                 <Navbar />
@@ -186,7 +187,7 @@ export default function Settings() {
                                     label="Nom d'utilisateur"
                                     variant="outlined"
                                     onChange={onTextInputChange}
-                                    defaultValue={user?.username}
+                                    defaultValue={currentUser?.username}
                                 />
                             </div>
                             <div className="settings-body-section-row">
@@ -197,7 +198,7 @@ export default function Settings() {
                                     label="Email"
                                     variant="outlined"
                                     onChange={onTextInputChange}
-                                    defaultValue={user?.email}
+                                    defaultValue={currentUser?.email}
                                 />
                                 <TextField
                                     className="full-width"
@@ -206,7 +207,7 @@ export default function Settings() {
                                     label="Téléphone"
                                     variant="outlined"
                                     onChange={onTextInputChange}
-                                    defaultValue={user?.phone}
+                                    defaultValue={currentUser?.phone}
                                 />
                             </div>
                             <div className="settings-body-section-row">
@@ -234,122 +235,138 @@ export default function Settings() {
                                     variant="outlined"
                                 />
                             </div>
-                        </div>
-
-                        <div className="settings-body-section">
-                            <Typography
-                                gutterBottom
-                                variant="h6"
-                                color={"textPrimary"}
-                                component="div"
-                                className="settings-body-section-title">
-                                Informations professionnelles
-                            </Typography>
                             <div className="settings-body-section-row">
-                                <TextField
+                                <Button
                                     className="full-width"
-                                    required
-                                    multiline
-                                    id="bio"
-                                    label="Bio"
+                                    color="error"
                                     variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.bio}
-                                />
-                            </div>
-                            <div className="settings-body-section-row">
-                                <TextField
-                                    className="full-width"
-                                    required
-                                    multiline
-                                    id="description"
-                                    label="Description"
-                                    variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.description}
-                                />
+                                    component="label">
+                                    Supprimer votre compte
+                                </Button>
                             </div>
                         </div>
-                        <div className="settings-body-section">
-                            <Typography
-                                gutterBottom
-                                variant="h6"
-                                color={"textPrimary"}
-                                component="div"
-                                className="settings-body-section-title">
-                                Informations publiques
-                            </Typography>
-                            <div className="settings-body-section-row">
-                                <FormControl className="full-width" variant="outlined">
-                                    <InputLabel id="service-select-label">Service</InputLabel>
-                                    <Select
-                                        labelId="service-select-label"
-                                        id="serviceType"
-                                        name="serviceType"
-                                        onChange={onSelectChange}
-                                        defaultValue={user?.serviceType}
-                                        label="Service">
-                                        {constants.serviceTypes.map((service: any) => (
-                                            <MenuItem value={service.value} key={service.value}>
-                                                {service.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl className="full-width" variant="outlined">
-                                    <InputLabel id="state-select-label">Ville</InputLabel>
-                                    <Select
-                                        labelId="state-select-label"
-                                        id="location"
-                                        name="location"
-                                        onChange={onSelectChange}
-                                        defaultValue={user?.location}
-                                        label="Ville">
-                                        {constants.states.map((state: any) => (
-                                            <MenuItem value={state} key={state}>
-                                                {state}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </div>
-                            <div className="settings-body-section-row">
-                                <TextField
-                                    className="full-width"
-                                    id="facebook"
-                                    label="Facebook"
-                                    variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.socials?.facebook}
-                                />
-                                <TextField
-                                    className="full-width"
-                                    id="instagram"
-                                    label="Instagram"
-                                    variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.socials?.instagram}
-                                />
-                            </div>
-                            <div className="settings-body-section-row">
-                                <TextField
-                                    className="full-width"
-                                    id="youtube"
-                                    label="YouTube"
-                                    variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.socials?.youtube}
-                                />
-                                <TextField
-                                    className="full-width"
-                                    id="twitter"
-                                    label="Twitter"
-                                    variant="outlined"
-                                    onChange={onTextInputChange}
-                                    defaultValue={user?.socials?.twitter}
-                                />
-                            </div>
-                        </div>
+                        {user.isProvider(login) && (
+                            <>
+                                <div className="settings-body-section">
+                                    <Typography
+                                        gutterBottom
+                                        variant="h6"
+                                        color={"textPrimary"}
+                                        component="div"
+                                        className="settings-body-section-title">
+                                        Informations professionnelles
+                                    </Typography>
+                                    <div className="settings-body-section-row">
+                                        <TextField
+                                            className="full-width"
+                                            required
+                                            multiline
+                                            id="bio"
+                                            label="Bio"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.bio}
+                                        />
+                                    </div>
+                                    <div className="settings-body-section-row">
+                                        <TextField
+                                            className="full-width"
+                                            required
+                                            multiline
+                                            id="description"
+                                            label="Description"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.description}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="settings-body-section">
+                                    <Typography
+                                        gutterBottom
+                                        variant="h6"
+                                        color={"textPrimary"}
+                                        component="div"
+                                        className="settings-body-section-title">
+                                        Informations publiques
+                                    </Typography>
+                                    <div className="settings-body-section-row">
+                                        <FormControl className="full-width" variant="outlined">
+                                            <InputLabel id="service-select-label">
+                                                Service
+                                            </InputLabel>
+                                            <Select
+                                                labelId="service-select-label"
+                                                id="serviceType"
+                                                name="serviceType"
+                                                onChange={onSelectChange}
+                                                defaultValue={currentUser?.serviceType}
+                                                label="Service">
+                                                {constants.serviceTypes.map((service: any) => (
+                                                    <MenuItem
+                                                        value={service.value}
+                                                        key={service.value}>
+                                                        {service.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                        <FormControl className="full-width" variant="outlined">
+                                            <InputLabel id="state-select-label">Ville</InputLabel>
+                                            <Select
+                                                labelId="state-select-label"
+                                                id="location"
+                                                name="location"
+                                                onChange={onSelectChange}
+                                                defaultValue={currentUser?.location}
+                                                label="Ville">
+                                                {constants.states.map((state: any) => (
+                                                    <MenuItem value={state} key={state}>
+                                                        {state}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </div>
+                                    <div className="settings-body-section-row">
+                                        <TextField
+                                            className="full-width"
+                                            id="facebook"
+                                            label="Facebook"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.socials?.facebook}
+                                        />
+                                        <TextField
+                                            className="full-width"
+                                            id="instagram"
+                                            label="Instagram"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.socials?.instagram}
+                                        />
+                                    </div>
+                                    <div className="settings-body-section-row">
+                                        <TextField
+                                            className="full-width"
+                                            id="youtube"
+                                            label="YouTube"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.socials?.youtube}
+                                        />
+                                        <TextField
+                                            className="full-width"
+                                            id="twitter"
+                                            label="Twitter"
+                                            variant="outlined"
+                                            onChange={onTextInputChange}
+                                            defaultValue={currentUser?.socials?.twitter}
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                     <Button
                         className="update-button"
