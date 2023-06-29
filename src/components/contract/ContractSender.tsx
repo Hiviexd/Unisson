@@ -25,10 +25,11 @@ export default function ContractSender(props: { user: any; contract: any }) {
                 <b>Téléphone:</b> +216 {user?.phone}
             </Typography>
             <Typography className="text-display" gutterBottom color="text.primary" component="div">
-                <b>Crée le:</b> {moment(contract?.createdAt).format("DD/MM/YYYY à hh:mm")}
+                <b>Crée le:</b> {moment(contract?.createdAt).format("DD/MM/YYYY à HH:mm")}
             </Typography>
+            <b>Message:</b>
             <Typography className="text-display" gutterBottom color="text.primary" component="div">
-                <b>Message:</b> {contract?.content}
+                {contract?.content}
             </Typography>
         </div>
     );

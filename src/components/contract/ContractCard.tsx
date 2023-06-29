@@ -88,7 +88,7 @@ export default function MessageCard(props: { contract: Contract; type: string })
                     component="div"
                     marginLeft={0.8}
                     marginTop={0.5}>
-                    {moment(contract.updatedAt).format("DD/MM/YYYY à hh:mm")}
+                    {moment(contract.updatedAt).format("DD/MM/YYYY à HH:mm")}
                 </Typography>
             </div>
             <div className="message-status">

@@ -11,6 +11,7 @@ import Calendar from "./Calendar";
 import ContractCreate from "../dialogs/contract/ContractCreate";
 import EditProfileButton from "./EditProfileButton";
 import BanButton from "./BanButton";
+import ReportButton from "./ReportButton";
 
 import "./../../styles/components/profile/Info.scss";
 
@@ -77,9 +78,9 @@ export default function Info(props: { user: any }) {
                     </div>
                 ) : (
                     <>
-                        <ChatButton user={selectedUser} />
+                        {/*<ChatButton user={selectedUser} />*/}
                         {!user.isProvider(login) && <ContractCreate user={selectedUser} />}
-                        {user.isAdmin(login) && <BanButton />}
+                        {user.isAdmin(login) ? <BanButton /> : <ReportButton />}
                     </>
                 )}
             </div>

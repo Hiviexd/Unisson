@@ -6,7 +6,7 @@ export default function ProviderButton() {
     return (
         <div className="contract-button">
             <EmailOutlined className="contract-icon" />
-            Créer contrat
+            Réserver
         </div>
     );
 }

@@ -14,26 +14,29 @@ export default function ContractRecipient(props: { user: any; contract: any }) {
                     Destinataire
                 </Typography>
             </div>
-            <Typography className="text-display" gutterBottom color="text.primary" component="div">
+            <Typography gutterBottom color="text.primary" component="div">
                 <b>Nom d'utilisateur:</b> {user?.username}
             </Typography>
-            <Typography className="text-display" gutterBottom color="text.primary" component="div">
+            <Typography gutterBottom color="text.primary" component="div">
                 <b>Email:</b> {user?.email}
             </Typography>
-            <Typography className="text-display" gutterBottom color="text.primary" component="div">
+            <Typography gutterBottom color="text.primary" component="div">
                 <b>Téléphone:</b> +216 {user?.phone}
             </Typography>
-            <Typography className="text-display" gutterBottom color="text.primary" component="div">
+            <Typography gutterBottom color="text.primary" component="div">
                 <b>Service:</b> {user?.serviceType}
             </Typography>
             {contract.status !== "pending" && (
-                <Typography
-                    className="text-display"
-                    gutterBottom
-                    color="text.primary"
-                    component="div">
-                    <b>Réponse:</b> {contract?.response}
-                </Typography>
+                <>
+                    <b>Réponse:</b>
+                    <Typography
+                        className="text-display"
+                        gutterBottom
+                        color="text.primary"
+                        component="div">
+                        {contract?.response}
+                    </Typography>
+                </>
             )}
         </div>
     );

@@ -100,9 +100,9 @@ export default function Contract() {
                                     ? "en attente de réponse"
                                     : contract.status === "accepted"
                                     ? "accepté le " +
-                                      moment(contract.updatedAt).format("DD/MM/YYYY à hh:mm")
+                                      moment(contract.updatedAt).format("DD/MM/YYYY à HH:mm")
                                     : "refusé le" +
-                                      moment(contract.updatedAt).format("DD/MM/YYYY à hh:mm")}
+                                      moment(contract.updatedAt).format("DD/MM/YYYY à HH:mm")}
                             </b>
                         </Alert>
                         <ContractSender user={sender} contract={contract} />

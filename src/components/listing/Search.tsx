@@ -9,6 +9,8 @@ import {
     FormControl,
     RadioGroup,
     FormControlLabel,
+    Checkbox,
+    FormGroup,
     Radio,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
@@ -18,12 +20,17 @@ import constants from "../../utils/constants";
 import "../../styles/components/listing/Search.scss";
 
 export default function Search(props: any) {
+    const [listingType, setListingType] = useState("services");
     const [search, setSearch] = useState("");
     const [location, setLocation] = useState("");
     const [service, setService] = useState("");
     const [rating, setRating] = useState(0);
 
     const { setUsers, setTotalPages } = props;
+
+    const handleListingChange = (event: any) => {
+        setListingType(event.target.id);
+    };
 
     const handleSearchChange = (event: any) => {
         setSearch(event.target.value);
@@ -65,6 +72,18 @@ export default function Search(props: any) {
                 </Typography>
             </div>
             <div className="listing-search-input">
+                <div className="listing-types">
+                    <div
+                        id="services"
+                        className={`listing-type ` + (listingType === "services" ? "active" : "")}>
+                        Services
+                    </div>
+                    <div
+                        id="collabs"
+                        className={`listing-type ` + (listingType === "collabs" ? "active" : "")}>
+                        Collaborations
+                    </div>
+                </div>
                 <TextField label="Rechercher.." variant="outlined" onChange={handleSearchChange} />
                 <div className="filters">
                     <FormControl className="filter" variant="outlined">
