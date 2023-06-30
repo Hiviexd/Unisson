@@ -1,0 +1,59 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.home-slideshow {
+    width: 100%;
+    height: 100%;
+    /* Adjust the height to match your desired dimensions */
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+
+    .home-slideshow-text {
+        animation: fadeIn 0.5s ease-in-out;
+        margin-top: 10em;
+        color: rgba(255, 255, 255, 0.9);
+
+        .logo {
+            height: 200px;
+            animation: fadeIn 1s ease-in-out;
+
+        }
+    }
+
+    .home-slideshow-button {
+        animation: fadeIn 1.5s ease-in-out;
+        text-decoration: none;
+        transition: 0.1s ease-in-out;
+        font-size: 1rem;
+        height: 35px;
+        line-height: 35px;
+        padding: 5px 70px;
+        border-radius: 5px;
+        color: #E6E6E6;
+        background-color: transparent;
+        border: 1px solid #E6E6E6;
+
+        &:hover {
+            background-color: #E6E6E6;
+            color: #44576D;
+        }
+    }
+}

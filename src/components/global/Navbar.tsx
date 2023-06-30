@@ -33,10 +33,7 @@ export default function Navbar() {
     const isMenuOpen = Boolean(anchorEl);
     const nonce = useContext(ProfileNonceContext);
     const notifications = useContext(NotificationsContext);
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    // make background color transparet if route is "/"
-    //const [isHome, setIsHome] = useState("#CB857C");
+    const [isHome, setIsHome] = useState(false);
 
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -99,13 +96,9 @@ export default function Navbar() {
         notifications.setOpen(!notifications.open);
     }
 
-    /*useEffect(() => {
-		if (window.location.pathname === "/") {
-			setIsHome("transparent");
-		} else {
-			setIsHome("#CB857C");
-		}
-	}, [window.location.pathname]);*/
+    useEffect(() => {
+        setIsHome(window.location.pathname === "/");
+    }, [window.location.pathname]);
 
     /*useEffect(() => {
         console.log(login.permissions);
@@ -186,26 +179,29 @@ export default function Navbar() {
             <div
                 className="navbar"
                 key={generateComponentKey(20)}
-                /*style={{ backgroundColor: isHome }}*/
-            >
+                style={{ backgroundColor: isHome ? "transparent" : "#44576D" }}>
                 <div className="navbar-left">
                     <img src={unissonLogo} className="logo" alt="logo" />
-                    <Link to="/" className="button">
-                        <Home className="icon-navbar" />
-                        Acceuil
-                    </Link>
-                    <Link to="/listing" className="button">
-                        <FormatListBulleted className="icon-navbar" />
-                        Services
-                    </Link>
+                    {!isHome && (
+                        <>
+                            <Link to="/" className="button">
+                                <Home className="icon-navbar" />
+                                Acceuil
+                            </Link>
+                            <Link to="/listing" className="button">
+                                <FormatListBulleted className="icon-navbar" />
+                                Services
+                            </Link>
+                        </>
+                    )}
                 </div>
                 {!login.authenticated ? (
                     <div className="navbar-right">
-                        <Link reloadDocument to="/signup" className="button signup">
+                        <Link to="/signup" className="button signup">
                             S'INSCRIRE
                         </Link>
-                        <Link reloadDocument to="/login" className="button login">
-                            CONNECTER
+                        <Link to="/login" className="button login">
+                            SE CONNECTER
                         </Link>
                     </div>
                 ) : (

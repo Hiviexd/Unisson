@@ -99,6 +99,10 @@ export default function Login() {
             });
     }
 
+    useEffect(() => {
+        setSignUp(window.location.pathname.includes("signup"));
+    }, [window.location.pathname]);
+
     function LogInOptions() {
         return (
             <>
