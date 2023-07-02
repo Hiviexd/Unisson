@@ -90,7 +90,8 @@ export default function ProviderRequest() {
                         label="Message"
                         type="text"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
+                        rows={5}
                         onChange={handleContentChange}
                     />
                 </DialogContent>

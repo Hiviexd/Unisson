@@ -17,8 +17,10 @@ import {
     Select,
     MenuItem,
     FormControl,
+    IconButton,
+    InputAdornment,
 } from "@mui/material";
-import { Settings as SettingsIcon } from "@mui/icons-material";
+import { Settings as SettingsIcon, Visibility, VisibilityOff } from "@mui/icons-material";
 
 import constants from "../utils/constants";
 
@@ -30,6 +32,8 @@ export default function Settings() {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [image, setImage] = useState(null);
+    const [passwordMatch, setPasswordMatch] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
 
     const formData = useRef(new FormData());
 
@@ -41,7 +45,21 @@ export default function Settings() {
         formData.current.set(e.target.name, e.target.value);
     }
 
+    function handleClickShowPassword() {
+        setShowPassword(!showPassword);
+    }
+
+    function handleDeleteUser() {
+        alert("Voulez-vous vraiment supprimer votre compte? Cette action est irréversible!");
+        console.log("delete user");
+    }
+
     function updateUser() {
+        if (!passwordMatch)
+            return enqueueSnackbar("Les mots de passe ne correspondent pas!", {
+                variant: "error",
+            });
+
         fetch(`/api/users/update`, {
             method: "POST",
             headers: {
@@ -221,18 +239,58 @@ export default function Settings() {
                             </div>
                             <div className="settings-body-section-row">
                                 <TextField
+                                    type={showPassword ? "text" : "password"}
                                     className="full-width"
+                                    required
                                     id="password"
                                     label="Mot de passe"
                                     variant="outlined"
                                     onChange={onTextInputChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    edge="end">
+                                                    {showPassword ? (
+                                                        <VisibilityOff />
+                                                    ) : (
+                                                        <Visibility />
+                                                    )}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                                 <TextField
+                                    type={showPassword ? "text" : "password"}
                                     className="full-width"
                                     required
-                                    id="outlined-basic"
+                                    id="password-confirm"
                                     label="Confirmer mot de passe"
                                     variant="outlined"
+                                    onChange={(e) => {
+                                        setPasswordMatch(
+                                            e.target.value === formData.current.get("password")
+                                        );
+                                    }}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    edge="end">
+                                                    {showPassword ? (
+                                                        <VisibilityOff />
+                                                    ) : (
+                                                        <Visibility />
+                                                    )}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </div>
                             <div className="settings-body-section-row">
@@ -240,11 +298,15 @@ export default function Settings() {
                                     className="full-width"
                                     color="error"
                                     variant="outlined"
-                                    component="label">
+                                    component="label"
+                                    onClick={handleDeleteUser}>
                                     Supprimer votre compte
                                 </Button>
                             </div>
                         </div>
+
+                        {/* provider settings */}
+
                         {user.isProvider(login) && (
                             <>
                                 <div className="settings-body-section">

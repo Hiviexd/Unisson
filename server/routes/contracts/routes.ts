@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isLoggedIn, isProvider } from "../../middlewares";
+import { isLoggedIn, isProvider, isNotBanned } from "../../middlewares";
 
 import createContract from "./createContract";
 import listContracts from "./listContracts";
@@ -9,7 +9,7 @@ import respondContract from "./respondContract";
 const router = Router();
 
 //? POST requests
-router.post("/create", isLoggedIn, createContract);
+router.post("/create", isLoggedIn, isNotBanned, createContract);
 router.post("/:id/respond", isLoggedIn, isProvider, respondContract);
 
 //? GET requests

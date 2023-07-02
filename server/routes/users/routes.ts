@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isLoggedIn, isProvider, isAdmin } from "../../middlewares";
+import { isLoggedIn, isProvider, isNotBanned, isAdmin } from "../../middlewares";
 import multer from "multer";
 
 import getUser from "./getUser";
@@ -11,6 +11,7 @@ import listUsers from "./listUsers";
 import listAllUsers from "./listAllUsers";
 import updateAvailability from "./updateAvailability";
 import updateUser from "./updateUser";
+import deleteUser from "./deleteUser";
 
 const router = Router();
 
@@ -22,8 +23,12 @@ router.post(
     "/update",
     multer({ storage: multer.memoryStorage() }).single("image"),
     isLoggedIn,
+    isNotBanned,
     updateUser
 );
+
+//? DELETE requests
+router.delete("/delete", isLoggedIn, deleteUser);
 
 //? GET requests
 router.get("/email/:email", getUserByEmail); // TODO: reword this route to specify that it only fetches providers

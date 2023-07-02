@@ -1,4 +1,4 @@
-.collab-selector {
+.collab-user-selector {
     flex-grow: 1;
     flex-shrink: 3;
     display: flex;
@@ -31,7 +31,7 @@
         box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.5);
     }
 
-    /*.collab-selector-text-top {
+    /*.collab-user-selector-text-top {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;

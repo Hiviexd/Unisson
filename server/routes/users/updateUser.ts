@@ -56,7 +56,7 @@ export default async (req: Request, res: Response) => {
     if (!password || typeof password != "string")
         return res.status(400).send({
             status: 400,
-            message: "Invalid password.",
+            message: "Mot de passe est requis!",
         });
 
     const passwordManager = new PasswordManager(password, user.passwordHash);
@@ -64,7 +64,7 @@ export default async (req: Request, res: Response) => {
     if (!(await passwordManager.isValid()))
         return res.status(400).send({
             status: 400,
-            message: "Wrong password.",
+            message: "Mot de passe incorrect!",
         });
 
     logger.printInfo("Updating user...");
@@ -89,7 +89,7 @@ export default async (req: Request, res: Response) => {
     } else {
         return res.status(403).send({
             status: 403,
-            message: "You are not a service provider!",
+            message: "Vous n'avez pas la permission d'effectuer cette action!",
         });
     }
 
@@ -102,7 +102,7 @@ export default async (req: Request, res: Response) => {
 
             return res.status(400).send({
                 status: 400,
-                message: "Invalid email",
+                message: "Email invalide",
             });
         }
 
@@ -112,23 +112,21 @@ export default async (req: Request, res: Response) => {
     if (newPassword) {
         const passwordSchema = new PasswordValidator()
             .is()
-            .min(8, "Password must be at least 8 characters long")
+            .min(8, "Mot de passe doit contenir au moins 8 caractères")
             .is()
-            .max(100, "Password must be at most 100 characters long")
+            .max(100, "Mot de passe doit contenir au plus 100 caractères")
             .has()
-            .digits(1, "Password must contain at least 1 digit")
+            .digits(1, "Mot de passe doit contenir au moins 1 chiffre")
             .has()
             .not()
-            .spaces(0, "Password cannot contain spaces");
+            .spaces(0, "Mot de passe ne doit pas contenir d'espaces");
 
         if (!passwordSchema.validate(newPassword)) {
             logger.printError("Process failed with code 400: Invalid password format");
 
             return res.status(400).send({
                 status: 400,
-                message:
-                    "Invalid password format:\n" +
-                    passwordSchema.validate(newPassword, { details: true })[0].message,
+                message: passwordSchema.validate(newPassword, { details: true })[0].message,
             });
         }
 

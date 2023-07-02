@@ -160,7 +160,8 @@ export default function AdminProviderRequest(props: { request: any }) {
                         label="Réponse"
                         type="text"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
+                        rows={5}
                         defaultValue={response}
                         onChange={handleResponseChange}
                     />

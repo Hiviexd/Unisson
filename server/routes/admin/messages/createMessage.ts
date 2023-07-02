@@ -11,15 +11,8 @@ const notif = new NotificationsManager();
 export default async (req: Request, res: Response) => {
     logger.printInfo("Creating admin message...");
 
-    const {
-        type,
-        reportType,
-        culpritId,
-        culpritUsername,
-        content,
-        reviewId,
-        reviewContent,
-    } = req.body;
+    const { type, reportType, culpritId, culpritUsername, content, reviewId, reviewContent } =
+        req.body;
 
     if (!type || !content) {
         logger.printError("Missing parameters");
@@ -96,11 +89,11 @@ export default async (req: Request, res: Response) => {
             notif.createNotification(
                 admin._id,
                 type === "report"
-                    ? `New report from ${user.username}!`
-                    : `New provider request from ${user.username}!`,
+                    ? `${user.username} a envoyé un signalement!`
+                    : `${user.username} a envoyé une requête!`,
                 {
                     icon: type === "report" ? "warning" : "announcement",
-                    redirect: "/admin",
+                    redirect: type === "report" ? "/admin/reports" : "/admin/requests",
                 }
             );
         });

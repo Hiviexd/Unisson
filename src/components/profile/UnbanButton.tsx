@@ -1,13 +1,13 @@
 import { useSnackbar } from "notistack";
-import { Gavel } from "@mui/icons-material";
+import { Balance } from "@mui/icons-material";
 
 import "./../../styles/components/profile/BanButton.scss";
 
-export default function BanButton({ user, login }: any) {
+export default function UnbanButton({ user, login }: any) {
     const { enqueueSnackbar } = useSnackbar();
 
     function banUser() {
-        fetch(`/api/admin/ban/${user._id}`, {
+        fetch(`/api/admin/unban/${user._id}`, {
             method: "POST",
             headers: {
                 authorization: login.accountToken,
@@ -26,9 +26,9 @@ export default function BanButton({ user, login }: any) {
     }
 
     return (
-        <div className="ban-button ban" onClick={banUser}>
-            <Gavel className="ban-icon" />
-            Bloquer
+        <div className="ban-button unban" onClick={banUser}>
+            <Balance className="ban-icon" />
+            Débloquer
         </div>
     );
 }

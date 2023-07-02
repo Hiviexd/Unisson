@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import text from "../../utils/text";
 
 import ServiceType from "../profile/ServiceType";
 
-import { AccessTime, CheckCircle, DoDisturb } from "@mui/icons-material";
-import "../../styles/components/profile/CreateReviewButton.scss";
+import { Typography } from "@mui/material";
+import { AccessTime } from "@mui/icons-material";
+
+import "../../styles/components/collab/CollabSelector.scss";
 
 export default function CollabSelector(props: { collab: any }) {
     const collab = props.collab;
@@ -34,6 +36,7 @@ export default function CollabSelector(props: { collab: any }) {
                 onMouseLeave={handleHover}>
                 {collab.users.map((user: any) => (
                     <img
+                        key={user.userId || user._id}
                         src={`/api/assets/avatar/${user.userId || user._id}`}
                         alt="profile picture"
                         className="collab-selector-avatar"
@@ -42,12 +45,13 @@ export default function CollabSelector(props: { collab: any }) {
             </div>
             <div className="collab-selector-text">
                 <Typography gutterBottom variant="h6" component="div" className="title">
-                    {collab?.name}
+                    {collab?.name && text.truncateString(collab?.name, 60)}
                 </Typography>
                 <StatusIcon />
-
+            </div>
+            <div className="collab-selector-types">
                 {collab?.users?.map((user: any) => (
-                    <ServiceType serviceType={user?.serviceType} />
+                    <ServiceType serviceType={user?.serviceType} key={user.userId || user._id} />
                 ))}
             </div>
         </div>

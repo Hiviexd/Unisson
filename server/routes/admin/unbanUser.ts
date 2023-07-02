@@ -38,7 +38,7 @@ export default async (req: Request, res: Response) => {
 
     return res.status(200).send({
         status: 200,
-        message: "User unbanned!",
+        message: "Utilisateur débloqué!",
         data: updatedUser,
     });
 };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isLoggedIn, isProvider } from "../../middlewares";
+import { isLoggedIn, isProvider, isNotBanned } from "../../middlewares";
 import createCollab from "./createCollab";
 import deleteCollab from "./deleteCollab";
 import getCollab from "./getCollab";

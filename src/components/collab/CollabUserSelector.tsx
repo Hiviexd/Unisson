@@ -27,23 +27,23 @@ export default function CollabUserSelector(props: { user: any; hidden: boolean }
 
     return (
         <div
-            className="collab-selector"
+            className="collab-user-selector"
             onClick={handleClick}
             style={{
                 background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${
                     user.userId || user._id
                 })`,
             }}>
-            <div className="collab-selector-top" />
-            <div className="collab-selector-image">
+            <div className="collab-user-selector-top" />
+            <div className="collab-user-selector-image">
                 <img
                     src={`/api/assets/avatar/${user.userId || user._id}`}
                     alt="profile picture"
                     className="avatar"
                 />
             </div>
-            <div className="collab-selector-text">
-                <div className="collab-selector-text-top">
+            <div className="collab-user-selector-text">
+                <div className="collab-user-selector-text-top">
                     <Typography gutterBottom variant="h6" component="div" className="title">
                         {user?.username}
                     </Typography>

@@ -13,22 +13,21 @@ import {
     DialogTitle,
     Divider,
 } from "@mui/material";
-import CreateReviewButton from "../../profile/CreateReviewButton";
+import ReportButton from "../../profile/ReportButton";
 
-import { Send } from "@mui/icons-material";
+import { Warning, Send } from "@mui/icons-material";
 
 import "./../../../styles/components/dialogs/ReviewCreate.scss";
 import "./../../../styles/components/profile/CreateReviewButton.scss";
 
-export default function ReviewCreate(props: { userId: string }) {
+export default function ReportCreate(props: { user: any }) {
     const [open, setOpen] = useState(false);
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState("");
+    const [content, setContent] = useState("");
 
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
 
-    const userId = props.userId;
+    const user = props.user;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,24 +37,23 @@ export default function ReviewCreate(props: { userId: string }) {
         setOpen(false);
     };
 
-    const handleCommentChange = (e: any) => {
-        setComment(e.target.value);
-    };
-
-    const handleRatingChange = (e: any) => {
-        setRating(e.target.value);
+    const handleContentChange = (e: any) => {
+        setContent(e.target.value);
     };
 
     const handleSubmit = (e: any) => {
-        fetch(`/api/reviews/${userId}/create`, {
+        fetch(`/api/admin/messages/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: login.accountToken,
             },
             body: JSON.stringify({
-                rating: Number(rating),
-                comment,
+                type: "report",
+                reportType: "user",
+                culpritId: user._id,
+                culpritUsername: user.username,
+                content,
             }),
         })
             .then((r) => r.json())
@@ -67,18 +65,17 @@ export default function ReviewCreate(props: { userId: string }) {
                     return;
                 }
 
-                enqueueSnackbar("Avis signalé!", {
+                enqueueSnackbar("Utilisateur signalé!", {
                     variant: "success",
                 });
                 setOpen(false);
-                window.location.reload();
             });
     };
 
     return (
-        <div className="create-review-button">
+        <>
             <div onClick={handleClickOpen}>
-                <CreateReviewButton />
+                <ReportButton />
             </div>
             <Dialog
                 open={open}
@@ -87,31 +84,21 @@ export default function ReviewCreate(props: { userId: string }) {
                 maxWidth="md"
                 aria-labelledby="create-review-dialog-title"
                 aria-describedby="create-review-dialog-description">
-                <DialogTitle id="create-review-dialog-title">Evaluer service</DialogTitle>
+                <DialogTitle id="create-review-dialog-title">Signaler un utilisateur</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="create-review-dialog-description">
-                        Utilisez ce formulaire pour soumettre un avis à propos de cet utilisateur.
+                        Signaler un utilisateur pour un comportement inapproprié.
                     </DialogContentText>
-                    <div className="rating">
-                        <span>Note: </span>
-                        <Rating
-                            className="rating-stars"
-                            name="simple-controlled"
-                            precision={0.5}
-                            value={rating}
-                            onChange={handleRatingChange}
-                        />
-                    </div>
                     <TextField
                         autoFocus
                         multiline
-                        margin="none"
+                        margin="dense"
                         id="name"
-                        label="Commentaire"
+                        label="Comment..."
                         type="text"
                         fullWidth
                         variant="standard"
-                        onChange={handleCommentChange}
+                        onChange={handleContentChange}
                     />
                 </DialogContent>
                 <DialogActions>
@@ -123,6 +110,6 @@ export default function ReviewCreate(props: { userId: string }) {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }

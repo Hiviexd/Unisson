@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
 import user from "../../utils/user";
 import { useContext } from "react";
-import { Avatar, IconButton, Badge, Menu, MenuItem, Divider, Icon } from "@mui/material";
+import { Avatar, IconButton, Badge, Menu, MenuItem, Divider, Alert } from "@mui/material";
 import {
     AccountCircle,
     Logout as LogoutIcon,
@@ -19,19 +19,14 @@ import {
 
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import "./../../styles/components/global/Navbar.scss";
-//import { LogoImage } from "../../styles/components/images/Logo";
 import { generateComponentKey } from "../../utils/generateComponentKey";
-import Alert from "@mui/material/Alert";
-import { ProfileNonceContext } from "../../providers/ProfileNonceContext";
 import { NotificationsContext } from "../../providers/NotificationsContext";
 import unissonLogo from "../../assets/unisson.svg";
 
 export default function Navbar() {
     const { login, logout } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    //const [isBanned, setIsBanned] = useState(false);
     const isMenuOpen = Boolean(anchorEl);
-    const nonce = useContext(ProfileNonceContext);
     const notifications = useContext(NotificationsContext);
     const [isHome, setIsHome] = useState(false);
 
@@ -239,12 +234,11 @@ export default function Navbar() {
                     <></>
                 )}
             </div>
-            {/*isBanned && (
-				<Alert variant="filled" severity="error">
-					You are currently banned for violating the rules. Contact an Admin if
-					you think this is a mistake.
-				</Alert>
-            )*/}
+            {user.isBanned(login) && (
+                <Alert variant="filled" severity="error">
+                    Vous avez été banni car vous avez enfreint les règles d'utilisation du site.
+                </Alert>
+            )}
         </>
     );
 }

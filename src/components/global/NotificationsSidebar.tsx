@@ -102,7 +102,7 @@ export default function NotificationsSidebar() {
                 <div className="notifications" key={generateComponentKey(20)}>
                     <div className="clear-container" onClick={clearNotifications}>
                         <Delete />
-                        Clear all notifications
+                        Supprimer toutes les notifications
                     </div>
                     {context.notifications == null
                         ? null

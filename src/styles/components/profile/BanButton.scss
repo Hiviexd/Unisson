@@ -1,5 +1,5 @@
 .ban-button {
-    background-image: linear-gradient(to right, #f99e9e 0%, #f83e3e 51%, #fd7e7e 100%);
+    //background-image: linear-gradient(to right, #f99e9e 0%, #f83e3e 51%, #fd7e7e 100%);
     margin: 10px;
     padding: 0.75em 1em;
     text-align: center;
@@ -22,6 +22,14 @@
         text-decoration: none;
         cursor: pointer;
     }
+}
+
+.ban {
+    background-image: linear-gradient(to right, #f99e9e 0%, #f83e3e 51%, #fd7e7e 100%);
+}
+
+.unban {
+    background-image: linear-gradient(to right, #99ec9d 0%, #2cad2c 51%, #5db85d 100%);
 }
 
 .ban-icon {

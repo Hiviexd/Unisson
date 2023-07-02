@@ -13,22 +13,30 @@ export default function AdminUserSelector(props: { user: any }) {
         navigate(`/profile/${user._id}`);
     }
 
+    const bgColor = !user.permissions.includes("user") ? "#f83e3e" : "#f1f1f1";
+
+    let background = "";
+
+    !user.permissions.includes("user")
+        ? (background = `linear-gradient(0deg, #f83e3e -10%, #f1f1f1 25%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`)
+        : (background = `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`);
+
     return (
         <div
-            className="collab-selector"
+            className="collab-user-selector"
             onClick={handleClick}
             style={{
-                background: `linear-gradient(0deg, #f1f1f1 50%, rgba(0, 0, 0, 0.3) 130%) center no-repeat, url(/api/assets/avatar/${user._id})`,
+                background: background,
             }}>
-            <div className="collab-selector-top" />
-            <div className="collab-selector-image">
+            <div className="collab-user-selector-top" />
+            <div className="collab-user-selector-image">
                 <img
                     src={`/api/assets/avatar/${user._id}`}
                     alt="profile picture"
                     className="avatar"
                 />
             </div>
-            <div className="collab-selector-text">
+            <div className="collab-user-selector-text">
                 <Typography gutterBottom variant="h6" component="div" className="title">
                     {user?.username}
                 </Typography>

@@ -94,7 +94,7 @@ export default function Contract() {
                                 boxShadow: "0 0 5px 0 rgba(41, 41, 41, 0.5)",
                                 width: "100%",
                             }}>
-                            Cet contract est{" "}
+                            Cet contract a été{" "}
                             <b>
                                 {contract.status === "pending"
                                     ? "en attente de réponse"

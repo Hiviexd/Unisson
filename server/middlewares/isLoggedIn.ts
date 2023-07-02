@@ -7,7 +7,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!authorization)
         return res.status(400).send({
             status: 400,
-            message: "Missing authorization",
+            message: "Pas d'authentification fournie",
         });
 
     const loggedInUser = await users.findOne({ accountToken: authorization });
@@ -15,7 +15,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!loggedInUser)
         return res.status(404).send({
             status: 404,
-            message: "User not found!",
+            message: "Utilisateur introuvable",
         });
 
     req.body.loggedInUser = loggedInUser;

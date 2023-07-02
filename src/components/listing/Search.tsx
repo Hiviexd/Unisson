@@ -26,7 +26,7 @@ export default function Search(props: any) {
     const [service, setService] = useState("");
     const [rating, setRating] = useState(0);
 
-    const { setUsers, setTotalPages } = props;
+    const { setUsers, setTotalPages, type, setType } = props;
 
     const handleListingChange = (event: any) => {
         setListingType(event.target.id);
@@ -50,11 +50,14 @@ export default function Search(props: any) {
 
     const refreshListing = () => {
         fetch(
-            `/api/users/listing/get?search=${search}&location=${location}&service=${service}&rating=${rating}`
+            `/api/${
+                listingType === "services" ? "users/listing/get" : "collabs/listing"
+            }?search=${search}&location=${location}&service=${service}&rating=${rating}`
         )
             .then((r) => r.json())
             .then((d) => {
-                setUsers(d.data.users);
+                setType(listingType);
+                setUsers(d.data.users || d.data.collabs);
                 setTotalPages(d.data.totalPages);
             });
     };
@@ -75,33 +78,37 @@ export default function Search(props: any) {
                 <div className="listing-types">
                     <div
                         id="services"
-                        className={`listing-type ` + (listingType === "services" ? "active" : "")}>
+                        className={`listing-type ` + (listingType === "services" ? "active" : "")}
+                        onClick={handleListingChange}>
                         Services
                     </div>
                     <div
                         id="collabs"
-                        className={`listing-type ` + (listingType === "collabs" ? "active" : "")}>
+                        className={`listing-type ` + (listingType === "collabs" ? "active" : "")}
+                        onClick={handleListingChange}>
                         Collaborations
                     </div>
                 </div>
                 <TextField label="Rechercher.." variant="outlined" onChange={handleSearchChange} />
                 <div className="filters">
-                    <FormControl className="filter" variant="outlined">
-                        <InputLabel id="state-select-label">Ville</InputLabel>
-                        <Select
-                            labelId="state-select-label"
-                            id="location"
-                            name="location"
-                            onChange={handleLocationChange}
-                            defaultValue={location}
-                            label="Ville">
-                            {constants.states.map((state: any) => (
-                                <MenuItem value={state} key={state}>
-                                    {state}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    {type === "services" && (
+                        <FormControl className="filter" variant="outlined">
+                            <InputLabel id="state-select-label">Ville</InputLabel>
+                            <Select
+                                labelId="state-select-label"
+                                id="location"
+                                name="location"
+                                onChange={handleLocationChange}
+                                defaultValue={location}
+                                label="Ville">
+                                {constants.states.map((state: any) => (
+                                    <MenuItem value={state} key={state}>
+                                        {state}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    )}
                     <Typography
                         variant="body2"
                         color="text.secondary"
@@ -127,14 +134,17 @@ export default function Search(props: any) {
                         </RadioGroup>
                     </FormControl>
 
-                    <InputLabel className="filter">Note</InputLabel>
-                    <Rating
-                        name="rating-input"
-                        value={rating}
-                        size="small"
-                        precision={0.5}
-                        onChange={handleRatingChange}
-                    />
+                    {type === "services" && (
+                        <>
+                            <InputLabel className="filter">Note</InputLabel>
+                            <Rating
+                                name="rating-input"
+                                value={rating}
+                                precision={0.5}
+                                onChange={handleRatingChange}
+                            />
+                        </>
+                    )}
                 </div>
             </div>
             <Button className="filter-button" variant="contained" onClick={refreshListing}>

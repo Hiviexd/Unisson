@@ -7,6 +7,7 @@ import {
     Shield,
     Person,
     ContentPasteGo,
+    Gavel,
 } from "@mui/icons-material";
 
 import text from "./../../utils/text";
@@ -21,6 +22,7 @@ export default function ServiceType(props: { user?: any; serviceType: string }) 
             if (user.permissions.includes("admin")) return <Shield className="icon-color" />;
             if (user.permissions.includes("provider"))
                 return <ContentPasteGo className="icon-color" />;
+            if (!user.permissions.includes("user")) return <Gavel className="icon-color" />;
             if ((user.permissions = ["user"])) return <Person className="icon-color" />;
         }
         switch (serviceType) {
@@ -44,6 +46,7 @@ export default function ServiceType(props: { user?: any; serviceType: string }) 
     function getRole() {
         if (user.permissions.includes("admin")) return "Administrateur";
         if (user.permissions.includes("provider")) return "Fournisseur";
+        if (!user.permissions.includes("user")) return "Banni";
         if ((user.permissions = ["user"])) return "Utilisateur";
     }
 

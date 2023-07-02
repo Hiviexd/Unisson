@@ -4,7 +4,7 @@ import "./../../styles/components/profile/BanButton.scss";
 
 export default function BanButton() {
     return (
-        <div className="ban-button">
+        <div className="ban-button ban">
             <Report className="ban-icon" />
             Signaler
         </div>
