@@ -49,13 +49,13 @@ export default function CollabUserSelector(props: { user: any; hidden: boolean }
                     </Typography>
                     {hidden && <StatusIcon />}
                 </div>
-                <Rating
+                {/*<Rating
                     name="read-only"
                     value={user?.rating}
                     readOnly
                     size="small"
                     precision={0.5}
-                />
+        />*/}
                 <ServiceType serviceType={user?.serviceType} />
             </div>
         </div>

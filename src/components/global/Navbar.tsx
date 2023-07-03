@@ -151,7 +151,7 @@ export default function Navbar() {
             </MenuItem>
 
             {user.isAdmin(login) && (
-                <>
+                <div>
                     <Divider sx={{ margin: "5px" }} />
                     <div className="welcome-text">Pages Admin</div>
                     <Divider sx={{ margin: "5px" }} />
@@ -164,7 +164,7 @@ export default function Navbar() {
                     <MenuItem onClick={handleUsersListClick}>
                         <PeopleAlt className="icon-menu" /> Utilisateurs
                     </MenuItem>
-                </>
+                </div>
             )}
         </Menu>
     );
@@ -234,7 +234,7 @@ export default function Navbar() {
                     <></>
                 )}
             </div>
-            {user.isBanned(login) && (
+            {login.authenticated && user.isBanned(login) && (
                 <Alert variant="filled" severity="error">
                     Vous avez été banni car vous avez enfreint les règles d'utilisation du site.
                 </Alert>

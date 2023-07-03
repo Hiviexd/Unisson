@@ -72,6 +72,7 @@ export default function GalleryDelete(props: { setGallery: any }) {
                     //setImageIds([]);
                     //setVideoIds([]);
                     setOpen(false);
+                    window.location.reload();
                 } else {
                     enqueueSnackbar(
                         `Erreur lors de la modification de la galerie:\n ${data.message}`,

@@ -36,7 +36,7 @@ export default function Calendar(props: { user: any }) {
                     return;
                 }
 
-                enqueueSnackbar("Availability updated!", {
+                enqueueSnackbar("Calendrier mis à jour", {
                     variant: "success",
                 });
                 setSelectedDates(dates);

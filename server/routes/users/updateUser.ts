@@ -25,8 +25,6 @@ export default async (req: Request, res: Response) => {
         twitter,
     } = req.body;
 
-    console.log(req.body);
-
     /*console.log({
         username,
         email,
@@ -86,11 +84,6 @@ export default async (req: Request, res: Response) => {
                 youtube,
                 twitter,
             };
-    } else {
-        return res.status(403).send({
-            status: 403,
-            message: "Vous n'avez pas la permission d'effectuer cette action!",
-        });
     }
 
     //? email + password updates
@@ -145,16 +138,15 @@ export default async (req: Request, res: Response) => {
             message: "Invalid image!",
         });
 
-    if (!req.body.image) console.log("No file provided!");
+    if (!req.file) console.log("No file provided!");
 
-    if (req.body.image) {
-        console.log(req.file);
-        //const fileExtension = path.extname(req.file.originalname);
-        //create buffer from base64 string
-        const buffer = Buffer.from(req.body.image, "base64");
-        const fileName = `${user._id}.jpg`;
-        const filePath = path.resolve(`./uploads/avatars/${fileName}`);
-        createWriteStream(filePath).write(new Uint8Array(buffer));
+    if (req.file) {
+        let fileExtension = req.file.mimetype.split("/")[1];
+        if (fileExtension == "jpeg") fileExtension = "jpg";
+
+        createWriteStream(path.resolve("./uploads/avatars/" + user._id + ".jpg")).write(
+            new Uint8Array(req.file.buffer)
+        );
     }
 
     await user.save();

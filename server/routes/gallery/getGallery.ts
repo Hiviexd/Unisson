@@ -27,7 +27,7 @@ export default async (req: Request, res: Response) => {
         });
     }
 
-    logger.printSuccess(`Gallery ${req.params.userId} found!`);
+    logger.printSuccess(`Gallery ${gallery._id} found!`);
 
     return res.status(200).send({
         status: 200,

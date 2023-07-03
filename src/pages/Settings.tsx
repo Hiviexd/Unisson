@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../providers/AuthContext";
 import { useSnackbar } from "notistack";
-import Avatar from "react-avatar-edit";
+import { useDropzone } from "react-dropzone";
 import user from "../utils/user";
 
 import Navbar from "../components/global/Navbar";
@@ -30,9 +30,23 @@ export default function Settings() {
     const { login } = useContext(AuthContext);
     const { enqueueSnackbar } = useSnackbar();
 
+    const { getRootProps, getInputProps } = useDropzone({
+        maxFiles: 1,
+        accept: {
+            "image/*": [".png", ".jpeg", ".jpg"],
+        },
+        onDrop: (acceptedFiles) => {
+            formData.current.set("image", acceptedFiles[0]);
+            setImage(URL.createObjectURL(acceptedFiles[0]));
+            enqueueSnackbar("Clicquez sur le bouton 'Mettre à jour' pour sauvegarder", {
+                variant: "info",
+            });
+        },
+    });
+
     const [currentUser, setCurrentUser] = useState(null);
     const [image, setImage] = useState(null);
-    const [passwordMatch, setPasswordMatch] = useState(true);
+    const [passwordMatch, setPasswordMatch] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const formData = useRef(new FormData());
@@ -74,7 +88,7 @@ export default function Settings() {
                         variant: "error",
                     });
 
-                enqueueSnackbar("Paramètres mis à jour!", {
+                enqueueSnackbar("Profil mis à jour!", {
                     variant: "success",
                 });
 
@@ -82,7 +96,7 @@ export default function Settings() {
             });
     }
 
-    function ImageUpload() {
+    /*function ImageUpload() {
         const [preview, setPreview] = useState(null);
         function onClose() {
             setPreview(null);
@@ -126,7 +140,7 @@ export default function Settings() {
                 </Button>
             </div>
         );
-    }
+    }*/
 
     useEffect(() => {
         fetch(`/api/users/${login?._id}`)
@@ -185,7 +199,13 @@ export default function Settings() {
                                 <div className="settings-avatar pfp-margin">
                                     <img src={image} alt="avatar" className="avatar" />
                                 </div>
-                                <ImageUpload />
+                                <div {...getRootProps({ className: "dropzone" })}>
+                                    <input {...getInputProps()} />
+                                    <Typography variant="body2" color="text.secondary">
+                                        Glissez et déposez votre image ici, ou cliquez pour
+                                        sélectionner
+                                    </Typography>
+                                </div>
                             </div>
                         </div>
                         <div className="settings-body-section">
